@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\VANES\\Desktop\\TCC Vanessa\\shared_projects\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\VANES\\Desktop\\shared_projects\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\VANES\\Desktop\\TCC Vanessa\\shared_projects\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\VANES\\Desktop\\shared_projects\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
