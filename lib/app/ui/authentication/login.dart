@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/ui/login/layout.dart';
+import 'package:shared_projects/app/ui/layout.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatelessWidget {
