@@ -23,40 +23,55 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Image.asset(
-                'assets/img/shared_projects-icon.png',
-                height: 200,
-                width: 250,
-              ),
-              Text(
-                'Login',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Color(0xFF583D72),
+              Expanded(
+                flex: 4,
+                child: Image.asset(
+                  'assets/img/shared_projects-icon.png',
+                  //height: 200,
+                  //width: 250,
                 ),
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF000000).withOpacity(.3),
-                      fontStyle: FontStyle.italic,
-                    )),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFF583D72),
+                  ),
+                ),
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                    hintText: 'Senha',
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF000000).withOpacity(.3),
-                      fontStyle: FontStyle.italic,
-                    )),
+              Expanded(
+                flex: 2,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Email',
+                      hintStyle: TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF000000).withOpacity(.3),
+                        fontStyle: FontStyle.italic,
+                      )),
+                ),
               ),
-              Text(
-                'Esqueci minha senha',
-                style: TextStyle(
-                  color: Color(0xFF000000).withOpacity(.4),
+              Expanded(
+                flex: 3,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Senha',
+                      hintStyle: TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF000000).withOpacity(.3),
+                        fontStyle: FontStyle.italic,
+                      )),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Esqueci minha senha',
+                  style: TextStyle(
+                    color: Color(0xFF000000).withOpacity(.4),
+                  ),
                 ),
               ),
               FlatButton(
