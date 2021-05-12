@@ -31,6 +31,7 @@ class LoginPage extends StatelessWidget {
                   //width: 250,
                 ),
               ),
+              SizedBox(height: 10),
               Expanded(
                 flex: 2,
                 child: Text(
@@ -45,24 +46,41 @@ class LoginPage extends StatelessWidget {
                 flex: 2,
                 child: TextFormField(
                   decoration: InputDecoration(
-                      hintText: 'Email',
-                      hintStyle: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF000000).withOpacity(.3),
-                        fontStyle: FontStyle.italic,
-                      )),
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF000000).withOpacity(.3),
+                      fontStyle: FontStyle.italic,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF583D72).withOpacity(.4),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFF583D72)),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: TextFormField(
                   decoration: InputDecoration(
-                      hintText: 'Senha',
-                      hintStyle: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF000000).withOpacity(.3),
-                        fontStyle: FontStyle.italic,
-                      )),
+                    hintText: 'Senha',
+                    hintStyle: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF000000).withOpacity(.3),
+                      fontStyle: FontStyle.italic,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF583D72).withOpacity(.4)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFF583D72)),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
