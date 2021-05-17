@@ -5,11 +5,14 @@ class Layout {
   static Widget render({
     Widget content,
     Widget fab,
+    Widget drawerComponent,
+    final tittlePage,
   }) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xFF583D72)),
         title: Text(
-          'Login',
+          tittlePage,
           style: TextStyle(
             color: Color(0xFF583D72),
           ),
@@ -22,6 +25,7 @@ class Layout {
         minimum: const EdgeInsets.all(50),
         child: content,
       ),
+      drawer: drawerComponent,
       floatingActionButton: fab,
     );
   }

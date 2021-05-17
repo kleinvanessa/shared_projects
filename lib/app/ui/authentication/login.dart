@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_projects/app/ui/home/home.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout.render(
+      tittlePage: 'Login',
       content: Column(
         //mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +82,12 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           FlatButton(
-            onPressed: () => null,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
             child: Text(
               'Entrar',
               style: TextStyle(

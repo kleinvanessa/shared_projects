@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/img/shared_projects-icon.png
     - assets/img/LogoMakr-7VwsH6.png #
+    - assets/img/undraw_education_f8ru.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
