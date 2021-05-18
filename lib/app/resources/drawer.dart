@@ -17,7 +17,7 @@ class DrawerPage extends StatelessWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  CircularAvatar(),
+                  CircularAvatar(isButton: true),
                   Text(
                     'Vanessa Klein',
                     style: TextStyle(
