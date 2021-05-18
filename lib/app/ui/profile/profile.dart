@@ -8,6 +8,7 @@ class ProfilePage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           iconTheme: IconThemeData(color: Color(0xFF583D72)),
           title: Text(
@@ -22,10 +23,12 @@ class ProfilePage extends StatelessWidget {
           // give the app bar rounded corners
         ),
         body: Column(
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             // construct the profile details widget here
             SizedBox(
-              height: 180,
+              height: 130,
               child: Center(
                 child: Row(
                   children: <Widget>[
@@ -38,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Column(
                       children: <Widget>[
-                        SizedBox(height: 50),
+                        SizedBox(height: 25),
                         Text(
                           'Vanessa Klein',
                           style: TextStyle(

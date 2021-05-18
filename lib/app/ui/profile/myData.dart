@@ -4,20 +4,23 @@ class MyDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        minimum: const EdgeInsets.all(30),
+        minimum: const EdgeInsets.all(20),
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _formEx('Nome', 'Vanessa Lopes Klein'),
-            _formEx('Email', 'vanessalopesklein@gmail.com'),
-            _formEx('CPF', '02171335092'),
-            _formEx('Data Nasc', '20/11/1996'),
+            _formEx('Nome'),
+            _formEx('Email'),
+            _formEx('Contato'),
+            _formEx('CPF'),
+            _formEx('Data Nasc'),
             FlatButton(
+              height: 30,
               onPressed: () => null,
               child: Text(
-                'Editar',
+                'Atualizar',
                 style: TextStyle(
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold,
@@ -35,38 +38,26 @@ class MyDataPage extends StatelessWidget {
     );
   }
 
-  Widget _formEx(String textName, String fieldName) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Expanded(
-          //flex: 1,
-          child: Text(
-            textName,
-            style: TextStyle(color: Color(0xFF583D72)),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: TextFormField(
-            decoration: InputDecoration(
-              hintText: fieldName,
-              hintStyle: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF000000),
-                fontStyle: FontStyle.italic,
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: Color(0xFF583D72).withOpacity(.4)),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF583D72)),
-              ),
+  Widget _formEx(String fieldName) {
+    return Container(
+      height: 40,
+      child: TextFormField(
+        decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+            labelText: fieldName,
+            labelStyle: TextStyle(
+                color: Color(0xFF000000).withOpacity(.4), fontSize: 14),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2, color: Color(0xFF583D72).withOpacity(.4)),
+              borderRadius: BorderRadius.circular(15),
             ),
-          ),
-        ),
-      ],
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(width: 3, color: Color(0xFF583D72)),
+              borderRadius: BorderRadius.circular(15),
+            )),
+      ),
     );
   }
 }
