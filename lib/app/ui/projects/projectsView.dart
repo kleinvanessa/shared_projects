@@ -9,7 +9,7 @@ class ProjectsView extends StatelessWidget {
         tittlePage: 'Projetos',
         drawerComponent: DrawerPage(),
         content: Column(
-          children: <Widget>[],
+          children: <Widget>[Text('Projetos')],
         ));
   }
 }

@@ -7,7 +7,7 @@ class MyProjectsPage extends StatelessWidget {
     return Layout.render(
         tittlePage: 'Meus Projetos',
         content: Column(
-          children: <Widget>[],
+          children: <Widget>[Text('Meus Projetos')],
         ));
   }
 }

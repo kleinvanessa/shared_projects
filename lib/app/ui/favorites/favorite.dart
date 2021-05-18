@@ -7,7 +7,7 @@ class FavoritesPage extends StatelessWidget {
     return Layout.render(
         tittlePage: 'Favoritos',
         content: Column(
-          children: <Widget>[],
+          children: <Widget>[Text('Favoritos')],
         ));
   }
 }

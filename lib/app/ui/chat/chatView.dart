@@ -9,7 +9,7 @@ class ChatView extends StatelessWidget {
         tittlePage: 'Chat',
         drawerComponent: DrawerPage(),
         content: Column(
-          children: <Widget>[],
+          children: <Widget>[Text('Chat')],
         ));
   }
 }
