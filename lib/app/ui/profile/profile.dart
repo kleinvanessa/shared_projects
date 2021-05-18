@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
+import 'package:shared_projects/app/ui/profile/myData.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -105,9 +106,7 @@ class ProfilePage extends StatelessWidget {
                   Container(
                     color: Colors.white,
                     child: Center(
-                      child: Text(
-                        'primeira',
-                      ),
+                      child: MyDataPage(),
                     ),
                   ),
 
@@ -116,7 +115,7 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.white,
                     child: Center(
                       child: Text(
-                        'segunda',
+                        'Curriculo',
                       ),
                     ),
                   ),
@@ -126,7 +125,7 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.white,
                     child: Center(
                       child: Text(
-                        'terceira',
+                        'Historico',
                       ),
                     ),
                   ),
