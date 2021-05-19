@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
+import 'package:shared_projects/app/ui/authentication/redefinePassword.dart';
+import 'package:shared_projects/app/ui/register/register.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -72,14 +74,59 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 5,
+          ),
           Expanded(
-            flex: 3,
-            child: Text(
-              'Esqueci minha senha',
-              style: TextStyle(
-                color: Color(0xFF000000).withOpacity(.4),
+            flex: 0,
+            child: InkWell(
+              child: Text(
+                'Esqueci minha senha',
+                style: TextStyle(
+                    color: Color(0xFF000000).withOpacity(.4),
+                    decoration: TextDecoration.underline),
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => RedefinePassword()));
+              },
             ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 25,
+              ),
+              Expanded(flex: 0, child: Text('Ainda não tem cadastro?')),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 0,
+                child: InkWell(
+                  child: Text(
+                    'Cadastre-se',
+                    style: TextStyle(
+                        color: Color(0xFFFF8E71),
+                        decoration: TextDecoration.underline),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => RegisterView()));
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 50,
           ),
           FlatButton(
             onPressed: () {

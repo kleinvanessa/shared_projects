@@ -4,7 +4,8 @@ import 'package:shared_projects/app/ui/profile/profile.dart';
 class CircularAvatar extends StatelessWidget {
   @override
   final bool isButton;
-  const CircularAvatar({@required this.isButton});
+  final String image;
+  const CircularAvatar({@required this.isButton, @required this.image});
 
   Widget build(BuildContext context) {
     return CircleAvatar(
@@ -16,7 +17,7 @@ class CircularAvatar extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         color: Colors.transparent,
         child: Ink.image(
-            image: AssetImage('assets/img/profile.jpg'),
+            image: AssetImage(image),
             fit: BoxFit.cover,
             width: 120.0,
             height: 120.0,

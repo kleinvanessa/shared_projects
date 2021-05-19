@@ -63,6 +63,13 @@ flutter:
     - assets/img/LogoMakr-7VwsH6.png #
     - assets/img/undraw_education_f8ru.png
     - assets/img/profile.jpg
+    - assets/img/create_account.png
+    - assets/img/img1.png
+    - assets/img/img2.png
+    - assets/img/img3.png
+    - assets/img/img4.png
+    - assets/img/img5.png
+    - assets/img/undefined.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -35,7 +35,8 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(
                       width: 25,
                     ),
-                    CircularAvatar(isButton: false),
+                    CircularAvatar(
+                        isButton: false, image: 'assets/img/profile.jpg'),
                     SizedBox(
                       width: 50,
                     ),

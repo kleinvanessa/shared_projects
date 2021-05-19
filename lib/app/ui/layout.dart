@@ -9,6 +9,7 @@ class Layout {
     final tittlePage,
   }) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Color(0xFF583D72)),
         title: Text(
