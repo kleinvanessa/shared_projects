@@ -3,6 +3,7 @@ import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/settings/settings.dart';
+import 'package:shared_projects/app/ui/profile/profile.dart';
 
 class DrawerPage extends StatelessWidget {
   final userName = 'Vanessa Klein';
@@ -13,6 +14,7 @@ class DrawerPage extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: ListView(
+          scrollDirection: Axis.vertical,
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
@@ -24,6 +26,7 @@ class DrawerPage extends StatelessWidget {
                   CircularAvatar(
                     isButton: true,
                     image: 'assets/img/profile.jpg',
+                    routeAvatar: ProfilePage(),
                   ),
                   Text(
                     '$userName',

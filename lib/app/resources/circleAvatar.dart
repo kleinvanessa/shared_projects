@@ -5,12 +5,18 @@ class CircularAvatar extends StatelessWidget {
   @override
   final bool isButton;
   final String image;
-  const CircularAvatar({@required this.isButton, @required this.image});
+  final double rad;
+  final routeAvatar;
+  const CircularAvatar(
+      {@required this.isButton,
+      @required this.image,
+      this.rad,
+      this.routeAvatar});
 
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundColor: Colors.white,
-      radius: 42.0,
+      radius: rad == null ? 42.0 : rad,
       child: Material(
         elevation: 4.0,
         shape: CircleBorder(),
@@ -21,19 +27,19 @@ class CircularAvatar extends StatelessWidget {
             fit: BoxFit.cover,
             width: 120.0,
             height: 120.0,
-            child: _isButtonOrNot(context)),
+            child: _isButtonOrNot(context, routeAvatar)),
       ),
     );
   }
 
-  Widget _isButtonOrNot(context) {
+  Widget _isButtonOrNot(context, routeAvatar) {
     if (isButton) {
       return InkWell(
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (BuildContext context) => ProfilePage()));
+                  builder: (BuildContext context) => routeAvatar));
         },
       );
     } else {

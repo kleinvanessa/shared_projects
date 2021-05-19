@@ -7,82 +7,47 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout.render(
-        tittlePage: 'Chat',
-        drawerComponent: DrawerPage(),
-        content: Column(
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Text(
-                'Conversas',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Color(0xFF583D72),
-                ),
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: CircularAvatar(
-                      isButton: false, image: 'assets/img/img1.png'),
-                ),
-                SizedBox(width: 10),
-                Text('Contato 1'),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: CircularAvatar(
-                      isButton: false, image: 'assets/img/img2.png'),
-                ),
-                SizedBox(width: 10),
-                Text('Contato 2'),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: CircularAvatar(
-                      isButton: false, image: 'assets/img/img3.png'),
-                ),
-                SizedBox(width: 10),
-                Text('Contato 3'),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: CircularAvatar(
-                      isButton: false, image: 'assets/img/img4.png'),
-                ),
-                SizedBox(width: 10),
-                Text('Contato 4'),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: CircularAvatar(
-                      isButton: false, image: 'assets/img/img5.png'),
-                ),
-                SizedBox(width: 10),
-                Text('Contato 5'),
-              ],
-            ),
+      tittlePage: 'Chat',
+      drawerComponent: DrawerPage(),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            _contactView('assets/img/img1.png', 'Contato 1'),
+            _contactView('assets/img/img2.png', 'Contato 2'),
+            _contactView('assets/img/img3.png', 'Contato 3'),
+            _contactView('assets/img/undefined.png', 'Contato 4'),
+            _contactView('assets/img/undefined.png', 'Contato 5'),
+            _contactView('assets/img/img4.png', 'Contato 6'),
+            _contactView('assets/img/undefined.png', 'Contato 7'),
+            _contactView('assets/img/undefined.png', 'Contato 8'),
+            _contactView('assets/img/undefined.png', 'Contato 9'),
+            _contactView('assets/img/undefined.png', 'Contato 10'),
+            _contactView('assets/img/img2.png', 'Contato 11'),
+            _contactView('assets/img/img5.png', 'Contato 12'),
+            _contactView('assets/img/img1.png', 'Contato 13'),
           ],
-        ));
+        ),
+        // scrollDirection: Axis.vertical,
+      ),
+    );
+  }
+
+  Widget _contactView(img, contact) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: [
+            CircularAvatar(isButton: false, image: img, rad: 30),
+            SizedBox(
+              width: 30,
+            ),
+            Text('$contact')
+          ],
+        ),
+        SizedBox(
+          height: 15,
+        ),
+      ],
+    );
   }
 }

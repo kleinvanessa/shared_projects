@@ -5,8 +5,8 @@ class MyDataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        minimum: const EdgeInsets.all(20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -27,7 +27,6 @@ class MyDataPage extends StatelessWidget {
                 ),
               ),
               color: Color(0xFF583D72),
-              //minWidth: 200.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
@@ -39,25 +38,29 @@ class MyDataPage extends StatelessWidget {
   }
 
   Widget _formEx(String fieldName) {
-    return Container(
-      height: 40,
-      child: TextFormField(
-        decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
-            labelText: fieldName,
-            labelStyle: TextStyle(
-                color: Color(0xFF000000).withOpacity(.4), fontSize: 14),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  width: 2, color: Color(0xFF583D72).withOpacity(.4)),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 3, color: Color(0xFF583D72)),
-              borderRadius: BorderRadius.circular(15),
-            )),
-      ),
+    return Column(
+      children: <Widget>[
+        TextFormField(
+          decoration: InputDecoration(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+              labelText: fieldName,
+              labelStyle: TextStyle(
+                  color: Color(0xFF000000).withOpacity(.4), fontSize: 14),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    width: 2, color: Color(0xFF583D72).withOpacity(.4)),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 3, color: Color(0xFF583D72)),
+                borderRadius: BorderRadius.circular(15),
+              )),
+        ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }
