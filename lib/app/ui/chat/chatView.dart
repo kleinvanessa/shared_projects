@@ -10,6 +10,7 @@ class ChatView extends StatelessWidget {
       tittlePage: 'Chat',
       drawerComponent: DrawerPage(),
       content: SingleChildScrollView(
+        padding: const EdgeInsets.all(0),
         child: Column(
           children: [
             _contactView('assets/img/img1.png', 'Contato 1'),

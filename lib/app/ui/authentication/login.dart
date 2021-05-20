@@ -3,83 +3,51 @@ import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/authentication/redefinePassword.dart';
 import 'package:shared_projects/app/ui/register/register.dart';
+import 'package:shared_projects/app/resources/textFormComponent.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout.render(
       tittlePage: 'Login',
-      content: Column(
-        //mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Image.asset(
+      content: SingleChildScrollView(
+        child: Column(
+          //mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Image.asset(
               'assets/img/shared_projects-icon.png',
-              //height: 200,
-              //width: 250,
+              width: 200,
+              height: 200,
             ),
-          ),
-          SizedBox(height: 10),
-          Expanded(
-            flex: 2,
-            child: Text(
+            SizedBox(height: 10),
+            Text(
               'Login',
               style: TextStyle(
                 fontSize: 24,
                 color: Color(0xFF583D72),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Email',
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF000000).withOpacity(.3),
-                  fontStyle: FontStyle.italic,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xFF583D72).withOpacity(.4),
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF583D72)),
-                ),
-              ),
+            TextFormComponent(
+                textFormContent: 'Email',
+                colorTextContent: Color(0xFF000000).withOpacity(.3),
+                fontSizeComponent: 16,
+                enableBorderColorComponent: Color(0xFF583D72).withOpacity(.4),
+                focusedBorderColorComponent: Color(0xFF583D72)),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          Expanded(
-            flex: 3,
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Senha',
-                hintStyle: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF000000).withOpacity(.3),
-                  fontStyle: FontStyle.italic,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: Color(0xFF583D72).withOpacity(.4)),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF583D72)),
-                ),
-              ),
+            TextFormComponent(
+                textFormContent: 'Senha',
+                colorTextContent: Color(0xFF000000).withOpacity(.3),
+                fontSizeComponent: 16,
+                enableBorderColorComponent: Color(0xFF583D72).withOpacity(.4),
+                focusedBorderColorComponent: Color(0xFF583D72)),
+            SizedBox(
+              height: 20,
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Expanded(
-            flex: 0,
-            child: InkWell(
+            InkWell(
               child: Text(
                 'Esqueci minha senha',
                 style: TextStyle(
@@ -93,22 +61,19 @@ class LoginPage extends StatelessWidget {
                         builder: (BuildContext context) => RedefinePassword()));
               },
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 25,
-              ),
-              Expanded(flex: 0, child: Text('Ainda não tem cadastro?')),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 0,
-                child: InkWell(
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 25,
+                ),
+                Text('Ainda não tem cadastro?'),
+                SizedBox(
+                  width: 10,
+                ),
+                InkWell(
                   child: Text(
                     'Cadastre-se',
                     style: TextStyle(
@@ -122,33 +87,33 @@ class LoginPage extends StatelessWidget {
                             builder: (BuildContext context) => RegisterView()));
                   },
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-            child: Text(
-              'Entrar',
-              style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontWeight: FontWeight.bold,
-              ),
+              ],
             ),
-            color: Color(0xFF583D72),
-            minWidth: 200.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
+            SizedBox(
+              height: 50,
             ),
-          )
-        ],
+            FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+              child: Text(
+                'Entrar',
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              color: Color(0xFF583D72),
+              minWidth: 200.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
