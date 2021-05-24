@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/profile/myData.dart';
+import 'package:shared_projects/app/ui/profile/curriculum.dart';
+import 'package:shared_projects/app/ui/profile/payment.dart';
+import 'package:shared_projects/app/ui/profile/changePicture.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -28,21 +31,34 @@ class ProfilePage extends StatelessWidget {
           children: <Widget>[
             // construct the profile details widget here
             SizedBox(
-              height: 130,
+              height: 110,
               child: Center(
                 child: Row(
                   children: <Widget>[
                     SizedBox(
                       width: 25,
                     ),
-                    CircularAvatar(
-                        isButton: false, image: 'assets/img/profile.jpg'),
-                    SizedBox(
-                      width: 50,
+                    Stack(
+                      children: <Widget>[
+                        CircularAvatar(
+                            isButton: false, image: 'assets/img/profile.jpg'),
+                        IconButton(
+                          padding: const EdgeInsets.all(62),
+                          icon: Icon(Icons.add_circle, //flip_camera_ios_sharp,
+                              color: Color(0xFF583D72)),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePicture()),
+                            );
+                          },
+                        )
+                      ],
                     ),
                     Column(
                       children: <Widget>[
-                        SizedBox(height: 25),
+                        SizedBox(height: 10),
                         Text(
                           'Vanessa Klein',
                           style: TextStyle(
@@ -77,8 +93,6 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // the tab bar with two items
             SizedBox(
               height: 50,
               child: AppBar(
@@ -95,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                       text: 'Currículo',
                     ),
                     Tab(
-                      text: 'Histórico',
+                      text: 'Pagamento',
                     ),
                   ],
                 ),
@@ -118,9 +132,7 @@ class ProfilePage extends StatelessWidget {
                   Container(
                     color: Colors.white,
                     child: Center(
-                      child: Text(
-                        'Curriculo',
-                      ),
+                      child: CurriculumPage(),
                     ),
                   ),
 
@@ -128,9 +140,7 @@ class ProfilePage extends StatelessWidget {
                   Container(
                     color: Colors.white,
                     child: Center(
-                      child: Text(
-                        'Historico',
-                      ),
+                      child: PaymentPage(),
                     ),
                   ),
                 ],

@@ -9,16 +9,20 @@ class TextFormComponent extends StatelessWidget {
   final double fontSizeComponent;
   final Color enableBorderColorComponent;
   final Color focusedBorderColorComponent;
+  final bool obscureText;
   const TextFormComponent({
     @required this.textFormContent,
     @required this.colorTextContent,
     @required this.fontSizeComponent,
     @required this.enableBorderColorComponent,
     @required this.focusedBorderColorComponent,
+    @required this.obscureText,
   });
 
   Widget build(BuildContext context) {
     return TextFormField(
+      obscuringCharacter: '*',
+      obscureText: obscureText,
       decoration: InputDecoration(
         hintText: '$textFormContent',
         hintStyle: TextStyle(

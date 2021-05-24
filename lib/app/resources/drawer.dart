@@ -4,6 +4,7 @@ import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/settings/settings.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
+import 'package:shared_projects/app/ui/authentication/login.dart';
 
 class DrawerPage extends StatelessWidget {
   final userName = 'Vanessa Klein';
@@ -49,9 +50,10 @@ class DrawerPage extends StatelessWidget {
                 Icons.arrow_forward_ios_rounded),
             _listTileMethod(context, 'Favoritos', FavoritesPage(),
                 Icons.arrow_forward_ios_rounded),
-            SizedBox(height: 330),
+            SizedBox(height: 250),
             _listTileMethod(
                 context, 'Configurações', SettingsPage(), Icons.settings),
+            _listTileMethod(context, 'Sair', LoginPage(), Icons.logout),
           ],
         ),
       ),

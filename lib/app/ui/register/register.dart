@@ -23,36 +23,11 @@ class RegisterView extends StatelessWidget {
                   color: Color(0xFFFF8E71),
                 ),
               ),
-              TextFormComponent(
-                  textFormContent: 'Nome',
-                  colorTextContent: Color(0xFF000000).withOpacity(.3),
-                  fontSizeComponent: 16,
-                  enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
-                  focusedBorderColorComponent: Color(0xFFFF8E71)),
-              TextFormComponent(
-                  textFormContent: 'Sobrenome',
-                  colorTextContent: Color(0xFF000000).withOpacity(.3),
-                  fontSizeComponent: 16,
-                  enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
-                  focusedBorderColorComponent: Color(0xFFFF8E71)),
-              TextFormComponent(
-                  textFormContent: 'Email',
-                  colorTextContent: Color(0xFF000000).withOpacity(.3),
-                  fontSizeComponent: 16,
-                  enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
-                  focusedBorderColorComponent: Color(0xFFFF8E71)),
-              TextFormComponent(
-                  textFormContent: 'CPF',
-                  colorTextContent: Color(0xFF000000).withOpacity(.3),
-                  fontSizeComponent: 16,
-                  enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
-                  focusedBorderColorComponent: Color(0xFFFF8E71)),
-              TextFormComponent(
-                  textFormContent: 'Senha',
-                  colorTextContent: Color(0xFF000000).withOpacity(.3),
-                  fontSizeComponent: 16,
-                  enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
-                  focusedBorderColorComponent: Color(0xFFFF8E71)),
+              _formEx('Nome', false),
+              _formEx('Sobrenome', false),
+              _formEx('Email', false),
+              _formEx('CPF', false),
+              _formEx('Senha', true),
               SizedBox(
                 height: 30,
               ),
@@ -102,5 +77,15 @@ class RegisterView extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Widget _formEx(String fieldName, bool obscureText) {
+    return TextFormComponent(
+        obscureText: obscureText,
+        textFormContent: fieldName,
+        colorTextContent: Color(0xFF000000).withOpacity(.3),
+        fontSizeComponent: 16,
+        enableBorderColorComponent: Color(0xFFFF8E71).withOpacity(.4),
+        focusedBorderColorComponent: Color(0xFFFF8E71));
   }
 }

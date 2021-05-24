@@ -30,6 +30,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             TextFormComponent(
+                obscureText: false,
                 textFormContent: 'Email',
                 colorTextContent: Color(0xFF000000).withOpacity(.3),
                 fontSizeComponent: 16,
@@ -39,6 +40,7 @@ class LoginPage extends StatelessWidget {
               height: 10,
             ),
             TextFormComponent(
+                obscureText: true,
                 textFormContent: 'Senha',
                 colorTextContent: Color(0xFF000000).withOpacity(.3),
                 fontSizeComponent: 16,
