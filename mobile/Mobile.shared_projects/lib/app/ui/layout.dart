@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class Layout {
   static Widget render({
     Widget content,
-    Widget fab,
     Widget drawerComponent,
     final tittlePage,
   }) {
@@ -22,12 +21,11 @@ class Layout {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
+      drawer: drawerComponent,
       body: SafeArea(
-        minimum: const EdgeInsets.all(50),
+        // minimum: const EdgeInsets.all(0),
         child: content,
       ),
-      drawer: drawerComponent,
-      floatingActionButton: fab,
     );
   }
 }

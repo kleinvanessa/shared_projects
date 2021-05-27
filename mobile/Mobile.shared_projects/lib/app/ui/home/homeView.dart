@@ -9,26 +9,25 @@ class HomeView extends StatelessWidget {
       tittlePage: 'Home',
       drawerComponent: DrawerPage(),
       content: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Text(
-            'SharedProjetcs',
-            style: TextStyle(
-              fontSize: 24,
-              color: Color(0xFF583D72),
-            ),
-          ),
-          SizedBox(height: 100),
-          Image.asset(
-            'assets/img/undraw_education_f8ru.png',
-            //height: 200,
-            //width: 250,
-          ),
-          SizedBox(height: 10),
-        ],
-      )),
+            children: <Widget>[
+              Text(
+                'SharedProjetcs',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(0xFF583D72),
+                ),
+              ),
+              SizedBox(height: 100),
+              Image.asset(
+                'assets/img/undraw_education_f8ru.png',
+                //height: 200,
+                //width: 250,
+              ),
+              SizedBox(height: 10),
+            ],
+          )),
     );
   }
 }

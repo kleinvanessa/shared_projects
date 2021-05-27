@@ -9,6 +9,7 @@ class RedefinePassword extends StatelessWidget {
     return Layout.render(
         tittlePage: 'Redefinir Senha',
         content: SingleChildScrollView(
+          padding: const EdgeInsets.all(50),
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[

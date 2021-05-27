@@ -9,7 +9,7 @@ class RegisterView extends StatelessWidget {
     return Layout.render(
         tittlePage: 'Cadastro',
         content: SingleChildScrollView(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: <Widget>[
               Image.asset(

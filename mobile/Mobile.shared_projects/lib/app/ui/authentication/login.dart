@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
     return Layout.render(
       tittlePage: 'Login',
       content: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
           //mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
