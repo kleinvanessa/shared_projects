@@ -1,0 +1,25 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Web.shared_projects.Models;
+
+namespace Web.shared_projects.Data {
+    public class SharedProj : DbContext
+    {
+        public DbSet<User> User { get; set; }
+        public DbSet<Project> Project { get; set; }
+        public DbSet<UserProject> UserProject { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+            optionsBuilder.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SharedProjects;Data Source=DESKTOP-VANESSA"); //string de conexao
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<UserProject>(entity => {
+                entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta
+            });
+        }
+
+    }
+}

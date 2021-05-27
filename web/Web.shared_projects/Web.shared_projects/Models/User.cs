@@ -6,15 +6,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.shared_projects.Models {
     public class User {
+        // [Required]
+        public int Id { get; set; }
        // [Required]
-        public int CpfId { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public string Email { get; set; }
+        public String FirstName { get; set; }
+        //[Required]
+        public String LastName { get; set; }
        // [Required]
-       // public string Password { get; set; }
+      //  public DateTime BirthDate { get; set; }
+       // [Required]
+        public String Email { get; set; }
+        public ICollection<UserProject> UsersProjects { get; set; }
+        // [Required]
+        //public String Password { get; set; }
     }
 }
