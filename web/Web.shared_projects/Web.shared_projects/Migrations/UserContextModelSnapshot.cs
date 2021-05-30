@@ -7,7 +7,7 @@ using Web.shared_projects.Data;
 
 namespace Web.shared_projects.Migrations
 {
-    [DbContext(typeof(SharedProj))]
+    [DbContext(typeof(SharedProjContext))]
     partial class UserContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

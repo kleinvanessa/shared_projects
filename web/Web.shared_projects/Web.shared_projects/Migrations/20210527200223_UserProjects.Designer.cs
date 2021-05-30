@@ -8,7 +8,7 @@ using Web.shared_projects.Data;
 
 namespace Web.shared_projects.Migrations
 {
-    [DbContext(typeof(SharedProj))]
+    [DbContext(typeof(SharedProjContext))]
     [Migration("20210527200223_UserProjects")]
     partial class UserProjects
     {
