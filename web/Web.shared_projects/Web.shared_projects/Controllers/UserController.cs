@@ -12,20 +12,37 @@ namespace Web.shared_projects.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase {
+
+        public readonly SharedProjContext _context;
+        public UserController(SharedProjContext context) {
+            _context = context;
+        }
+
         // GET: api/<UserController>
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get() {
-            return new string[] { "value1", "value2" };
+        public ActionResult Get() { //select em todas os dados da tabela User
+            //var listUser =  _context.User.ToList();
+            var listUser = (from user in _context.User select user).ToList();
+            return Ok(listUser);
         }
 
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public ActionResult Get(int id) {
-            var user = new User { FirstName = "Vanessa", LastName = "Klein", Email = "vanessa@gmail.com" };
-            using (var context = new SharedProjContext()) {
-                context.User.Add(user);
-                context.SaveChanges();
-            }
+        [HttpGet("insert/{nameUser}")]
+        public ActionResult GetInsert(string nameUser) { //insert na tabela User
+            var user = new User { FirstName = nameUser};
+           
+            _context.User.Add(user);
+            _context.SaveChanges();
+           
+            return Ok();
+        }
+        [HttpGet("update/{id}")]
+        public ActionResult GetUpdate(string nameUser, int id) { //update na tabela User
+            var user = _context.User.Where(u => u.Id ==id).FirstOrDefault();
+            user.FirstName = "teste update";
+            
+            _context.SaveChanges();
+
             return Ok();
         }
 
@@ -42,6 +59,9 @@ namespace Web.shared_projects.Controllers {
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public void Delete(int id) {
+            var user = _context.User.Where(x => x.Id == id).Single();
+            _context.User.Remove(user);
+            _context.SaveChanges();
         }
     }
 }

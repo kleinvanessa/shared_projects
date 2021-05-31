@@ -8,9 +8,6 @@ using Web.shared_projects.Models;
 namespace Web.shared_projects.Data {
     public class SharedProjContext : DbContext
     {
-        public SharedProjContext() {
-
-        }
         public SharedProjContext(DbContextOptions<SharedProjContext> options) : base(options) {
 
         }
@@ -22,9 +19,6 @@ namespace Web.shared_projects.Data {
             modelBuilder.Entity<UserProject>(entity => {
                 entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta
             });
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SharedProjects;Data Source=DESKTOP-VANESSA");
         }
 
     }
