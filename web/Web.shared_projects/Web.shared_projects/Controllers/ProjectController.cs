@@ -29,6 +29,12 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
+        // GET: api/<ProjectController>/5
+        [HttpGet("{id}", Name = "GetProject")]
+        public string Get(int id) {
+            return "value";
+        }
+
         // POST api/<ProjectController>
         [HttpPost]
         public ActionResult Post(Project model) { //insert
