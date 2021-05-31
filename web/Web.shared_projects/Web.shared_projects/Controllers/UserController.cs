@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,13 @@ namespace Web.shared_projects.Controllers {
         public ActionResult Get() { //select em todas os dados da tabela User
             //var listUser =  _context.User.ToList();
             var listUser = (from user in _context.User select user).ToList();
-            return Ok(listUser);
+            try {
+                return Ok(listUser);
+            }
+            catch(Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+            
         }
 
         // GET api/<UserController>/5
@@ -38,7 +45,8 @@ namespace Web.shared_projects.Controllers {
         }
         [HttpGet("update/{id}")]
         public ActionResult GetUpdate(string nameUser, int id) { //update na tabela User
-            var user = _context.User.Where(u => u.Id ==id).FirstOrDefault();
+            var user = _context.User.Where(u => u.Id ==id).FirstOrDefault(); //
+           // var user = _context.User.Where(u => EF.Functions.Like(u.FirstName, $"%{nameUser}%")).OrderByDescending(u => u.Id).FirstOrDefault();
             user.FirstName = "teste update";
             
             _context.SaveChanges();
@@ -48,12 +56,41 @@ namespace Web.shared_projects.Controllers {
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value) {
+        public ActionResult Post() { // insert
+            try {
+                var user = new User {
+                    FirstName = "hoje",
+                    LastName = "maio",
+                    Email = "tst@aqui.mail.com",
+                    
+                };
+                _context.User.Add(user);
+                _context.SaveChanges();
+                return Ok("Insert Success");
+            }
+            catch (Exception ex) {
+                return BadRequest($"Insert Error: {ex}");
+            }
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value) {
+        public ActionResult Put(int id) { //update
+            try {
+                var user = new User {
+                    Id = id,
+                    FirstName = "update",
+                    LastName = "31 de maio",
+                    Email = "tst@mail.com",
+
+                };
+                _context.User.Update(user);
+                _context.SaveChanges();
+                return Ok("Update Success");
+            }
+            catch (Exception ex) {
+                return BadRequest($"Update Error: {ex}");
+            }
         }
 
         // DELETE api/<UserController>/5
