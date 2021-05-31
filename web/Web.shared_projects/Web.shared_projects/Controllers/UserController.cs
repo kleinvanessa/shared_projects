@@ -22,10 +22,8 @@ namespace Web.shared_projects.Controllers {
         // GET: api/<UserController>
         [HttpGet]
         public ActionResult Get() { //select em todas os dados da tabela User
-            //var listUser =  _context.User.ToList();
-            var listUser = (from user in _context.User select user).ToList();
             try {
-                return Ok(listUser);
+                return Ok(new User());
             }
             catch(Exception ex) {
                 return BadRequest($"Erro: {ex}");
@@ -33,72 +31,60 @@ namespace Web.shared_projects.Controllers {
             
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("insert/{nameUser}")]
-        public ActionResult GetInsert(string nameUser) { //insert na tabela User
-            var user = new User { FirstName = nameUser};
-           
-            _context.User.Add(user);
-            _context.SaveChanges();
-           
-            return Ok();
-        }
-        [HttpGet("update/{id}")]
-        public ActionResult GetUpdate(string nameUser, int id) { //update na tabela User
-            var user = _context.User.Where(u => u.Id ==id).FirstOrDefault(); //
-           // var user = _context.User.Where(u => EF.Functions.Like(u.FirstName, $"%{nameUser}%")).OrderByDescending(u => u.Id).FirstOrDefault();
-            user.FirstName = "teste update";
-            
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
         // POST api/<UserController>
         [HttpPost]
-        public ActionResult Post() { // insert
+        public ActionResult Post(User model) { // insert
             try {
-                var user = new User {
-                    FirstName = "hoje",
-                    LastName = "maio",
-                    Email = "tst@aqui.mail.com",
-                    
-                };
-                _context.User.Add(user);
+                _context.User.Add(model); // model é o json 
                 _context.SaveChanges();
-                return Ok("Insert Success");
+                return Ok("Insert User Success");
             }
             catch (Exception ex) {
-                return BadRequest($"Insert Error: {ex}");
+                return BadRequest($"Insert User Error: {ex}");
             }
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id) { //update
+        public ActionResult Put(int id, User model) { //update
             try {
-                var user = new User {
-                    Id = id,
-                    FirstName = "update",
-                    LastName = "31 de maio",
-                    Email = "tst@mail.com",
-
-                };
-                _context.User.Update(user);
-                _context.SaveChanges();
-                return Ok("Update Success");
+                if(_context.User.AsNoTracking().FirstOrDefault(u => u.Id == id) != null) {
+                    _context.User.Update(model);
+                    _context.SaveChanges();
+                    return Ok("Update User Success");
+                }
+                else {
+                    return Ok("Id User not found");
+                }                
+                
+                
+                
             }
             catch (Exception ex) {
-                return BadRequest($"Update Error: {ex}");
+                return BadRequest($"Update User Error: {ex}");
             }
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id) {
-            var user = _context.User.Where(x => x.Id == id).Single();
-            _context.User.Remove(user);
-            _context.SaveChanges();
+        public ActionResult Delete(int id) {
+            try {
+                if (_context.User.AsNoTracking().FirstOrDefault(u => u.Id == id) != null) {
+                    var user = _context.User.Where(x => x.Id == id).Single();
+                    _context.User.Remove(user);
+                    _context.SaveChanges();
+                    return Ok("Delete User Success");
+                }
+                else {
+                    return Ok("Id User not found");
+                }
+
+
+
+            }
+            catch (Exception ex) {
+                return BadRequest($"Delete User Error: {ex}");
+            }
         }
     }
 }
