@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.shared_projects.Data;
+using Web.shared_projects.Repositories;
 
 namespace Web.shared_projects {
     public class Startup {
@@ -27,7 +28,14 @@ namespace Web.shared_projects {
             services.AddDbContext<SharedProjContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); //string de conexao
             });
-            services.AddControllers();
+
+            services.AddScoped<IEFCoreRepository, EFCoreRepository>();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Latest)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore); // ignorar o loop no json
+            //services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

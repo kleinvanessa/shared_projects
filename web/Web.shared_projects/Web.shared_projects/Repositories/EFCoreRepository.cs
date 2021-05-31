@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.shared_projects.Data;
+using Web.shared_projects.Models;
 
 namespace Web.shared_projects.Repositories {
     public class EFCoreRepository : IEFCoreRepository {
@@ -26,6 +28,59 @@ namespace Web.shared_projects.Repositories {
             return (await _context.SaveChangesAsync()) > 0;
         }
 
-        
+        public async Task<User[]> GetAllUsers(bool includeProject = false) {
+            IQueryable<User> query = _context.User;
+
+            if (includeProject) {
+                query = query.Include(u => u.UsersProjects).ThenInclude(up => up.Project);
+            }
+
+            query = query.AsNoTracking().OrderBy(u => u.Id);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<User> GetUserById(int id, bool includeProject = false) {
+            IQueryable<User> query = _context.User;
+
+            if (includeProject) {
+                query = query.Include(u => u.UsersProjects).ThenInclude(up => up.Project);
+            }
+
+            query = query.AsNoTracking().OrderBy(u => u.Id);
+            return await query.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User[]> GetUsersByName(string name, bool includeProject = false) {
+            IQueryable<User> query = _context.User;
+
+            if (includeProject) {
+                query = query.Include(u => u.UsersProjects).ThenInclude(up => up.Project);
+            }
+
+            query = query.AsNoTracking().Where((u => u.FirstName.Contains(name))).OrderBy(u => u.Id);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Project[]> GetAllProjects(bool includeUser = false) {
+            IQueryable<Project> query = _context.Project;
+
+            if (includeUser) {
+                query = query.Include(p => p.UsersProjects).ThenInclude(up => up.User);
+            }
+
+            query = query.AsNoTracking().OrderBy(p => p.Id);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Project> GetProjectById(int id, bool includeUser = false) {
+            IQueryable<Project> query = _context.Project;
+
+            if (includeUser) {
+                query = query.Include(p => p.UsersProjects).ThenInclude(up => up.User);
+            }
+
+            query = query.AsNoTracking().OrderBy(p => p.Id);
+            return await query.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

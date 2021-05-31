@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web.shared_projects.Data;
 using Web.shared_projects.Models;
+using Web.shared_projects.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,77 +15,87 @@ namespace Web.shared_projects.Controllers {
     [ApiController]
     public class UserController : ControllerBase {
 
-        public readonly SharedProjContext _context;
-        public UserController(SharedProjContext context) {
-            _context = context;
+        private readonly IEFCoreRepository _repo;
+
+        public UserController(IEFCoreRepository repo) {
+            _repo = repo;
         }
 
         // GET: api/<UserController>
         [HttpGet]
-        public ActionResult Get() { //select em todas os dados da tabela User
+        public async Task<IActionResult> Get() { //select em todas os dados da tabela User
             try {
-                return Ok(new User());
+                var users = await _repo.GetAllUsers();
+                return Ok(users);
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 return BadRequest($"Erro: {ex}");
             }
-            
+
+        }
+
+        // GET: api/<UserController>/5
+        [HttpGet("{id}", Name = "GetUser")]
+        public async Task<IActionResult> Get(int id) {
+            try {
+                var user = await _repo.GetUserById(id, true);
+                return Ok(user);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
         }
 
         // POST api/<UserController>
         [HttpPost]
-        public ActionResult Post(User model) { // insert
+        public async Task<IActionResult> Post(User model) { //insert
             try {
-                _context.User.Add(model); // model é o json 
-                _context.SaveChanges();
-                return Ok("Insert User Success");
+                _repo.Add(model); // model é o json 
+                if (await _repo.SaveChangeAsync()) {
+                    return Ok("Insert User Success");
+                }
             }
             catch (Exception ex) {
                 return BadRequest($"Insert User Error: {ex}");
             }
+
+            return BadRequest("Not save User Project");
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, User model) { //update
+        public async Task<IActionResult> Put(int id, User model) { //update
             try {
-                if(_context.User.AsNoTracking().FirstOrDefault(u => u.Id == id) != null) {
-                    _context.User.Update(model);
-                    _context.SaveChanges();
-                    return Ok("Update User Success");
+                var user = await _repo.GetProjectById(id);
+                if (user != null) {
+                    _repo.Update(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        return Ok("Update User Success");
+                    }
                 }
-                else {
-                    return Ok("Id User not found");
-                }                
-                
-                
-                
             }
             catch (Exception ex) {
                 return BadRequest($"Update User Error: {ex}");
             }
+            return BadRequest("Not Update User");
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id) {
+        public async Task<IActionResult> Delete(int id) {
             try {
-                if (_context.User.AsNoTracking().FirstOrDefault(u => u.Id == id) != null) {
-                    var user = _context.User.Where(x => x.Id == id).Single();
-                    _context.User.Remove(user);
-                    _context.SaveChanges();
-                    return Ok("Delete User Success");
+                var user = await _repo.GetUserById(id);
+                if (user != null) {
+                    _repo.Delete(user);
+                    if (await _repo.SaveChangeAsync()) {
+                        return Ok("Delete User Success");
+                    }
                 }
-                else {
-                    return Ok("Id User not found");
-                }
-
-
-
             }
             catch (Exception ex) {
-                return BadRequest($"Delete User Error: {ex}");
+                return BadRequest($"Update User Error: {ex}");
             }
+            return BadRequest("Not Deleted User");
         }
     }
 }

@@ -1,6 +1,14 @@
 {
-    "id": 0,
-    "projectName": null,
-    "description": null,
-    "usersProjects": null
+    "projectName": "Projeto Repo",
+    "description": "teste Repo",
+    "usersProjects": [
+        {
+            "userid": 5
+        },
+        {
+            "userid": 7
+        }
+    ]
 }
+
+// "dtInicio": "2016-12-26T00:00:00",
