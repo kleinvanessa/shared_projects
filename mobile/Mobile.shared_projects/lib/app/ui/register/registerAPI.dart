@@ -33,6 +33,10 @@ class RegisterAPI {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
+    if (response.body == "email dif de null, email ja existe") {
+      return false;
+    }
+
     return true;
   }
 }

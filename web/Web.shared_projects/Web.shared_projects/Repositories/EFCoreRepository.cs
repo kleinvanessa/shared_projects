@@ -50,6 +50,17 @@ namespace Web.shared_projects.Repositories {
             return await query.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<User> GetUserByEmail(string email, bool includeProject = false) {
+            IQueryable<User> query = _context.User;
+
+            if (includeProject) {
+                query = query.Include(u => u.UsersProjects).ThenInclude(up => up.Project);
+            }
+
+            query = query.AsNoTracking().OrderBy(u => u.Id);
+            return await query.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<User[]> GetUsersByName(string name, bool includeProject = false) {
             IQueryable<User> query = _context.User;
 
@@ -82,5 +93,7 @@ namespace Web.shared_projects.Repositories {
             query = query.AsNoTracking().OrderBy(p => p.Id);
             return await query.FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        
     }
 }

@@ -11,7 +11,6 @@ class LoginAPI {
         (X509Certificate cert, String host, int port) => true;
     final http = new IOClient(ioc);
     Map data = {
-      "firstname": password,
       "email": login,
     };
 
@@ -19,7 +18,7 @@ class LoginAPI {
 
     String body = json.encode(data);
     print(">>>>>>>> $body");
-    var url = 'https://10.0.2.2:5001/api/user'; //funfou
+    var url = 'https://10.0.2.2:5001/api/user/Login'; //funfou
     //); //''); //
 
     var response = await http.post(
@@ -30,6 +29,9 @@ class LoginAPI {
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+    if (response.body == "Not login User") {
+      return false;
+    }
 
     return true;
   }
