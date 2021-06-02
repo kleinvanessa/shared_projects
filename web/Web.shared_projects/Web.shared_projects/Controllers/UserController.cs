@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Web.shared_projects.Data;
 using Web.shared_projects.Models;
 using Web.shared_projects.Repositories;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,16 +51,50 @@ namespace Web.shared_projects.Controllers {
         [HttpPost]
         public async Task<IActionResult> Post(User model) { //insert
             try {
-                _repo.Add(model); // model é o json 
-                if (await _repo.SaveChangeAsync()) {
-                    return Ok("Insert User Success");
+                var user = await _repo.GetUserByEmail(model.Email);
+                if (user == null) {
+                    _repo.Add(model); // model é o json
+                    if (await _repo.SaveChangeAsync()) {
+                        return Ok("Insert User Success");
+                    }
+                    return BadRequest("not save user");
                 }
+                return BadRequest("email dif de null, email ja existe");
+
+                 
+                
             }
             catch (Exception ex) {
                 return BadRequest($"Insert User Error: {ex}");
             }
 
-            return BadRequest("Not save User Project");
+            //return BadRequest("Not save User Project");
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> PostLogin(User model) { //insert
+            try {
+                var user = await _repo.GetUserByEmail(model.Email);                
+                
+                if(user != null) {
+                    var result = new {
+                        id = user.Id,
+                        firstname = user.FirstName,
+                        lastname = user.LastName,
+                        email = user.Email,
+                        response = "User logado com sucesso"
+                    };
+                    var json = JsonSerializer.Serialize(result);
+                    return Ok(json);
+                }
+                ///_repo.Add(model); // model é o json 
+                
+            }
+            catch (Exception ex) {
+                return BadRequest($"Login Error: {ex}");
+            }
+
+            return BadRequest("Not login User");
         }
 
         // PUT api/<UserController>/5

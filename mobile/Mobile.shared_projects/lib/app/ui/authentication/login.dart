@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/ui/authentication/loginAPI.dart';
 import 'package:shared_projects/app/ui/layout.dart';
+import 'package:shared_projects/app/utils/nav.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/authentication/redefinePassword.dart';
 import 'package:shared_projects/app/ui/register/register.dart';
@@ -150,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onClickLogin() {
+  void _onClickLogin() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
@@ -159,6 +161,15 @@ class _LoginPageState extends State<LoginPage> {
     String password = _tPassword.text;
 
     print("Login: $login, Senha: $password");
+
+    bool ok = await LoginAPI.login(login, password);
+    print(ok);
+
+    if (ok) {
+      push(context, HomePage());
+    } else {
+      print("Erro de Login");
+    }
   }
 
   String _validateLogin(String text) {

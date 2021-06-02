@@ -14,6 +14,7 @@ namespace Web.shared_projects.Repositories {
 
         Task<User[]> GetAllUsers(bool includeProject = false);
         Task<User> GetUserById(int id, bool includeProject = false);
+        Task<User> GetUserByEmail(String email, bool includeProject = false);
         Task<User[]> GetUsersByName(string name, bool includeProject = false);
 
         Task<Project[]> GetAllProjects(bool includeUser = false);

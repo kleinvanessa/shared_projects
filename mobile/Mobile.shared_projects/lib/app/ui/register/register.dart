@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
+import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
+import 'package:shared_projects/app/ui/register/registerAPI.dart';
+import 'package:shared_projects/app/utils/nav.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
+  @override
+  _RegisterViewState createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final _tFirstName = TextEditingController();
+
   final _tLastName = TextEditingController();
+
   final _tEmail = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
   final _focusLastName = FocusNode();
+
   final _focusEmail = FocusNode();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Layout.render(
         tittlePage: 'Cadastro',
@@ -138,7 +155,7 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  void _onClickRegister() {
+  void _onClickRegister() async {
     String firstName = _tFirstName.text;
     String lastName = _tLastName.text;
     String email = _tEmail.text;
@@ -150,6 +167,15 @@ class RegisterView extends StatelessWidget {
     }
 
     print("FirstName: $firstName, LastName: $lastName, Email: $email");
+
+    bool ok = await RegisterAPI.register(firstName, lastName, email);
+    print(ok);
+
+    if (ok) {
+      push(context, HomePage());
+    } else {
+      print("Erro ao registrar usuario");
+    }
   }
 
   String _validateEmail(String text) {
