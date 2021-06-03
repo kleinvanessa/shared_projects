@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/authentication/loginAPI.dart';
 import 'package:shared_projects/app/ui/layout.dart';
+import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/authentication/redefinePassword.dart';
@@ -21,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _focus = FocusNode();
+
+  bool _showProgress = false;
 
   @override
   void initState() {
@@ -125,12 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: TextDecoration.underline),
                       ),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => RegisterView(),
-                          ),
-                        );
+                        push(context, RegisterView(), replace: true);
                       },
                     ),
                   ],
@@ -138,12 +138,19 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 50,
                 ),
-                FlatButtonComponent(
-                  routeButton: HomePage(),
-                  textButton: "Entrar",
-                  buttonColor: Color(0xFF583D72),
-                  onPressed: _onClickLogin,
-                ),
+                _showProgress
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Color(0xFF583D72)),
+                        ),
+                      )
+                    : FlatButtonComponent(
+                        routeButton: HomePage(),
+                        textButton: "Entrar",
+                        buttonColor: Color(0xFF583D72),
+                        onPressed: _onClickLogin,
+                      ),
               ],
             ),
           ],
@@ -162,14 +169,26 @@ class _LoginPageState extends State<LoginPage> {
 
     print("Login: $login, Senha: $password");
 
-    bool ok = await LoginAPI.login(login, password);
-    print(ok);
+    setState(() {
+      _showProgress = true;
+    });
 
-    if (ok) {
-      push(context, HomePage());
+    ApiResponse response = await LoginAPI.login(login, password);
+    print(response);
+
+    if (response.ok) {
+      //ok = true se o login estiver correto - status code 200
+      User user =
+          response.result; //result = parse do Json retornado na consulta
+      print(">>> user- login.dart: $user");
+      push(context, HomePage(), replace: true);
     } else {
-      print("Erro de Login");
+      Alert(context, response.msg,
+          "Aviso"); //mesnagem de erro de login - status code 404 NotFound
     }
+    setState(() {
+      _showProgress = false;
+    });
   }
 
   String _validateLogin(String text) {

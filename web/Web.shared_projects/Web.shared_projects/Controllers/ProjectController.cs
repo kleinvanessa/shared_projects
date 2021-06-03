@@ -23,7 +23,7 @@ namespace Web.shared_projects.Controllers {
         [HttpGet]
         public async Task<IActionResult> Get() {
             try {
-                var projects = await _repo.GetAllProjects();
+                var projects = await _repo.GetAllProjects(true);
                 return Ok(projects);
             }
             catch (Exception ex) {

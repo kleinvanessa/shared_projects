@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
+import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
 import 'package:shared_projects/app/ui/register/registerAPI.dart';
+import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class RegisterView extends StatefulWidget {
@@ -109,12 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => LoginPage(),
-                            ),
-                          );
+                          push(context, LoginPage(), replace: true);
                         },
                       ),
                     ],
@@ -168,13 +166,22 @@ class _RegisterViewState extends State<RegisterView> {
 
     print("FirstName: $firstName, LastName: $lastName, Email: $email");
 
-    bool ok = await RegisterAPI.register(firstName, lastName, email);
-    print(ok);
+    ApiResponse response =
+        await RegisterAPI.register(firstName, lastName, email);
 
-    if (ok) {
+    print(response);
+
+    if (response.ok) {
+      //ok = true se o login estiver correto - status code 200
+      User user =
+          response.result; //result = parse do Json retornado na consulta
+      print(">>> user- register.dart: $user");
+
       push(context, HomePage());
+      Alert(context, "Usuário cadastrado com sucesso!", "Seja Bem-vindo!");
     } else {
-      print("Erro ao registrar usuario");
+      Alert(context, response.msg,
+          "Aviso"); //mesnagem de erro de login - status code 404 NotFound
     }
   }
 
@@ -192,7 +199,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   String _validateName(String text) {
     if (text.isEmpty) {
-      return "Digite o nome";
+      return "Campo em branco";
     }
     if (text.length < 3) {
       return "Formato inválido";
