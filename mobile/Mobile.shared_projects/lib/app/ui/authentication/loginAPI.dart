@@ -20,7 +20,7 @@ class LoginAPI {
 
       String body = json.encode(data);
 
-      var url = 'https://10.0.2.2:5001/api/user/Login'; //funfou
+      var url = 'https://10.0.2.2:5001/api/user/Logins'; //funfou
 
       var response = await http.post(
         url,
@@ -44,6 +44,7 @@ class LoginAPI {
       return ApiResponse.error(mapResponse["response"]);
     } catch (error, ex) {
       print("Erro no login $error > $ex");
+      //throw error;
       return ApiResponse.error("Não foi possível fazer o login");
     }
   }

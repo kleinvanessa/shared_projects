@@ -36,6 +36,10 @@ class User {
     return data;
   }
 
+  static void clear() {
+    Prefs.setString("user.prefs", "");
+  }
+
   void save() {
     print("user save");
     // salva user nas preferencias
@@ -49,6 +53,9 @@ class User {
   static Future<User> get() async {
     print("user get");
     String jsonDecode = await Prefs.getString("user.prefs");
+    if (jsonDecode.isEmpty) {
+      return null;
+    }
     print("json:$json");
     Map map = json.decode(jsonDecode);
     User user = User.fromJson(map);

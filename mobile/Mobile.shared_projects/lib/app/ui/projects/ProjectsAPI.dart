@@ -37,6 +37,7 @@ class ProjectsAPI {
       }
     } catch (error) {
       print(">>> error:$error");
+      throw error;
     }
   }
 
@@ -73,6 +74,7 @@ class ProjectsAPI {
       }
     } catch (error) {
       print(">>> error:$error");
+      throw error;
     }
   }
 }

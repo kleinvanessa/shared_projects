@@ -43,6 +43,7 @@ class RegisterAPI {
       return ApiResponse.error(mapResponse["response"]);
     } catch (error, ex) {
       print("Erro ao cadastrar $error > $ex");
+      //throw error;
       return ApiResponse.error("Não foi possível fazer o cadastro");
     }
   }

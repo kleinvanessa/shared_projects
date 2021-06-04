@@ -49,6 +49,7 @@ class DrawerPage extends StatelessWidget {
               'Logout',
               LoginPage(),
               replace: true,
+              clear: true,
               typeLeading: Icons.logout,
             ),
           ],
@@ -89,7 +90,7 @@ class DrawerPage extends StatelessWidget {
   }
 
   Widget _listTileMethod(dynamic context, String textTitle, navRoute,
-      {replace = false, typeLeading}) {
+      {clear = false, replace = false, typeLeading}) {
     return ListTile(
       leading: typeLeading != null
           ? Icon(typeLeading, color: Color(0xFF583D72))
@@ -97,13 +98,15 @@ class DrawerPage extends StatelessWidget {
       trailing: Icon(Icons.arrow_right, color: Color(0xFF583D72)),
       title: Text('$textTitle', style: TextStyle(color: Color(0xFF583D72))),
       onTap: () {
-        push(context, navRoute, replace: replace);
+        _clickOnTap(context, navRoute, replace: replace, clear: clear);
       },
     );
   }
 
-  Future<User> _getUser() async {
-    User user = await User.get();
-    return user;
+  _clickOnTap(context, navRoute, {clear = false, replace = false}) {
+    if (clear) {
+      User.clear();
+    }
+    push(context, navRoute, replace: replace);
   }
 }

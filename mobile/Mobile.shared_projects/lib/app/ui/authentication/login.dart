@@ -30,6 +30,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
+    Future<User> future = User.get();
+    future.then((User user) {
+      print("user init state: $user");
+      if (user != null) {
+        // push(context, HomePage(), replace: true); //opçao se quiser que o user logado entre direto na HomePage
+        setState(() {
+          _tLogin.text = user.email;
+          _tPassword.text = user.password;
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
