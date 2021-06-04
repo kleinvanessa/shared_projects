@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 
 class User {
-  final int id;
-  final String name;
-  final String lastName;
-  final String email;
-  final String image;
+  int id;
+  String name;
+  String lastName;
+  String email;
 
-  const User(
-      {this.id,
-      this.image,
-      @required this.name,
-      @required this.lastName,
-      @required this.email});
+  List<String> userProjects;
+
+  User.fromJson(Map<String, dynamic> map)
+      : this.id = map["id"],
+        this.name = map["firstName"],
+        this.lastName = map["lastName"],
+        this.email = map["email"],
+        this.userProjects = map["usersProjects"] != null
+            ? map["usersProjects"]
+                .map<String>((project) => project.toString())
+                .toList()
+            : null;
+
+  @override
+  String toString() {
+    return 'User{ID: $id,Name: $name, Latname: $lastName, Login: $email, Projects: $userProjects}';
+  }
 }

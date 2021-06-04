@@ -26,7 +26,7 @@ namespace Web.shared_projects.Controllers {
         [HttpGet]
         public async Task<IActionResult> Get() { //select em todas os dados da tabela User
             try {
-                var users = await _repo.GetAllUsers();
+                var users = await _repo.GetAllUsers(true);
                 return Ok(users);
             }
             catch (Exception ex) {
@@ -54,38 +54,38 @@ namespace Web.shared_projects.Controllers {
                 var user = await _repo.GetUserByEmail(model.Email);
                 if (user == null) {
                     _repo.Add(model); // model é o json
+                    var json = JsonSerializer.Serialize(new { response = "Insert User Success" });
                     if (await _repo.SaveChangeAsync()) {
-                        return Ok("Insert User Success");
+                        var response = await _repo.GetUserByEmail(model.Email);
+                        return Ok(response);
                     }
                     return BadRequest("not save user");
                 }
-                return BadRequest("email dif de null, email ja existe");
+                var badResult = JsonSerializer.Serialize(new { response = "Email já existe" });
 
-                 
-                
+                return NotFound(badResult);
             }
             catch (Exception ex) {
                 return BadRequest($"Insert User Error: {ex}");
-            }
-
-            //return BadRequest("Not save User Project");
+            }            
         }
 
         [HttpPost("Login")]
         public async Task<IActionResult> PostLogin(User model) { //insert
             try {
-                var user = await _repo.GetUserByEmail(model.Email);                
+                var user = await _repo.GetUserByEmail(model.Email, true);                
                 
                 if(user != null) {
-                    var result = new {
-                        id = user.Id,
-                        firstname = user.FirstName,
-                        lastname = user.LastName,
-                        email = user.Email,
-                        response = "User logado com sucesso"
-                    };
-                    var json = JsonSerializer.Serialize(result);
-                    return Ok(json);
+                    //var result = new {
+                    //    id = user.Id,
+                    //    firstname = user.FirstName,
+                    //    lastname = user.LastName,
+                    //    email = user.Email,
+                    //   // usersProjects = user.UsersProjects,
+                    //    response = "User logado com sucesso"
+                    //};
+                    //var json = JsonSerializer.Serialize(result);
+                    return Ok(user);
                 }
                 ///_repo.Add(model); // model é o json 
                 
@@ -93,8 +93,9 @@ namespace Web.shared_projects.Controllers {
             catch (Exception ex) {
                 return BadRequest($"Login Error: {ex}");
             }
+            var badResult = JsonSerializer.Serialize(new { response = "Login incorreto!" });
 
-            return BadRequest("Not login User");
+            return NotFound(badResult);
         }
 
         // PUT api/<UserController>/5

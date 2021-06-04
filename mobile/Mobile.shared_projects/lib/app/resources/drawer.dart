@@ -5,6 +5,7 @@ import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/settings/settings.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
+import 'package:shared_projects/app/utils/nav.dart';
 
 class DrawerPage extends StatelessWidget {
   final userName = 'Vanessa Klein';
@@ -46,30 +47,47 @@ class DrawerPage extends StatelessWidget {
                 ],
               ),
             ),
-            _listTileMethod(context, 'Meus Projetos', MyProjectsPage(),
-                Icons.arrow_forward_ios_rounded),
-            _listTileMethod(context, 'Favoritos', FavoritesPage(),
-                Icons.arrow_forward_ios_rounded),
-            SizedBox(height: 250),
             _listTileMethod(
-                context, 'Configurações', SettingsPage(), Icons.settings),
-            _listTileMethod(context, 'Sair', LoginPage(), Icons.logout),
+              context,
+              'Meus Projetos',
+              MyProjectsPage(),
+              typeLeading: Icons.my_library_books_outlined,
+            ),
+            _listTileMethod(
+              context,
+              'Favoritos',
+              FavoritesPage(),
+              typeLeading: Icons.favorite,
+            ),
+            _listTileMethod(
+              context,
+              'Configurações',
+              SettingsPage(),
+              typeLeading: Icons.settings,
+            ),
+            _listTileMethod(
+              context,
+              'Logout',
+              LoginPage(),
+              replace: true,
+              typeLeading: Icons.logout,
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _listTileMethod(
-      dynamic context, String textTitle, navRoute, typeLeading) {
+  Widget _listTileMethod(dynamic context, String textTitle, navRoute,
+      {replace = false, typeLeading}) {
     return ListTile(
-      trailing: Icon(typeLeading, color: Color(0xFF583D72)),
+      leading: typeLeading != null
+          ? Icon(typeLeading, color: Color(0xFF583D72))
+          : null,
+      trailing: Icon(Icons.arrow_right, color: Color(0xFF583D72)),
       title: Text('$textTitle', style: TextStyle(color: Color(0xFF583D72))),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => navRoute),
-        );
+        push(context, navRoute, replace: replace);
       },
     );
   }
