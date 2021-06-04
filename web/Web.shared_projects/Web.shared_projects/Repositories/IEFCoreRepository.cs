@@ -19,5 +19,9 @@ namespace Web.shared_projects.Repositories {
 
         Task<Project[]> GetAllProjects(bool includeUser = false);
         Task<Project> GetProjectById(int id, bool includeUser = false);
+
+        Task<Project[]> GetProjectByCategory(int categoryId, bool includeUser = false);
+
+        Task<AreaKnowledge[]> GetAllAreas();
     }
 }

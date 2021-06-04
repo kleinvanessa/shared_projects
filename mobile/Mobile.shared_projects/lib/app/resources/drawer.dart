@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
@@ -8,45 +9,23 @@ import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class DrawerPage extends StatelessWidget {
-  final userName = 'Vanessa Klein';
   final tagUser = '@vanessalklein';
 
   @override
   Widget build(BuildContext context) {
+    Future<User> future = User.get();
     return SafeArea(
       child: Drawer(
         child: ListView(
           scrollDirection: Axis.vertical,
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF583D72),
-              ),
-              child: Column(
-                children: <Widget>[
-                  CircularAvatar(
-                    isButton: true,
-                    image: 'assets/img/profile.jpg',
-                    routeAvatar: ProfilePage(),
-                  ),
-                  Text(
-                    '$userName',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                  Text(
-                    '$tagUser',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFFFFFFFF).withOpacity(.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            FutureBuilder<User>(
+                future: future,
+                builder: (context, snapshot) {
+                  User user = snapshot.data;
+                  return user != null ? _drawerHeader(user) : Container();
+                }),
             _listTileMethod(
               context,
               'Meus Projetos',
@@ -78,6 +57,37 @@ class DrawerPage extends StatelessWidget {
     );
   }
 
+  _drawerHeader(user) {
+    return DrawerHeader(
+      decoration: BoxDecoration(
+        color: Color(0xFF583D72),
+      ),
+      child: Column(
+        children: <Widget>[
+          CircularAvatar(
+            isButton: true,
+            image: 'assets/img/profile.jpg',
+            routeAvatar: ProfilePage(),
+          ),
+          Text(
+            "${user.name}" + " " + "${user.lastName}",
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          Text(
+            '${user.email}',
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFFFFFFFF).withOpacity(.5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _listTileMethod(dynamic context, String textTitle, navRoute,
       {replace = false, typeLeading}) {
     return ListTile(
@@ -90,5 +100,10 @@ class DrawerPage extends StatelessWidget {
         push(context, navRoute, replace: replace);
       },
     );
+  }
+
+  Future<User> _getUser() async {
+    User user = await User.get();
+    return user;
   }
 }

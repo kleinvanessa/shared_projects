@@ -6,7 +6,7 @@ import 'package:shared_projects/app/services/apiResponse.dart';
 
 class RegisterAPI {
   static Future<ApiResponse<User>> register(
-      String firstName, String lastName, String email) async {
+      String firstName, String lastName, String email, String password) async {
     try {
       final ioc = new HttpClient();
       ioc.badCertificateCallback =
@@ -16,6 +16,7 @@ class RegisterAPI {
         "firstname": firstName,
         "lastname": lastName,
         "email": email,
+        "password": password,
       };
 
       Map<String, String> headers = {"Content-Type": "application/json"};
@@ -35,6 +36,7 @@ class RegisterAPI {
 
       if (response.statusCode == 200) {
         final user = User.fromJson(mapResponse);
+        user.save();
         return ApiResponse.ok(user);
       }
 

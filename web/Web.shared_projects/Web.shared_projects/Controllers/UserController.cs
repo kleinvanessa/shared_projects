@@ -73,29 +73,24 @@ namespace Web.shared_projects.Controllers {
         [HttpPost("Login")]
         public async Task<IActionResult> PostLogin(User model) { //insert
             try {
-                var user = await _repo.GetUserByEmail(model.Email, true);                
-                
-                if(user != null) {
-                    //var result = new {
-                    //    id = user.Id,
-                    //    firstname = user.FirstName,
-                    //    lastname = user.LastName,
-                    //    email = user.Email,
-                    //   // usersProjects = user.UsersProjects,
-                    //    response = "User logado com sucesso"
-                    //};
-                    //var json = JsonSerializer.Serialize(result);
-                    return Ok(user);
+                var user = await _repo.GetUserByEmail(model.Email, true);
+             
+                if (user == null) {
+                    var badResultEmail = JsonSerializer.Serialize(new { response = "Email incorreto!" });
+                    return NotFound(badResultEmail);
                 }
+                bool verifyPassword = user.Password.Equals(model.Password);
+                if (!verifyPassword) {
+                    var badResultPass = JsonSerializer.Serialize(new { response = "Senha incorreta!" });
+                    return NotFound(badResultPass);
+                }
+                return Ok(user);
                 ///_repo.Add(model); // model é o json 
-                
+
             }
             catch (Exception ex) {
                 return BadRequest($"Login Error: {ex}");
             }
-            var badResult = JsonSerializer.Serialize(new { response = "Login incorreto!" });
-
-            return NotFound(badResult);
         }
 
         // PUT api/<UserController>/5

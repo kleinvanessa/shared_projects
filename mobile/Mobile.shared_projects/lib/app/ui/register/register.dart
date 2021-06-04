@@ -22,11 +22,15 @@ class _RegisterViewState extends State<RegisterView> {
 
   final _tEmail = TextEditingController();
 
+  final _tPassword = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   final _focusLastName = FocusNode();
 
   final _focusEmail = FocusNode();
+
+  final _focusPassword = FocusNode();
 
   @override
   void initState() {
@@ -83,6 +87,15 @@ class _RegisterViewState extends State<RegisterView> {
                     null,
                     _focusEmail,
                   ),
+                  _formEx(
+                      'Digite a senha',
+                      'Senha',
+                      _tPassword,
+                      _validatePassword,
+                      TextInputType.name,
+                      null,
+                      _focusPassword,
+                      obscureText: true),
                   SizedBox(
                     height: 30,
                   ),
@@ -157,6 +170,7 @@ class _RegisterViewState extends State<RegisterView> {
     String firstName = _tFirstName.text;
     String lastName = _tLastName.text;
     String email = _tEmail.text;
+    String password = _tPassword.text;
 
     bool formOk = _formKey.currentState.validate();
 
@@ -164,10 +178,12 @@ class _RegisterViewState extends State<RegisterView> {
       return;
     }
 
-    print("FirstName: $firstName, LastName: $lastName, Email: $email");
+    print(
+      "FirstName: $firstName, LastName: $lastName, Email: $email, Senha: $password",
+    );
 
     ApiResponse response =
-        await RegisterAPI.register(firstName, lastName, email);
+        await RegisterAPI.register(firstName, lastName, email, password);
 
     print(response);
 
@@ -177,7 +193,7 @@ class _RegisterViewState extends State<RegisterView> {
           response.result; //result = parse do Json retornado na consulta
       print(">>> user- register.dart: $user");
 
-      push(context, HomePage());
+      push(context, HomePage(), replace: true);
       Alert(context, "Usuário cadastrado com sucesso!", "Seja Bem-vindo!");
     } else {
       Alert(context, response.msg,
@@ -203,6 +219,16 @@ class _RegisterViewState extends State<RegisterView> {
     }
     if (text.length < 3) {
       return "Formato inválido";
+    }
+    return null;
+  }
+
+  String _validatePassword(String text) {
+    if (text.isEmpty) {
+      return "Digite a senha";
+    }
+    if (text.length < 6) {
+      return "A senha tem um mínimo de 6 dígitos";
     }
     return null;
   }

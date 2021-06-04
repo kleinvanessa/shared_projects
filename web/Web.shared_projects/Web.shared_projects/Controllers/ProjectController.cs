@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Web.shared_projects.Data;
 using Web.shared_projects.Models;
@@ -43,13 +44,26 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
+        // GET: api/<ProjectController>/5
+        [HttpGet("Category/{categoryId}")]
+        public async Task<IActionResult> GetByCat(int categoryid) {
+            try {
+                var project = await _repo.GetProjectByCategory(categoryid, true);
+                return Ok(project);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
         // POST api/<ProjectController>
         [HttpPost]
         public async Task<IActionResult> Post(Project model) { //insert
             try {
                 _repo.Add(model); // model é o json 
                 if(await _repo.SaveChangeAsync()) {
-                    return Ok("Insert Project Success");
+                    var json = JsonSerializer.Serialize(new { response = "Insert Projet Success" });
+                    return Ok(json);
                 }
             }
             catch (Exception ex) {
