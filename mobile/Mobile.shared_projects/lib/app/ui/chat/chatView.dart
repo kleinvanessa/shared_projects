@@ -12,7 +12,10 @@ class ChatView extends StatefulWidget {
   _ChatViewState createState() => _ChatViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
+class _ChatViewState extends State<ChatView>
+    with AutomaticKeepAliveClientMixin<ChatView> {
+  //with AutomaticKeepAliveClientMixin<ChatView> + bool get wantKeepAlive => true; + super.build(context); -- pra não fazer requisição no service toda hora, faz uma e salva
+  bool get wantKeepAlive => true;
   @override
   void initState() {
     super.initState();
@@ -20,6 +23,7 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Layout.render(
       tittlePage: 'Chat',
       drawerComponent: DrawerPage(),
@@ -81,18 +85,10 @@ class _ChatViewState extends State<ChatView> {
         isButton: false,
         image: urlFoto ?? "assets/img/undefined.png",
       ),
-      title: Row(
-        children: [
-          Text(
-            name,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            lastName,
-          )
-        ],
+      title: Text(
+        name + " " + lastName,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
       subtitle: Text(
         email,

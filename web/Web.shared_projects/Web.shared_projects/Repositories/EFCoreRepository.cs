@@ -94,6 +94,24 @@ namespace Web.shared_projects.Repositories {
             return await query.FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<Project[]> GetProjectByCategory(int categoryId, bool includeUser = false) {
+            IQueryable<Project> query = _context.Project;
+
+            if (includeUser) {
+                query = query.Include(p => p.UsersProjects).ThenInclude(up => up.User);
+            }
+
+            query = query.AsNoTracking().Where((p => p.CategoryId == categoryId)).OrderBy(p => p.Id);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<AreaKnowledge[]> GetAllAreas() {
+            IQueryable<AreaKnowledge> query = _context.AreaKnowledge;
+
+            query = query.AsNoTracking().OrderBy(p => p.Id);
+            return await query.ToArrayAsync();
+        }
+
         
     }
 }
