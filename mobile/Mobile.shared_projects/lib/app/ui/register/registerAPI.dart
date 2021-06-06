@@ -5,8 +5,8 @@ import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 
 class RegisterAPI {
-  static Future<ApiResponse<User>> register(
-      String firstName, String lastName, String email, String password) async {
+  static Future<ApiResponse<User>> register(String firstName, String lastName,
+      String email, String contact, String password) async {
     try {
       final ioc = new HttpClient();
       ioc.badCertificateCallback =
@@ -16,6 +16,7 @@ class RegisterAPI {
         "firstname": firstName,
         "lastname": lastName,
         "email": email,
+        "contact": contact,
         "password": password,
       };
 

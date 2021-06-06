@@ -13,6 +13,7 @@ namespace Web.shared_projects.Models {
         //[Required]
         public String LastName { get; set; }
         public String Email { get; set; }
+        public long Contact { get; set; }
         public ICollection<UserProject> UsersProjects { get; set; }
         public String Password { get; set; }
     }

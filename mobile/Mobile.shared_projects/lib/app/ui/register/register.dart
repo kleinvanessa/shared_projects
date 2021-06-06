@@ -22,6 +22,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   final _tEmail = TextEditingController();
 
+  final _tContact = TextEditingController();
+
   final _tPassword = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -29,6 +31,8 @@ class _RegisterViewState extends State<RegisterView> {
   final _focusLastName = FocusNode();
 
   final _focusEmail = FocusNode();
+
+  final _focusContact = FocusNode();
 
   final _focusPassword = FocusNode();
 
@@ -86,6 +90,15 @@ class _RegisterViewState extends State<RegisterView> {
                     TextInputType.emailAddress,
                     null,
                     _focusEmail,
+                  ),
+                  _formEx(
+                    '51999999999',
+                    'Contato',
+                    _tContact,
+                    _validateName,
+                    TextInputType.number,
+                    null,
+                    _focusContact,
                   ),
                   _formEx(
                       'Digite a senha',
@@ -171,6 +184,7 @@ class _RegisterViewState extends State<RegisterView> {
     String lastName = _tLastName.text;
     String email = _tEmail.text;
     String password = _tPassword.text;
+    String contact = _tContact.text;
 
     bool formOk = _formKey.currentState.validate();
 
@@ -182,8 +196,8 @@ class _RegisterViewState extends State<RegisterView> {
       "FirstName: $firstName, LastName: $lastName, Email: $email, Senha: $password",
     );
 
-    ApiResponse response =
-        await RegisterAPI.register(firstName, lastName, email, password);
+    ApiResponse response = await RegisterAPI.register(
+        firstName, lastName, email, contact, password);
 
     print(response);
 

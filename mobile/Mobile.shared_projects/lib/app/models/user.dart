@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:shared_projects/app/utils/prefs.dart';
 
 class User {
@@ -8,6 +6,7 @@ class User {
   String name;
   String lastName;
   String email;
+  int contact;
   String password;
 
   List<String> userProjects;
@@ -17,6 +16,7 @@ class User {
     this.name = map["firstName"];
     this.lastName = map["lastName"];
     this.email = map["email"];
+    this.contact = map["contact"];
     this.password = map["password"];
     this.userProjects = map["usersProjects"] != null
         ? map["usersProjects"]
@@ -31,6 +31,7 @@ class User {
     data["firstName"] = this.name;
     data["lastName"] = this.lastName;
     data["email"] = this.email;
+    data["contact"] = this.contact;
     data["password"] = this.password;
     data["usersProjects"] = this.userProjects;
     return data;

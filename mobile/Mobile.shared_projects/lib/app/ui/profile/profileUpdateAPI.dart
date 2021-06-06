@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
-import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 
-class AddNewProjectAPI {
-  static Future<ApiResponse<Projects>> addProject(
-      String projectName, String description, String category) async {
+class ProfileUpdateAPI {
+  static Future<ApiResponse<User>> updateUser(
+      String firstName, String lastName, String email, String contact) async {
     try {
       final ioc = new HttpClient();
       ioc.badCertificateCallback =
@@ -18,31 +17,41 @@ class AddNewProjectAPI {
 
       int userid = user.id;
 
-      var userProject =
-          '{"projectName": "$projectName", "description": "$description", "userAdminId": "$userid", "categoryId": "$category","usersProjects":[{"userid": "$userid"}] }'; //[{"userid" : "$userid"}]}';
-
+      Map data = {
+        "id": userid,
+        "firstname": firstName,
+        "lastname": lastName,
+        "email": email,
+        "contact": contact,
+        "password": user.password
+      };
+      print("AQUI OS DADOS : >>>>>>>>>> $data");
       Map<String, String> headers = {"Content-Type": "application/json"};
 
-      var url = 'https://10.0.2.2:5001/api/project'; //funfou
+      String body = json.encode(data);
 
-      var response = await http.post(
+      var url = 'https://10.0.2.2:5001/api/user/$userid'; //funfou
+
+      var response = await http.put(
         url,
         headers: headers,
-        body: userProject,
+        body: body,
       );
       print('Response status: ${response.statusCode}');
 
       Map mapResponse = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        // final project = Projects.fromJson(mapResponse);
-        return ApiResponse.postOk(mapResponse["response"]);
+        final user = User.fromJson(mapResponse);
+        user.save();
+        return ApiResponse.ok(user);
       }
 
       return ApiResponse.error(mapResponse["response"]);
     } catch (error, ex) {
-      print("Erro ao cadastrar projeto $error > $ex");
-      return ApiResponse.error("Não foi possível fazer o cadastro do projeto");
+      print("Erro ao atualizar dados $error > $ex");
+      //throw error;
+      return ApiResponse.error("Não foi possível atualizar os dados");
     }
   }
 }

@@ -97,18 +97,20 @@ namespace Web.shared_projects.Controllers {
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, User model) { //update
             try {
-                var user = await _repo.GetProjectById(id);
+                var user = await _repo.GetUserById(id);
                 if (user != null) {
                     _repo.Update(model);
                     if (await _repo.SaveChangeAsync()) {
-                        return Ok("Update User Success");
+                        var userUpdate = await _repo.GetUserById(id);
+                        return Ok(userUpdate);
                     }
                 }
             }
             catch (Exception ex) {
                 return BadRequest($"Update User Error: {ex}");
             }
-            return BadRequest("Not Update User");
+            var badResult = JsonSerializer.Serialize(new { response = "Not Update User" });
+            return BadRequest(badResult);
         }
 
         // DELETE api/<UserController>/5

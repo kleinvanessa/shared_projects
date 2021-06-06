@@ -2,6 +2,7 @@ class Projects {
   int id;
   String projectName;
   String description;
+  int userAdminId;
   int categoryId;
   List<String> usersProjects;
 
@@ -9,6 +10,7 @@ class Projects {
       : this.id = map["id"],
         this.projectName = map["projectName"],
         this.description = map["description"],
+        this.userAdminId = map["userAdminId"],
         this.categoryId = map["categoryId"],
         this.usersProjects = map["usersProjects"] != null
             ? map["usersProjects"]
@@ -21,6 +23,7 @@ class Projects {
     data["id"] = this.id;
     data["projectName"] = this.projectName;
     data["description"] = this.description;
+    data["userAdminId"] = this.userAdminId;
     data["categoryId"] = this.categoryId;
     return data;
   }
