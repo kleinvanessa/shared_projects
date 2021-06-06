@@ -27,7 +27,8 @@ SELECT * FROM [SharedProjects].[dbo].[UserProject];
 
 SELECT ProjectId FROM [SharedProjects].[dbo].[UserProject] WHERE UserId =1;
 
-SELECT * FROM [SharedProjects].[dbo].[Project] P INNER JOIN  [SharedProjects].[dbo].[UserProject] Up ON Up.UserId = 3 WHERE P.Id = Up.ProjectId
-;
+SELECT * FROM [SharedProjects].[dbo].[Project] P 
+INNER JOIN  [SharedProjects].[dbo].[UserProject] Up ON Up.UserId = 3 
+WHERE P.Id = Up.ProjectId;
 
 
