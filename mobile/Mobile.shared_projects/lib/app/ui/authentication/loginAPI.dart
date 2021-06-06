@@ -20,7 +20,7 @@ class LoginAPI {
 
       String body = json.encode(data);
 
-      var url = 'https://10.0.2.2:5001/api/user/Logins'; //funfou
+      var url = 'https://10.0.2.2:5001/api/user/Login'; //funfou
 
       var response = await http.post(
         url,

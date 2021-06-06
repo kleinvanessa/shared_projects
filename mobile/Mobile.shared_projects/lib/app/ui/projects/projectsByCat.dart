@@ -13,9 +13,9 @@ class ProjectsByCatPage extends StatefulWidget {
   _ProjectsByCatPageState createState() => _ProjectsByCatPageState();
 }
 
-class _ProjectsByCatPageState extends State<ProjectsByCatPage>
-    with AutomaticKeepAliveClientMixin<ProjectsByCatPage> {
-  bool get wantKeepAlive => true;
+class _ProjectsByCatPageState extends State<ProjectsByCatPage> {
+  //with AutomaticKeepAliveClientMixin<ProjectsByCatPage> {
+  // bool get wantKeepAlive => true;
   String dropdownValue = '1';
   var itemSelect;
   @override
@@ -24,7 +24,7 @@ class _ProjectsByCatPageState extends State<ProjectsByCatPage>
   }
 
   Widget build(BuildContext context) {
-    super.build(context);
+    //super.build(context);
     return _dropDown();
 
     //_projectsList(context, 1);

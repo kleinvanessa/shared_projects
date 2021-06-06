@@ -12,17 +12,17 @@ class ProjectsListView extends StatefulWidget {
   _ProjectsListViewState createState() => _ProjectsListViewState();
 }
 
-class _ProjectsListViewState extends State<ProjectsListView>
-    with AutomaticKeepAliveClientMixin<ProjectsListView> {
+class _ProjectsListViewState extends State<ProjectsListView> {
+  // with AutomaticKeepAliveClientMixin<ProjectsListView> {
   //pra não fazer requisição no service toda hora, faz uma e salva
-  bool get wantKeepAlive => true;
+  // bool get wantKeepAlive => true;
   @override
   void initState() {
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    super.build(context);
+    // super.build(context);
     return _projectsList(context);
   }
 
@@ -156,15 +156,11 @@ class _ProjectsListViewState extends State<ProjectsListView>
           );
         },
       ),
-      subtitle: Row(
-        children: [
-          Text(
-            projectDescription,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
+      subtitle: Text(projectDescription,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.justify),
+
       /* onTap: () {
         push(
             context,

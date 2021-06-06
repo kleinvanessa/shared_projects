@@ -63,7 +63,7 @@ class ProjectsDetails extends StatelessWidget {
                 '$nameProject',
                 style: TextStyle(
                   color: Color(0xFF583D72),
-                  fontSize: 25,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -79,7 +79,7 @@ class ProjectsDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                "Existe um relacionamento 1 para N (muitos) entre categoria e produto e um relacionamento N x N (muitos para muitos) entre produto e cliente, se materializando isso a partir da tabela venda, que contém chave estrangeira para as duas tabelas. Por que a modelagem foi feita desta forma? Porque no nosso exemplo podem existir vários produtos de diferentes categorias e uma lista de produtos pode ser comprada diversas vezes pelo mesmo clientes (ou diferentes).",
+                "$projectDescription",
                 //maxLines: 1,
                 overflow: TextOverflow.visible, textAlign: TextAlign.justify,
               ), //Text('$projectDescription')

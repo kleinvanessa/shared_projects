@@ -103,6 +103,18 @@ namespace Web.shared_projects.Repositories {
 
             query = query.AsNoTracking().Where((p => p.CategoryId == categoryId)).OrderBy(p => p.Id);
             return await query.ToArrayAsync();
+        }      
+
+        public async Task<Project[]> GetUserProj(int userid) {
+
+            IQueryable<Project> query1 = from U in _context.UserProject
+                    join P in _context.Project on U.UserId equals userid
+                    where P.Id == U.ProjectId
+                    select P;
+
+            query1 = query1.AsNoTracking();
+
+            return await query1.ToArrayAsync();
         }
 
         public async Task<AreaKnowledge[]> GetAllAreas() {

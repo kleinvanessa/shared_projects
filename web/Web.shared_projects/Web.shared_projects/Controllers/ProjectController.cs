@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,18 @@ namespace Web.shared_projects.Controllers {
         public async Task<IActionResult> GetByCat(int categoryid) {
             try {
                 var project = await _repo.GetProjectByCategory(categoryid, true);
+                return Ok(project);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
+        [HttpGet("User/{userid}")]
+        public async Task<IActionResult> GetByUser(int userid) {
+            try {
+                var project = await _repo.GetUserProj(userid);
+                           
                 return Ok(project);
             }
             catch (Exception ex) {

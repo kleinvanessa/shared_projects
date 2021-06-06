@@ -18,9 +18,9 @@ class AddProjectsPage extends StatefulWidget {
   _AddProjectsPageState createState() => _AddProjectsPageState();
 }
 
-class _AddProjectsPageState extends State<AddProjectsPage>
-    with AutomaticKeepAliveClientMixin<AddProjectsPage> {
-  bool get wantKeepAlive => true;
+class _AddProjectsPageState extends State<AddProjectsPage> {
+  // with AutomaticKeepAliveClientMixin<AddProjectsPage> {
+  // bool get wantKeepAlive => true;
   final _tProjectName = TextEditingController();
 
   final _tDescription = TextEditingController();
@@ -39,7 +39,7 @@ class _AddProjectsPageState extends State<AddProjectsPage>
   }
 
   Widget build(BuildContext context) {
-    super.build(context);
+    //super.build(context);
     return Form(
       key: _formKey,
       child: ListView(
@@ -160,6 +160,9 @@ class _AddProjectsPageState extends State<AddProjectsPage>
 
       //push(context, AddProjectsPage(), replace: true);
       Alert(context, "Projeto cadastrado com sucesso!", "");
+      _tProjectName.text = "";
+      _tDescription.text = "";
+      _tCategory.text = "";
     } else {
       Alert(context, response.msg,
           "Aviso"); //mesnagem de erro de login - status code 404 NotFound

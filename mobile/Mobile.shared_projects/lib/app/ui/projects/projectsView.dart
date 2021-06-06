@@ -9,8 +9,8 @@ class ProjectsView extends StatefulWidget {
   _ProjectsViewState createState() => _ProjectsViewState();
 }
 
-class _ProjectsViewState extends State<ProjectsView>
-    with SingleTickerProviderStateMixin<ProjectsView> {
+class _ProjectsViewState extends State<ProjectsView> {
+  //with SingleTickerProviderStateMixin<ProjectsView> {
   //pra não fazer requisição no service toda hora, faz uma e salva
   @override
   void initState() {
