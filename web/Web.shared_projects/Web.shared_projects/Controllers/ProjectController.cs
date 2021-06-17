@@ -27,6 +27,7 @@ namespace Web.shared_projects.Controllers {
             try {
                 var projects = await _repo.GetAllProjects(true);
                 return Ok(projects);
+                //return Ok(new Project()); //ver formato do json
             }
             catch (Exception ex) {
                 return BadRequest($"Erro: {ex}");
@@ -69,6 +70,30 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
+        [HttpGet("getEnrollUsers/{id}")]
+        public async Task<IActionResult> GetByUserEnroll(int id) {
+            try {
+                var users = await _repo.GetUsersEnrollsinProjects(id);
+
+                return Ok(users);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
+        [HttpGet("getEnroll/{userid}")]
+        public async Task<IActionResult> GetProjectsByUserEnroll(int userid) {
+            try {
+                var project = await _repo.GetEnrollUserProj(userid);
+
+                return Ok(project);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
         // POST api/<ProjectController>
         [HttpPost]
         public async Task<IActionResult> Post(Project model) { //insert
@@ -102,6 +127,28 @@ namespace Web.shared_projects.Controllers {
                 return BadRequest($"Update Project Error: {ex}");
             }
             return BadRequest("Not Update Project");
+        }
+
+        [HttpPut("enroll/{id}")]
+        public async Task<IActionResult> PutEnroll(int id, Project model) { //update
+            try {
+                var projects = await _repo.GetProjectById(id);
+                if (projects != null) {
+                          //_repo(p => p.DataCadastro).IsModified = false;
+                    //projects = 
+                    _repo.Update(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        var json = JsonSerializer.Serialize(new { response = "Update Enroll Projet Success" });
+                        return Ok(json);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                var jsonBadREx = JsonSerializer.Serialize(new { response = "Você já está inscrito neste projeto!" });
+                return BadRequest(jsonBadREx);
+            }
+            var jsonBadR = JsonSerializer.Serialize(new { response = "Not Update Project" });
+            return BadRequest(jsonBadR);
         }
 
         // DELETE api/<ProjectController>/5

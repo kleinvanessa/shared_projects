@@ -17,5 +17,7 @@ namespace Web.shared_projects.Models {
 
         public ICollection<UserProject> UsersProjects {get; set;}
 
+        public ICollection<EnrolledProjects> EnrolledProjects { get; set; }
+
     }
 }
