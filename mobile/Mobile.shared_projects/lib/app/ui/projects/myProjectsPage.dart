@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/models/userProjects.dart';
+import 'package:shared_projects/app/ui/chat/chatView.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
+import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
@@ -75,12 +77,13 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return _projectsItems(l.projectName, l.description, ctx);
+          return _projectsItems(l.projectName, l.description, ctx,
+              l.userAdminId, l.id, l.categoryId);
         });
   }
 
-  Widget _projectsItems(
-      String projectName, String projectDescription, BuildContext context) {
+  Widget _projectsItems(String projectName, String projectDescription,
+      BuildContext context, int userAdminId, int projId, int catProjId) {
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -95,27 +98,38 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) => ProjectsDetails(
-                      imageProject: 'assets/img/docProj.png',
-                      nameProject: projectName,
-                      projectDescription: projectDescription),
+                    imageProject: 'assets/img/docProj.png',
+                    nameProject: projectName,
+                    projectDescription: projectDescription,
+                    isUserAdmin: true,
+                    projectId: projId,
+                    projectUserAdminId: userAdminId,
+                    projectCategoryId: catProjId,
+                  ),
                 ),
               );
             },
           ),
         ),
       ),
-      trailing: IconButton(
-        iconSize: 20,
-        onPressed: () {
-          push(
+      trailing: InkWell(
+        child: Text(
+          'Ver inscritos >',
+          style: TextStyle(
+            color: Color(0xFF583D72),
+            decoration: TextDecoration.underline,
+          ),
+        ),
+        onTap: () {
+          Navigator.push(
             context,
-            FavoritesPage(),
+            MaterialPageRoute(
+              builder: (BuildContext context) => MyEnrolledPage(
+                projectId: projId,
+              ),
+            ),
           );
         },
-        icon: Icon(
-          Icons.favorite_border_outlined,
-          color: Color(0xFFFF8E71),
-        ),
       ),
       title: InkWell(
         child: Text(

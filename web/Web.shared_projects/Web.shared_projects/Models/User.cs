@@ -15,6 +15,8 @@ namespace Web.shared_projects.Models {
         public String Email { get; set; }
         public long Contact { get; set; }
         public ICollection<UserProject> UsersProjects { get; set; }
+
+        public ICollection<EnrolledProjects> EnrolledProjects { get; set; }
         public String Password { get; set; }
     }
 }

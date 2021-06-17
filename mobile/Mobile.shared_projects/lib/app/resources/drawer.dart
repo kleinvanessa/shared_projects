@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
+import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
+import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
 import 'package:shared_projects/app/ui/settings/settings.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
@@ -34,16 +36,28 @@ class DrawerPage extends StatelessWidget {
             ),
             _listTileMethod(
               context,
+              'Minhas inscrições',
+              MySubscriptionsPage(),
+              typeLeading: Icons.edit,
+            ),
+            _listTileMethod(
+              context,
+              'Meus inscritos',
+              MyEnrolledPage(), //TODO
+              typeLeading: Icons.person,
+            ),
+            _listTileMethod(
+              context,
               'Favoritos',
               FavoritesPage(),
               typeLeading: Icons.favorite,
             ),
-            _listTileMethod(
+            /*_listTileMethod(
               context,
               'Configurações',
               SettingsPage(),
               typeLeading: Icons.settings,
-            ),
+            ),*/
             _listTileMethod(
               context,
               'Logout',

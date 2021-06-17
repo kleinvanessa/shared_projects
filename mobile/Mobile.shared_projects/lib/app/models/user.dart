@@ -42,17 +42,17 @@ class User {
   }
 
   void save() {
-    print("user save");
+    //print("user save");
     // salva user nas preferencias
     Map map = toJson();
-    print("map:$map");
+    //print("map:$map");
     String jsonEncode = json.encode(map);
-    print("json save:$json");
+    //print("json save:$json");
     Prefs.setString("user.prefs", jsonEncode);
   }
 
   static Future<User> get() async {
-    print("user get");
+    // print("user get");
     String jsonDecode = await Prefs.getString("user.prefs");
     if (jsonDecode.isEmpty) {
       return null;
@@ -60,7 +60,7 @@ class User {
     print("json:$json");
     Map map = json.decode(jsonDecode);
     User user = User.fromJson(map);
-    print("user no get:$user");
+    // print("user no get:$user");
     return user;
   }
 

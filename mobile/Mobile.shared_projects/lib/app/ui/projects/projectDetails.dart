@@ -1,18 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
+import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
+import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
+import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
+import 'package:shared_projects/app/utils/alert.dart';
 
-class ProjectsDetails extends StatelessWidget {
+class ProjectsDetails extends StatefulWidget {
   final imageProject;
   final nameProject;
   final projectDescription;
-  const ProjectsDetails(
-      {@required this.imageProject,
-      @required this.nameProject,
-      @required this.projectDescription});
+  final isUserAdmin;
+  final projectId;
+  final projectUserAdminId;
+  final projectCategoryId;
+  const ProjectsDetails({
+    @required this.imageProject,
+    @required this.nameProject,
+    @required this.projectDescription,
+    @required this.isUserAdmin,
+    @required this.projectId,
+    @required this.projectUserAdminId,
+    @required this.projectCategoryId,
+  });
+
   @override
+  _ProjectsDetailsState createState() => _ProjectsDetailsState();
+}
+
+class _ProjectsDetailsState extends State<ProjectsDetails> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
+    print("------------------>  isUserAdmin = ${widget.isUserAdmin}");
     return Layout.render(
       tittlePage: 'Mais Informações',
       content: ListView(
@@ -23,7 +48,7 @@ class ProjectsDetails extends StatelessWidget {
               Row(
                 children: [
                   Image.asset(
-                    imageProject,
+                    widget.imageProject,
                     width: 150,
                     height: 200,
                   ),
@@ -60,7 +85,7 @@ class ProjectsDetails extends StatelessWidget {
                 ],
               ),
               Text(
-                '$nameProject',
+                '${widget.nameProject}',
                 style: TextStyle(
                   color: Color(0xFF583D72),
                   fontSize: 18,
@@ -79,18 +104,20 @@ class ProjectsDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                "$projectDescription",
+                "${widget.projectDescription}",
                 //maxLines: 1,
                 overflow: TextOverflow.visible, textAlign: TextAlign.justify,
               ), //Text('$projectDescription')
               SizedBox(
                 height: 25,
               ),
-              FlatButtonComponent(
-                  routeButton: null,
-                  textButton: "Me inscrever",
-                  buttonColor: Color(0xFF583D72),
-                  onPressed: _clickSubmmit),
+              widget.isUserAdmin
+                  ? Container()
+                  : FlatButtonComponent(
+                      routeButton: _clickSubmmit,
+                      textButton: "Me inscrever",
+                      buttonColor: Color(0xFF583D72),
+                      onPressed: _clickSubmmit),
             ],
           ),
         ],
@@ -98,7 +125,27 @@ class ProjectsDetails extends StatelessWidget {
     );
   }
 
-  _clickSubmmit() {
-    //return null;
+  void _clickSubmmit() async {
+    ApiResponse response = await ProjectsAPI.enroolProject(
+        widget.projectId,
+        widget.nameProject,
+        widget.projectDescription,
+        widget.projectUserAdminId,
+        widget.projectCategoryId);
+    print(">>> response ---> $response");
+
+    if (response.ok) {
+      //ok = true se o login estiver correto - status code 200
+      Projects project =
+          response.result; //result = parse do Json retornado na consulta
+      print(">>> project- register.dart: $project");
+
+      //push(context, AddProjectsPage(), replace: true);
+      Alert(context, "Inscrição feita com sucesso!", "");
+    } else {
+      Alert(context, response.msg,
+          "Aviso"); //mesnagem de erro de login - status code 404 NotFound
+    }
+    // TODO: fazer um save nas prefs dos proj inscritos
   }
 }

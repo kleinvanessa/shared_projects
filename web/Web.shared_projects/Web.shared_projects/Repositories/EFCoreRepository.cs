@@ -20,6 +20,11 @@ namespace Web.shared_projects.Repositories {
             _context.Update(entity);
         }
 
+        public void UpdateOnlyEnroll<T>(T entity) where T : class {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.Update(entity);
+        }
+
         public void Delete<T>(T entity) where T : class {
             _context.Remove(entity);
         }
@@ -77,6 +82,7 @@ namespace Web.shared_projects.Repositories {
 
             if (includeUser) {
                 query = query.Include(p => p.UsersProjects).ThenInclude(up => up.User);
+                query = query.Include(p => p.EnrolledProjects).ThenInclude(ep => ep.User);
             }
 
             query = query.AsNoTracking().OrderBy(p => p.Id);
@@ -88,6 +94,7 @@ namespace Web.shared_projects.Repositories {
 
             if (includeUser) {
                 query = query.Include(p => p.UsersProjects).ThenInclude(up => up.User);
+                query = query.Include(p => p.EnrolledProjects).ThenInclude(ep => ep.User);
             }
 
             query = query.AsNoTracking().OrderBy(p => p.Id);
@@ -107,14 +114,37 @@ namespace Web.shared_projects.Repositories {
 
         public async Task<Project[]> GetUserProj(int userid) {
 
-            IQueryable<Project> query1 = from U in _context.UserProject
+            IQueryable<Project> query = from U in _context.UserProject
                     join P in _context.Project on U.UserId equals userid
                     where P.Id == U.ProjectId
                     select P;
 
-            query1 = query1.AsNoTracking();
+            query = query.AsNoTracking();
 
-            return await query1.ToArrayAsync();
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Project[]> GetEnrollUserProj(int userid) {
+
+            IQueryable<Project> query = from E in _context.EnrolledProjects
+                                         join P in _context.Project on E.UserId equals userid
+                                         where P.Id == E.ProjectId
+                                         select P;
+
+            query = query.AsNoTracking();
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<User[]> GetUsersEnrollsinProjects(int projectId) {
+            IQueryable<User> query = from E in _context.EnrolledProjects
+                                        join U in _context.User on E.ProjectId equals projectId
+                                     where U.Id == E.UserId
+                                        select U;
+
+            query = query.AsNoTracking();
+
+            return await query.ToArrayAsync();
         }
 
         public async Task<AreaKnowledge[]> GetAllAreas() {

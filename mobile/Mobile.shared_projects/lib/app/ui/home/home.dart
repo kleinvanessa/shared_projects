@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/ui/home/homeView.dart';
+import 'package:shared_projects/app/ui/projects/addNewProject.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
 import 'package:shared_projects/app/ui/chat/chatView.dart';
 
@@ -10,7 +11,11 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [HomeView(), ProjectsView(), ChatView()];
+  List<Widget> _screens = [
+    HomeView(),
+    ProjectsView(),
+    AddProjectsPage(),
+  ];
 
   int _selectedIndex = 0;
   void _onPageChanged(int index) {
@@ -53,18 +58,18 @@ class _HomeState extends State<HomePage> {
                 color: _selectedIndex == 1
                     ? Color(0xFF583D72)
                     : Color(0xFF000000).withOpacity(.3)),
-            title: Text('Projetos',
+            title: Text('Pesquisar projetos',
                 style: TextStyle(
                     color: _selectedIndex == 1
                         ? Color(0xFF583D72)
                         : Color(0xFF000000).withOpacity(.3))),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble,
+            icon: Icon(Icons.add,
                 color: _selectedIndex == 2
                     ? Color(0xFF583D72)
                     : Color(0xFF000000).withOpacity(.3)),
-            title: Text('Chat',
+            title: Text('Adicionar projetos',
                 style: TextStyle(
                     color: _selectedIndex == 2
                         ? Color(0xFF583D72)

@@ -1,49 +1,57 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/models/userProjects.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
+import '../layout.dart';
 import 'ProjectsAPI.dart';
 
-class ProjectsListView extends StatefulWidget {
+class MySubscriptionsPage extends StatefulWidget {
   @override
-  _ProjectsListViewState createState() => _ProjectsListViewState();
+  _MySubscriptionsPageState createState() => _MySubscriptionsPageState();
 }
 
-class _ProjectsListViewState extends State<ProjectsListView> {
+class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
   // with AutomaticKeepAliveClientMixin<ProjectsListView> {
   //pra não fazer requisição no service toda hora, faz uma e salva
   // bool get wantKeepAlive => true;
-  bool userAdminIsTrue = false;
-
   @override
   void initState() {
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    // super.build(context);
-    return _projectsList(context);
+    Future<User> future = User.get();
+    return Layout.render(
+      tittlePage: 'Minhas inscrições',
+      content: FutureBuilder<User>(
+          future: future,
+          builder: (context, snapshot) {
+            User user = snapshot.data;
+            return _pegarProj(user);
+          }),
+    );
   }
 
-  _projectsList(context) {
-    Future<List<Projects>> future = ProjectsAPI.getProjects();
+  _pegarProj(User user) {
+    Future<List<Projects>> future = ProjectsAPI.getProjectsByUserEnroll();
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(
                 "Error: in projectsView.dart snapshot.hasError is true with error - ${snapshot.hasError}");
-            return Container(
-              child: Center(
-                child: Alert(
-                  context,
-                  "Não foi possível carregar os projetos",
-                  "Aviso",
-                ),
+            return Center(
+              child: Alert(
+                context,
+                "Não foi possível carregar os projetos",
+                "Aviso",
               ),
             );
           }
@@ -67,61 +75,9 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return i == 0
-              ? Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          suffixIcon:
-                              Icon(Icons.search, color: Color(0xFF583D72)),
-                          hintText: 'Pesquisar projetos',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF000000).withOpacity(.3),
-                            fontStyle: FontStyle.italic,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF583D72).withOpacity(.4),
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF583D72)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    _projectsItems(l.projectName, l.description, ctx,
-                        l.userAdminId, l.id, l.categoryId)
-                  ],
-                )
-              : _projectsItems(l.projectName, l.description, ctx, l.userAdminId,
-                  l.id, l.categoryId);
+          return _projectsItems(l.projectName, l.description, ctx,
+              l.userAdminId, l.id, l.categoryId);
         });
-  }
-
-  bool _isUserAdmin(int userAdmin) {
-    Future<User> future = User.get();
-    future.then((User user) {
-      userAdmin == user.id ? userAdminIsTrue = true : userAdminIsTrue = false;
-    });
-    print(
-        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  userAdminIsTrue : $userAdminIsTrue");
-    return userAdminIsTrue;
-  }
-
-  _teste(Projects l) {
-    Future<User> future = User.get();
-    future.then((User user) {
-      l.enrolledProjects.add("{userId : ${user.id}}");
-      print("********** l : ${l.enrolledProjects}");
-    });
-    return l;
   }
 
   Widget _projectsItems(String projectName, String projectDescription,
@@ -143,7 +99,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                     imageProject: 'assets/img/docProj.png',
                     nameProject: projectName,
                     projectDescription: projectDescription,
-                    isUserAdmin: _isUserAdmin(userAdminId),
+                    isUserAdmin: true,
                     projectId: projId,
                     projectUserAdminId: userAdminId,
                     projectCategoryId: catProjId,
@@ -180,14 +136,9 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           push(
             context,
             ProjectsDetails(
-              imageProject: 'assets/img/docProj.png',
-              nameProject: projectName,
-              projectDescription: projectDescription,
-              isUserAdmin: _isUserAdmin(userAdminId),
-              projectId: projId,
-              projectUserAdminId: userAdminId,
-              projectCategoryId: catProjId,
-            ),
+                imageProject: 'assets/img/docProj.png',
+                nameProject: projectName,
+                projectDescription: projectDescription),
           );
         },
       ),

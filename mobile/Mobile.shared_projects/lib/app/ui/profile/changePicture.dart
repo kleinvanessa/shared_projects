@@ -35,7 +35,7 @@ class ChangePicture extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 80,
+                      width: 10,
                     ),
                     Icon(
                       Icons.upload_outlined,
@@ -44,7 +44,7 @@ class ChangePicture extends StatelessWidget {
                   ],
                 ),
                 color: Color(0xFFDCDCDC),
-                minWidth: 200.0,
+                minWidth: 10.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),

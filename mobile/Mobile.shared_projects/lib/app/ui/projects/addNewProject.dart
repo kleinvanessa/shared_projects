@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/resources/drawer.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
@@ -33,13 +34,32 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
 
   final _focusCategory = FocusNode();
 
+  Map<String, String> categories = {
+    "Ciências Exatas e da Terra": "1",
+    "Lingüística, Letras e Artes": "2",
+    "Engenharias": "3",
+  };
+
+  String dropdownValue = 'Selecione a categoria';
+  var itemSelect;
+
   @override
   void initState() {
+    dropdownValue = 'Selecione a categoria';
     super.initState();
   }
 
   Widget build(BuildContext context) {
+    return Layout.render(
+      tittlePage: 'Adicionar projeto',
+      drawerComponent: DrawerPage(),
+      content: _addProject(),
+    );
+
     //super.build(context);
+  }
+
+  _addProject() {
     return Form(
       key: _formKey,
       child: ListView(
@@ -79,7 +99,7 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
                 _focusCategory,
                 _focusDescription,
               ),
-              _formEx(
+              /* _formEx(
                 'Digite a categoria',
                 'Categoria',
                 _tCategory,
@@ -87,7 +107,9 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
                 TextInputType.number,
                 null,
                 _focusCategory,
-              ),
+              ),*/
+              _dropDown(),
+              //  _tCategory.text = itemSelect,
               SizedBox(
                 height: 30,
               ),
@@ -103,6 +125,45 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  _dropDown() {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: DropdownButtonFormField<String>(
+        value: dropdownValue,
+        //icon: const Icon(Icons.arrow_downward),
+        //iconSize: 24,
+        elevation: 2,
+        style: const TextStyle(color: Colors.deepPurple),
+        //underline: Container(
+        //height: 2,
+        //   color: Colors.deepPurpleAccent,
+        // ),
+        validator: _validateCat,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+
+            //itemSelect = int.parse(newValue);
+            var teste = categories[newValue];
+            print("esse é um teste: $teste");
+            itemSelect = teste;
+          });
+        },
+        items: <String>[
+          'Selecione a categoria',
+          'Ciências Exatas e da Terra',
+          'Lingüística, Letras e Artes',
+          'Engenharias'
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
       ),
     );
   }
@@ -136,7 +197,7 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
   void _onClickRegisterProject() async {
     String projectName = _tProjectName.text;
     String description = _tDescription.text;
-    String category = _tCategory.text;
+    String category = itemSelect;
 
     bool formOk = _formKey.currentState.validate();
 
@@ -163,6 +224,8 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
       _tProjectName.text = "";
       _tDescription.text = "";
       _tCategory.text = "";
+      itemSelect = "Selecione a categoria";
+      dropdownValue = "Selecione a categoria";
     } else {
       Alert(context, response.msg,
           "Aviso"); //mesnagem de erro de login - status code 404 NotFound
@@ -179,12 +242,9 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
     return null;
   }
 
-  String _validateCat(String text) {
-    if (text.isEmpty) {
-      return "Campo em branco";
-    }
-    if (text.length > 1) {
-      return "Formato inválido";
+  String _validateCat(String item) {
+    if (item == null || item == 'Selecione a categoria') {
+      return "Selecione uma categoria!";
     }
     return null;
   }

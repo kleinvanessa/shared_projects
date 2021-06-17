@@ -7,7 +7,8 @@ using Web.shared_projects.Models;
 namespace Web.shared_projects.Repositories {
     public interface IEFCoreRepository {
         void Add<T>(T entity) where T : class; // assinatura generica que aceita qualquer tipo como parametro / T = tipo
-        void Update<T>(T entity) where T : class;
+        void Update<T>(T entity) where T : class; 
+        void UpdateOnlyEnroll<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
 
         Task<bool> SaveChangeAsync();
@@ -23,6 +24,9 @@ namespace Web.shared_projects.Repositories {
         Task<Project[]> GetProjectByCategory(int categoryId, bool includeUser = false);
 
         Task<Project[]> GetUserProj(int userid);
+        Task<Project[]> GetEnrollUserProj(int userid);
+
+        Task<User[]> GetUsersEnrollsinProjects(int projectId);
 
         Task<AreaKnowledge[]> GetAllAreas();
     }
