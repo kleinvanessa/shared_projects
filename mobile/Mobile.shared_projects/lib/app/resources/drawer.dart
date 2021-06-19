@@ -40,12 +40,12 @@ class DrawerPage extends StatelessWidget {
               MySubscriptionsPage(),
               typeLeading: Icons.edit,
             ),
-            _listTileMethod(
+            /* _listTileMethod(
               context,
               'Meus inscritos',
               MyEnrolledPage(), //TODO
               typeLeading: Icons.person,
-            ),
+            ),*/
             _listTileMethod(
               context,
               'Favoritos',

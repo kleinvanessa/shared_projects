@@ -34,3 +34,11 @@ INNER JOIN  [SharedProjects].[dbo].[UserProject] Up ON Up.UserId = 3
 WHERE P.Id = Up.ProjectId;
 
 
+SELECT * FROM [SharedProjects].[dbo].[Project] P 
+INNER JOIN  [SharedProjects].[dbo].[EnrolledProjects] E ON E.UserId = 2 
+WHERE P.Id = E.ProjectId;
+
+
+SELECT * FROM [SharedProjects].[dbo].[User] U 
+INNER JOIN  [SharedProjects].[dbo].[EnrolledProjects] E ON E.ProjectId = 7  
+WHERE U.Id = E.UserId;
