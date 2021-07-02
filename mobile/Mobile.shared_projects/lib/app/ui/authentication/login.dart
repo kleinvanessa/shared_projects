@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                InkWell(
+                /* InkWell(
                   child: Text(
                     'Esqueci minha senha',
                     style: TextStyle(
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
-                ),
+                ),*/
                 SizedBox(
                   height: 30,
                 ),

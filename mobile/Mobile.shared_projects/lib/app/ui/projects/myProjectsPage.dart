@@ -7,7 +7,7 @@ import 'package:shared_projects/app/models/userProjects.dart';
 import 'package:shared_projects/app/ui/chat/chatView.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
-import 'package:shared_projects/app/ui/projects/projectDetails.dart';
+import 'package:shared_projects/app/ui/projects/MyProjectsDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
@@ -97,7 +97,7 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ProjectsDetails(
+                  builder: (BuildContext context) => MyProjectsDetails(
                     imageProject: 'assets/img/docProj.png',
                     nameProject: projectName,
                     projectDescription: projectDescription,
@@ -143,10 +143,15 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
         onTap: () {
           push(
             context,
-            ProjectsDetails(
-                imageProject: 'assets/img/docProj.png',
-                nameProject: projectName,
-                projectDescription: projectDescription),
+            MyProjectsDetails(
+              imageProject: 'assets/img/docProj.png',
+              nameProject: projectName,
+              projectDescription: projectDescription,
+              isUserAdmin: true,
+              projectId: projId,
+              projectUserAdminId: userAdminId,
+              projectCategoryId: catProjId,
+            ),
           );
         },
       ),

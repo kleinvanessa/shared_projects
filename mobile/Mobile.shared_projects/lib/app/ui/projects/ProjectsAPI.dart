@@ -244,4 +244,29 @@ class ProjectsAPI {
       print(">>> error:$error");
     }
   }
+
+  static Future<ApiResponse<Projects>> deleteProject(int projectId) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          DELETE PROJETO          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/$projectId';
+
+      var response = await http.delete(
+        url,
+      );
+      if (response.statusCode == 200) {
+        print("delete ok");
+        return ApiResponse.deleteOk(response.body);
+      }
+    } catch (error) {
+      print(">>> error:$error");
+    }
+  }
 }

@@ -16,13 +16,15 @@ namespace Web.shared_projects.Data {
         public DbSet<UserProject> UserProject { get; set; }
         public DbSet<EnrolledProjects> EnrolledProjects { get; set; }
         public DbSet<AreaKnowledge> AreaKnowledge { get; set; }
+        public DbSet<Curriculum> Curriculum { get; set; }
+        public DbSet<Payment> Payment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<UserProject>(entity => {
-                entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta
+                entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta para User Projects
             });
             modelBuilder.Entity<EnrolledProjects>(entity => {
-                entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta
+                entity.HasKey(e => new { e.UserId, e.ProjectId }); // definindo a chave composta para Enrolled Projects
             });
         }
     }

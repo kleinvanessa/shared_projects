@@ -28,6 +28,7 @@ namespace Web.shared_projects.Controllers {
             try {
                 var users = await _repo.GetAllUsers(true);
                 return Ok(users);
+                //return Ok(new User());
             }
             catch (Exception ex) {
                 return BadRequest($"Erro: {ex}");
@@ -68,6 +69,34 @@ namespace Web.shared_projects.Controllers {
             catch (Exception ex) {
                 return BadRequest($"Insert User Error: {ex}");
             }            
+        }
+
+        [HttpPost("Curriculum")]
+        public async Task<IActionResult> PostCurriculum(Curriculum model) { //insert
+            try {
+                _repo.Add(model);
+                if (await _repo.SaveChangeAsync()) {
+                    return Ok("Save curriculum");
+                }
+                return BadRequest("not save curriculum");
+            }
+            catch (Exception ex) {
+                return BadRequest($"Insert User Error: {ex}");
+            }
+        }
+
+        [HttpPost("Payment")]
+        public async Task<IActionResult> PostPayment(Payment model) { //insert
+            try {
+                _repo.Add(model);
+                if (await _repo.SaveChangeAsync()) {
+                    return Ok("Save payment");
+                }
+                return BadRequest("not save payment");
+            }
+            catch (Exception ex) {
+                return BadRequest($"Insert User Error: {ex}");
+            }
         }
 
         [HttpPost("Login")]

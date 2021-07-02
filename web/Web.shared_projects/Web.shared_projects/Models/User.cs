@@ -18,5 +18,12 @@ namespace Web.shared_projects.Models {
 
         public ICollection<EnrolledProjects> EnrolledProjects { get; set; }
         public String Password { get; set; }
+
+        //public int CurriculumId { get; set; }
+
+        //public Curriculum Curriculum { get; set; }
+        //public int PaymentId { get; set; }
+
+        //public Payment Payment { get; set; }
     }
 }

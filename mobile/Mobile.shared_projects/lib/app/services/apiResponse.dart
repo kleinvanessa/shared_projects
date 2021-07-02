@@ -13,4 +13,7 @@ class ApiResponse<T> {
   ApiResponse.postOk(this.msg) {
     ok = true;
   }
+  ApiResponse.deleteOk(this.msg) {
+    ok = true;
+  }
 }

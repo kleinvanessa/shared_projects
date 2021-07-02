@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Alert(BuildContext context, String msg, String title) {
+Alert(BuildContext context, String msg, String title,
+    {bool secondButton = false}) {
   showDialog(
       context: context,
       barrierDismissible: false,
@@ -25,6 +26,15 @@ Alert(BuildContext context, String msg, String title) {
                   //print("OK!!!!!!!!");
                 },
               ),
+              secondButton
+                  ? FlatButton(
+                      child: Text("Não"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        //print("OK!!!!!!!!");
+                      },
+                    )
+                  : Container()
             ],
           ),
         );
