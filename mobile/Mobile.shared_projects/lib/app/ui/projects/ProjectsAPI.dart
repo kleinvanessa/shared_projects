@@ -269,4 +269,39 @@ class ProjectsAPI {
       print(">>> error:$error");
     }
   }
+
+  static Future<ApiResponse<Projects>> deleteEnrollProject(
+      int projectId) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid = user.id;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          DELETE ENROLL PROJETO          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/deleteEnroll';
+
+      var response = await http.post(url, body: body, headers: headers);
+      if (response.statusCode == 200) {
+        print("delete ok");
+        return ApiResponse.deleteOk(response.body);
+      }
+    } catch (error) {
+      print(">>> error:$error");
+    }
+  }
 }

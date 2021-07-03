@@ -26,6 +26,8 @@ namespace Web.shared_projects.Repositories {
         Task<Project[]> GetUserProj(int userid);
         Task<Project[]> GetEnrollUserProj(int userid);
 
+        Task<EnrolledProjects> DeleteEnrollUserProj(int id, int userid);
+
         Task<User[]> GetUsersEnrollsinProjects(int projectId);
 
         Task<AreaKnowledge[]> GetAllAreas();

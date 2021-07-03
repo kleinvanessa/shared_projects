@@ -11,6 +11,7 @@ import 'package:shared_projects/app/utils/nav.dart';
 
 import '../layout.dart';
 import 'ProjectsAPI.dart';
+import 'mySubProjectDetails.dart';
 
 class MySubscriptionsPage extends StatefulWidget {
   @override
@@ -95,7 +96,7 @@ class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ProjectsDetails(
+                  builder: (BuildContext context) => MySubProjectsDetails(
                     imageProject: 'assets/img/docProj.png',
                     nameProject: projectName,
                     projectDescription: projectDescription,
@@ -135,10 +136,15 @@ class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
         onTap: () {
           push(
             context,
-            ProjectsDetails(
-                imageProject: 'assets/img/docProj.png',
-                nameProject: projectName,
-                projectDescription: projectDescription),
+            MySubProjectsDetails(
+              imageProject: 'assets/img/docProj.png',
+              nameProject: projectName,
+              projectDescription: projectDescription,
+              isUserAdmin: true,
+              projectId: projId,
+              projectUserAdminId: userAdminId,
+              projectCategoryId: catProjId,
+            ),
           );
         },
       ),

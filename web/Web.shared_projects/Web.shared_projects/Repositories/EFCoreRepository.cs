@@ -154,6 +154,10 @@ namespace Web.shared_projects.Repositories {
             return await query.ToArrayAsync();
         }
 
-        
+        public async Task<EnrolledProjects> DeleteEnrollUserProj(int id, int userid) {
+            IQueryable<EnrolledProjects> query = _context.EnrolledProjects;
+            
+            return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
+        }
     }
 }

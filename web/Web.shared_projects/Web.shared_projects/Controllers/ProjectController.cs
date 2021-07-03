@@ -168,5 +168,24 @@ namespace Web.shared_projects.Controllers {
             }
             return BadRequest("Not Deleted Project");
         }
+
+        [HttpPost("deleteEnroll")]
+        public async Task<IActionResult> DeleteEnrool(EnrolledProjects model) {
+            try {
+                var enroll = await _repo.DeleteEnrollUserProj(model.ProjectId, model.UserId);
+                Console.WriteLine("projId: "+model.ProjectId + " "+"userId: "+model.UserId );
+                if (enroll != null) {
+                    //return Ok(enroll);
+                    _repo.Delete(enroll);
+                    if (await _repo.SaveChangeAsync()) {
+                        return Ok("Delete enroll Success");
+                    }
+                }
+            }
+            catch (Exception ex) {
+                return BadRequest($"Delete enroll Error: {ex}");
+            }
+            return BadRequest("Not Deleted enroll");
+        }
     }
 }
