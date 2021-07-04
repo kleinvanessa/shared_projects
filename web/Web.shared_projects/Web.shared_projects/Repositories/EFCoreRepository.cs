@@ -159,6 +159,11 @@ namespace Web.shared_projects.Repositories {
             
             return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
         }
+        public async Task<UserProject> GetProjeByUserIdProj(int id, int userid) {
+            IQueryable<UserProject> query = _context.UserProject;
+
+            return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
+        }
 
         public async Task<Curriculum> GetCurriculumByUserId(int userid) {
             IQueryable<Curriculum> query = _context.Curriculum;

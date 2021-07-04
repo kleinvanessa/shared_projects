@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
@@ -9,6 +10,10 @@ import 'package:shared_projects/app/utils/nav.dart';
 import 'ProjectsAPI.dart';
 
 class ProjectsListView extends StatefulWidget {
+  final userId;
+  const ProjectsListView({
+    @required this.userId,
+  });
   @override
   _ProjectsListViewState createState() => _ProjectsListViewState();
 }
@@ -25,6 +30,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
   }
 
   Widget build(BuildContext context) {
+    print("USER LISTVIEW PROJ É ${widget.userId}");
     // super.build(context);
     return _projectsList(context);
   }
@@ -67,65 +73,12 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return /* i == 0
-              ? Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          suffixIcon:
-                              Icon(Icons.search, color: Color(0xFF583D72)),
-                          hintText: 'Pesquisar projetos',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF000000).withOpacity(.3),
-                            fontStyle: FontStyle.italic,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF583D72).withOpacity(.4),
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF583D72)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    _projectsItems(l.projectName, l.description, ctx,
-                        l.userAdminId, l.id, l.categoryId)
-                  ],
-                )
-              : */
-              _projectsItems(l.projectName, l.description, ctx, l.userAdminId,
-                  l.id, l.categoryId);
+          return _projectsItems(l.projectName, l.description, ctx,
+              l.userAdminId, l.id, l.categoryId);
         });
   }
 
-  bool _isUserAdmin(int userAdmin) {
-    Future<User> future = User.get();
-    future.then((User user) {
-      userAdmin == user.id ? userAdminIsTrue = true : userAdminIsTrue = false;
-    });
-    print(
-        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  userAdminIsTrue : $userAdminIsTrue");
-    return userAdminIsTrue;
-  }
-
-  _teste(Projects l) {
-    Future<User> future = User.get();
-    future.then((User user) {
-      l.enrolledProjects.add("{userId : ${user.id}}");
-      print("********** l : ${l.enrolledProjects}");
-    });
-    return l;
-  }
-
-  Widget _projectsItems(String projectName, String projectDescription,
+  _projectsItems(String projectName, String projectDescription,
       BuildContext context, int userAdminId, int projId, int catProjId) {
     return ListTile(
       contentPadding: EdgeInsets.all(15),
@@ -135,24 +88,10 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           //fit: BoxFit.cover,
           width: 90.0,
           height: 90.0,
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ProjectsDetails(
-                    imageProject: 'assets/img/docProj.png',
-                    nameProject: projectName,
-                    projectDescription: projectDescription,
-                    isUserAdmin: _isUserAdmin(userAdminId),
-                    projectId: projId,
-                    projectUserAdminId: userAdminId,
-                    projectCategoryId: catProjId,
-                  ),
-                ),
-              );
-            },
-          ),
+          child: InkWell(onTap: () {
+            _clicInProject(projId, projectName, projectDescription, userAdminId,
+                catProjId);
+          }),
         ),
       ),
       trailing: IconButton(
@@ -169,29 +108,18 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         ),
       ),
       title: InkWell(
-        child: Text(
-          projectName,
-          overflow: TextOverflow.visible,
-          style: TextStyle(
-              // color: Color(0xFF583D72),
-              // decoration: TextDecoration.underline,
-              ),
-        ),
-        onTap: () {
-          push(
-            context,
-            ProjectsDetails(
-              imageProject: 'assets/img/docProj.png',
-              nameProject: projectName,
-              projectDescription: projectDescription,
-              isUserAdmin: _isUserAdmin(userAdminId),
-              projectId: projId,
-              projectUserAdminId: userAdminId,
-              projectCategoryId: catProjId,
-            ),
-          );
-        },
-      ),
+          child: Text(
+            projectName,
+            overflow: TextOverflow.visible,
+            style: TextStyle(
+                // color: Color(0xFF583D72),
+                // decoration: TextDecoration.underline,
+                ),
+          ),
+          onTap: () {
+            _clicInProject(projId, projectName, projectDescription, userAdminId,
+                catProjId);
+          }),
       subtitle: Text(projectDescription,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -204,6 +132,36 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                 imageProject: 'assets/img/docProj.png',
                 nameProject: projectName));
       },*/
+    );
+  }
+
+  _clicInProject(
+      projId, projectName, projectDescription, userAdminId, catProjId) async {
+    print("clic projeto id $projId com user ${widget.userId}");
+    var isButton;
+    ApiResponse response =
+        await ProjectsAPI.getUserProject(projId, userEnrollId: widget.userId);
+    if (response.ok) {
+      isButton = response.ok;
+    } else {
+      ApiResponse responseE = await ProjectsAPI.getEnrolledProject(projId,
+          userEnrollId: widget.userId);
+      isButton = responseE.ok;
+    }
+
+    print("isbutton $isButton");
+    push(
+      context,
+      ProjectsDetails(
+        imageProject: 'assets/img/docProj.png',
+        nameProject: projectName,
+        projectDescription: projectDescription,
+        isButton: isButton,
+        userLog: widget.userId,
+        projectId: projId,
+        projectUserAdminId: userAdminId,
+        projectCategoryId: catProjId,
+      ),
     );
   }
 }

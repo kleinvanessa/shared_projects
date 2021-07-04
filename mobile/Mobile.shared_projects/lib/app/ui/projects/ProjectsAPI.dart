@@ -354,4 +354,80 @@ class ProjectsAPI {
       print(">>> error:$error");
     }
   }
+
+  static Future<ApiResponse<int>> getUserProject(int projectId,
+      {int userEnrollId = 0}) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid;
+      userEnrollId == 0 ? userid = user.id : userid = userEnrollId;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          GET USER PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/getUsersProjects';
+
+      var response = await http.post(url, body: body, headers: headers);
+      print("statusCode userProj:  ${response.statusCode}");
+      if (response.statusCode == 200) {
+        return ApiResponse.postOk(response.body);
+      }
+      return ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
+
+  static Future<ApiResponse<int>> getEnrolledProject(int projectId,
+      {int userEnrollId = 0}) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid;
+      userEnrollId == 0 ? userid = user.id : userid = userEnrollId;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          GET ENROLL PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/getEnrollProj';
+
+      var response = await http.post(url, body: body, headers: headers);
+      print("statusCode enrollde:  ${response.statusCode}");
+      if (response.statusCode == 200) {
+        return ApiResponse.postOk(response.body);
+      }
+      return ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
 }

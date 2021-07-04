@@ -197,7 +197,8 @@ class _LoginPageState extends State<LoginPage> {
       print(responseC);
       ApiResponse responseP = await LoginAPI.getPayment();
       print(responseP);
-      push(context, HomePage(), replace: true);
+      print("USER LOGIN É ${user.id}");
+      push(context, HomePage(userId: user.id), replace: true);
     } else {
       Alert(context, response.msg,
           "Aviso"); //mesnagem de erro de login - status code 404 NotFound

@@ -174,7 +174,7 @@ namespace Web.shared_projects.Controllers {
         public async Task<IActionResult> DeleteEnrool(EnrolledProjects model) {
             try {
                 var enroll = await _repo.DeleteEnrollUserProj(model.ProjectId, model.UserId);
-                Console.WriteLine("projId: "+model.ProjectId + " "+"userId: "+model.UserId );
+                Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
                 if (enroll != null) {
                     //return Ok(enroll);
                     _repo.Delete(enroll);
@@ -182,6 +182,43 @@ namespace Web.shared_projects.Controllers {
                         return Ok("Delete enroll Success");
                     }
                 }
+            }
+            catch (Exception ex) {
+                return BadRequest($"Delete enroll Error: {ex}");
+            }
+            return BadRequest("Not Deleted enroll");
+        }
+
+    [HttpPost("getUsersProjects")]
+        public async Task<IActionResult> GetUsersProjects(UserProject model) {
+        try {
+               var usersProject = await _repo.GetProjeByUserIdProj(model.ProjectId, model.UserId);
+               Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
+                if (usersProject != null) {
+                    return Ok(usersProject);
+                }
+                
+                    var json = JsonSerializer.Serialize(new { response = "dont exist" });
+                    return BadRequest(json);
+               
+        }
+        catch (Exception ex) {
+             return BadRequest($"Delete enroll Error: {ex}");
+        }
+        return BadRequest("Not Deleted enroll");
+    }
+        [HttpPost("getEnrollProj")]
+        public async Task<IActionResult> GetEnrollProjects(EnrolledProjects model) {
+            try {
+                var enrollProject = await _repo.DeleteEnrollUserProj(model.ProjectId, model.UserId);
+                Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
+                if (enrollProject != null) {
+                    return Ok(enrollProject);
+                }
+
+                var json = JsonSerializer.Serialize(new { response = "dont exist" });
+                return BadRequest(json);
+
             }
             catch (Exception ex) {
                 return BadRequest($"Delete enroll Error: {ex}");

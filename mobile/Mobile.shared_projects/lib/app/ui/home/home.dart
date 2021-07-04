@@ -5,17 +5,16 @@ import 'package:shared_projects/app/ui/projects/projectsView.dart';
 import 'package:shared_projects/app/ui/chat/chatView.dart';
 
 class HomePage extends StatefulWidget {
+  final userId;
+  const HomePage({
+    this.userId,
+  });
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<HomePage> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [
-    HomeView(),
-    ProjectsView(),
-    AddProjectsPage(),
-  ];
 
   int _selectedIndex = 0;
   void _onPageChanged(int index) {
@@ -30,6 +29,12 @@ class _HomeState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("USER HOME É ${widget.userId}");
+    List<Widget> _screens = [
+      HomeView(),
+      ProjectsView(userId: widget.userId),
+      AddProjectsPage(),
+    ];
     return Scaffold(
       body: PageView(
         controller: _pageController,

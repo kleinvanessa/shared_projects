@@ -6,6 +6,10 @@ import 'package:shared_projects/app/ui/projects/addNewProject.dart';
 import 'package:shared_projects/app/ui/projects/projectsListView.dart';
 
 class ProjectsView extends StatefulWidget {
+  final userId;
+  const ProjectsView({
+    @required this.userId,
+  });
   @override
   _ProjectsViewState createState() => _ProjectsViewState();
 }
@@ -19,10 +23,13 @@ class _ProjectsViewState extends State<ProjectsView> {
   }
 
   Widget build(BuildContext context) {
+    print("USER PROJETOS VIEWS É ${widget.userId}");
     return Layout.render(
       tittlePage: 'Projetos',
       drawerComponent: DrawerPage(),
-      content: ProjectsListView(),
+      content: ProjectsListView(
+        userId: widget.userId,
+      ),
     );
   }
 }
