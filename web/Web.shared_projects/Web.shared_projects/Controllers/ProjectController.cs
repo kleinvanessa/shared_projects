@@ -119,7 +119,8 @@ namespace Web.shared_projects.Controllers {
                 if (projects != null) {
                     _repo.Update(model);
                     if (await _repo.SaveChangeAsync()) {
-                        return Ok("Update Project Success");
+                        var json = JsonSerializer.Serialize(new { response = "Update Projet Success" });
+                        return Ok(json);
                     }
                 }
             }

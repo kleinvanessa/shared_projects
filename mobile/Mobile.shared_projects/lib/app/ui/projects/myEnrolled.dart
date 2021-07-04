@@ -8,6 +8,7 @@ import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/chat/chatAPI.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
+import 'package:shared_projects/app/ui/projects/viewCurriculum.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
@@ -16,8 +17,14 @@ import 'ProjectsAPI.dart';
 
 class MyEnrolledPage extends StatefulWidget {
   final projectId;
+  final projectName;
+  final projectDesc;
+  final projectCat;
   const MyEnrolledPage({
     @required this.projectId,
+    @required this.projectName,
+    @required this.projectDesc,
+    @required this.projectCat,
   });
   @override
   _MyEnrolledPageState createState() => _MyEnrolledPageState();
@@ -79,21 +86,13 @@ class _MyEnrolledPageState extends State<MyEnrolledPage> {
       itemCount: users != null ? users.length : 0,
       itemBuilder: (ctx, i) {
         User u = users[i];
-        return _userTile(
-          u.name,
-          u.lastName,
-          u.email,
-        );
+        return _userTile(u.name, u.lastName, u.email, u.id);
       },
     );
   }
 
-  _userTile(String name, String lastName, email, {urlFoto}) {
+  _userTile(String name, String lastName, email, userId, {urlFoto}) {
     return ListTile(
-      leading: CircularAvatar(
-        isButton: false,
-        image: urlFoto ?? "assets/img/undefined.png",
-      ),
       title: Text(
         name + " " + lastName,
         overflow: TextOverflow.ellipsis,
@@ -102,6 +101,36 @@ class _MyEnrolledPageState extends State<MyEnrolledPage> {
       subtitle: Text(
         email,
       ),
+      trailing: _viewCurriculum(name, lastName, email, userId),
+    );
+  }
+
+  _viewCurriculum(name, lastName, email, userId) {
+    return InkWell(
+      child: Text(
+        'Ver curriculo >',
+        style: TextStyle(
+          color: Color(0xFF583D72),
+          decoration: TextDecoration.underline,
+        ),
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => ViewCurriculum(
+              userName: name,
+              userLastname: lastName,
+              userEmail: email,
+              userId: userId,
+              projName: widget.projectName,
+              projDesc: widget.projectDesc,
+              projectId: widget.projectId,
+              projCat: widget.projectCat,
+            ),
+          ),
+        );
+      },
     );
   }
 }

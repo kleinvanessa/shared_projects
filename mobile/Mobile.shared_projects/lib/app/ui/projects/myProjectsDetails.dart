@@ -18,6 +18,8 @@ class MyProjectsDetails extends StatefulWidget {
   final projectId;
   final projectUserAdminId;
   final projectCategoryId;
+  final userAdminProj;
+  final userLoggedId;
   const MyProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -26,6 +28,8 @@ class MyProjectsDetails extends StatefulWidget {
     @required this.projectId,
     @required this.projectUserAdminId,
     @required this.projectCategoryId,
+    @required this.userAdminProj,
+    @required this.userLoggedId,
   });
 
   @override
@@ -40,6 +44,8 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
 
   Widget build(BuildContext context) {
     print("------------------>  isUserAdmin = ${widget.isUserAdmin}");
+    print("------------------>  userAdminProj = ${widget.userAdminProj}");
+    print("------------------>  userLoggedId = ${widget.userLoggedId}");
     return Layout.render(
       tittlePage: 'Mais Informações',
       content: ListView(
@@ -77,20 +83,22 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
                       )
                     ],
                   ),
-                  Column(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.edit),
-                        color: Colors.grey,
-                        onPressed: _clickEdit,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        color: Colors.grey,
-                        onPressed: _clickTrashButton,
-                      ),
-                    ],
-                  ),
+                  widget.userAdminProj == widget.userLoggedId
+                      ? Column(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              color: Colors.grey,
+                              onPressed: _clickEdit,
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              color: Colors.grey,
+                              onPressed: _clickTrashButton,
+                            ),
+                          ],
+                        )
+                      : Text("")
                 ],
               ),
               Text(
@@ -119,6 +127,39 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
               ), //Text('$projectDescription')
               SizedBox(
                 height: 25,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Coordenador do Projeto:  ",
+                    style: TextStyle(
+                      color: Color(0xFF583D72),
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    "nome do coordenador",
+                    overflow: TextOverflow.visible,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Bolsistas do Projeto:  ",
+                    style: TextStyle(
+                      color: Color(0xFF583D72),
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    "nome do bolsista",
+                    overflow: TextOverflow.visible,
+                  ),
+                ],
               ),
             ],
           ),

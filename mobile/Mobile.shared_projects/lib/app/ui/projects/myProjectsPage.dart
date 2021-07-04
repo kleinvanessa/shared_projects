@@ -68,22 +68,28 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
             );
           }
           List<Projects> projects = snapshot.data;
-          return _content(projects);
+          return _content(projects, user.id);
         });
   }
 
-  _content(lista) {
+  _content(lista, userId) {
     return ListView.builder(
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
           return _projectsItems(l.projectName, l.description, ctx,
-              l.userAdminId, l.id, l.categoryId);
+              l.userAdminId, l.id, l.categoryId, userId);
         });
   }
 
-  Widget _projectsItems(String projectName, String projectDescription,
-      BuildContext context, int userAdminId, int projId, int catProjId) {
+  Widget _projectsItems(
+      String projectName,
+      String projectDescription,
+      BuildContext context,
+      int userAdminId,
+      int projId,
+      int catProjId,
+      int userId) {
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -98,39 +104,45 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) => MyProjectsDetails(
-                    imageProject: 'assets/img/docProj.png',
-                    nameProject: projectName,
-                    projectDescription: projectDescription,
-                    isUserAdmin: true,
-                    projectId: projId,
-                    projectUserAdminId: userAdminId,
-                    projectCategoryId: catProjId,
-                  ),
+                      imageProject: 'assets/img/docProj.png',
+                      nameProject: projectName,
+                      projectDescription: projectDescription,
+                      isUserAdmin: true,
+                      projectId: projId,
+                      projectUserAdminId: userAdminId,
+                      projectCategoryId: catProjId,
+                      userAdminProj: userAdminId,
+                      userLoggedId: userId),
                 ),
               );
             },
           ),
         ),
       ),
-      trailing: InkWell(
-        child: Text(
-          'Ver inscritos >',
-          style: TextStyle(
-            color: Color(0xFF583D72),
-            decoration: TextDecoration.underline,
-          ),
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => MyEnrolledPage(
-                projectId: projId,
+      trailing: userId == userAdminId
+          ? InkWell(
+              child: Text(
+                'Ver inscritos >',
+                style: TextStyle(
+                  color: Color(0xFF583D72),
+                  decoration: TextDecoration.underline,
+                ),
               ),
-            ),
-          );
-        },
-      ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyEnrolledPage(
+                      projectId: projId,
+                      projectName: projectName,
+                      projectDesc: projectDescription,
+                      projectCat: catProjId,
+                    ),
+                  ),
+                );
+              },
+            )
+          : Text(""),
       title: InkWell(
         child: Text(
           projectName,
@@ -144,14 +156,18 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
           push(
             context,
             MyProjectsDetails(
-              imageProject: 'assets/img/docProj.png',
-              nameProject: projectName,
-              projectDescription: projectDescription,
-              isUserAdmin: true,
-              projectId: projId,
-              projectUserAdminId: userAdminId,
-              projectCategoryId: catProjId,
-            ),
+                imageProject: 'assets/img/docProj.png',
+                nameProject: projectName,
+                projectDescription: projectDescription,
+                isUserAdmin: true,
+                projectId: projId,
+                projectUserAdminId: userAdminId,
+                projectCategoryId: catProjId,
+                userAdminProj: userAdminId,
+                userLoggedId: userId
+
+                //userAdminId:,
+                ),
           );
         },
       ),

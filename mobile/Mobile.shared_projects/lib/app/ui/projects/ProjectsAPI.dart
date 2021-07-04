@@ -215,6 +215,55 @@ class ProjectsAPI {
     }
   }
 
+  static Future<ApiResponse<Projects>> addCurriculumInProject(
+    int projectId,
+    String projName,
+    String projDesc,
+    int userId,
+    int categoryId,
+  ) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userAdminId = user.id;
+
+      var projectDetails =
+          '{"id": "$projectId","projectName": "$projName","description": "$projDesc","userAdminId": "$userAdminId","categoryId": "$categoryId","usersProjects":[{"userid": "$userId"}] }';
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      print(
+          "-------------------------------------------------          ADD CURRICULUM USER PROJ         -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/$projectId';
+
+      var response = await http.put(
+        url,
+        headers: headers,
+        body: projectDetails,
+      );
+      // print("response.body:${response.body}");
+      print('Response status: ${response.statusCode}');
+
+      Map mapResponse = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        // final project = Projects.fromJson(mapResponse);
+        return ApiResponse.postOk(mapResponse["response"]);
+      }
+
+      return ApiResponse.error(mapResponse["response"]);
+    } catch (error) {
+      print(">>> error:$error");
+      throw error;
+    }
+  }
+
   static Future<List<User>> usersEnrolls(int projectId) async {
     //await Future.delayed(Duration(seconds: 1));
     try {
@@ -270,8 +319,8 @@ class ProjectsAPI {
     }
   }
 
-  static Future<ApiResponse<Projects>> deleteEnrollProject(
-      int projectId) async {
+  static Future<ApiResponse<Projects>> deleteEnrollProject(int projectId,
+      {int userEnrollId = 0}) async {
     //await Future.delayed(Duration(seconds: 1));
     try {
       final ioc = new HttpClient();
@@ -281,7 +330,8 @@ class ProjectsAPI {
 
       User user = await User.get();
 
-      int userid = user.id;
+      int userid;
+      userEnrollId == 0 ? userid = user.id : userid = userEnrollId;
       Map<String, String> headers = {"Content-Type": "application/json"};
 
       Map data = {
