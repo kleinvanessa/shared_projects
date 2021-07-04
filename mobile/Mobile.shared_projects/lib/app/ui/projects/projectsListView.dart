@@ -139,6 +139,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
       projId, projectName, projectDescription, userAdminId, catProjId) async {
     print("clic projeto id $projId com user ${widget.userId}");
     var isButton;
+    var submited = false;
     ApiResponse response =
         await ProjectsAPI.getUserProject(projId, userEnrollId: widget.userId);
     if (response.ok) {
@@ -147,9 +148,12 @@ class _ProjectsListViewState extends State<ProjectsListView> {
       ApiResponse responseE = await ProjectsAPI.getEnrolledProject(projId,
           userEnrollId: widget.userId);
       isButton = responseE.ok;
+      print("enroleed? yesss");
+      isButton ? submited = true : submited = false;
     }
 
     print("isbutton $isButton");
+    print("submited $submited");
     push(
       context,
       ProjectsDetails(
@@ -159,6 +163,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         isButton: isButton,
         userLog: widget.userId,
         projectId: projId,
+        submited: submited,
         projectUserAdminId: userAdminId,
         projectCategoryId: catProjId,
       ),

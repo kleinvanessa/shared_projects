@@ -8,6 +8,8 @@ import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
+import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
+import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
@@ -21,6 +23,7 @@ class ProjectsDetails extends StatefulWidget {
   final projectUserAdminId;
   final projectCategoryId;
   final isButton;
+  final submited;
   const ProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -30,6 +33,7 @@ class ProjectsDetails extends StatefulWidget {
     @required this.projectUserAdminId,
     @required this.projectCategoryId,
     @required this.isButton,
+    @required this.submited,
   });
 
   @override
@@ -44,7 +48,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
 
   Widget build(BuildContext context) {
     //print("------------------>  isUserAdmin = ${widget.userLog}");
-
+    print("isButton : ${widget.isButton} e submited : ${widget.submited}");
     return Layout.render(
       tittlePage: 'Mais Informações',
       content: _content(),
@@ -123,25 +127,52 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
             SizedBox(
               height: 25,
             ),
+
             widget.isButton
-                ? Text("teste")
+                ? _isSubmet()
                 : FlatButtonComponent(
                     //routeButton: _clickSubmmit,
                     textButton: "Me inscrever",
                     buttonColor: Color(0xFF583D72),
                     onPressed: _clickSubmmit),
-            //_getUserProjCode(code),
-            /*widget.userLog == widget.projectUserAdminId
-                  ? Container()
-                  : FlatButtonComponent(
-                      routeButton: _clickSubmmit,
-                      textButton: "Me inscrever",
-                      buttonColor: Color(0xFF583D72),
-                      onPressed: _clickSubmmit),*/
           ],
         ),
       ],
     );
+  }
+
+  _isSubmet() {
+    print("isSub ${widget.submited}");
+
+    print("ueee");
+    return Column(
+      children: [
+        widget.submited
+            ? Text("Você já está inscrito neste projeto")
+            : Text("Você já faz parte deste projeto"),
+        SizedBox(
+          height: 25,
+        ),
+        InkWell(
+          child: Text(
+            widget.submited ? 'Ver minhas inscrições' : 'Ver meus projetos',
+            style: TextStyle(
+              color: widget.submited ? Color(0xFFFF8E71) : Color(0xFF583D72),
+              decoration: TextDecoration.underline,
+            ),
+          ),
+          onTap: () {
+            widget.submited
+                ? _click(MySubscriptionsPage())
+                : _click(MyProjectsPage());
+          },
+        )
+      ],
+    );
+  }
+
+  _click(route) {
+    push(context, route);
   }
 
   void _clickSubmmit() async {
