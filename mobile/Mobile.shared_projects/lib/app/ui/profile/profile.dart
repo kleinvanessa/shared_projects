@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
         appBar: AppBar(
           iconTheme: IconThemeData(color: Color(0xFF583D72)),
           title: Text(
-            'Perfil',
+            'Meu Perfil',
             style: TextStyle(
               color: Color(0xFF583D72),
             ),

@@ -121,10 +121,50 @@ class DrawerPage extends StatelessWidget {
 
   _clickOnTap(context, navRoute, {clear = false, replace = false}) {
     if (clear) {
-      Curriculum.clear();
-      Payment.clear();
-      User.clear();
+      _clickLogOut(context, navRoute, replace);
+    } else {
+      push(context, navRoute, replace: replace);
     }
+  }
+
+  void _clickLogOut(ctx, navRoute, replace) {
+    _AlertLogOut("Aviso", "Tem certeza que deseja fazer logout?", ctx, navRoute,
+        replace);
+  }
+
+  void _AlertLogOut(String title, String msg, context, navRoute, replace) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              title: Text(title),
+              content: Text(msg),
+              actions: <Widget>[
+                FlatButton(
+                    child: Text("Sim"),
+                    onPressed: () {
+                      _clearAll(context, navRoute, replace);
+                    }),
+                FlatButton(
+                  child: Text("Não"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    //print("OK!!!!!!!!");
+                  },
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  _clearAll(context, navRoute, replace) {
+    Curriculum.clear();
+    Payment.clear();
+    User.clear();
     push(context, navRoute, replace: replace);
   }
 }
