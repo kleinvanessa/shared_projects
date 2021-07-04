@@ -58,7 +58,7 @@ class _HomeState extends State<HomePage> {
                 color: _selectedIndex == 1
                     ? Color(0xFF583D72)
                     : Color(0xFF000000).withOpacity(.3)),
-            title: Text('Pesquisar projetos',
+            title: Text('Projetos',
                 style: TextStyle(
                     color: _selectedIndex == 1
                         ? Color(0xFF583D72)

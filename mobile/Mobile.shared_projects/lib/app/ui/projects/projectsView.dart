@@ -20,7 +20,7 @@ class _ProjectsViewState extends State<ProjectsView> {
 
   Widget build(BuildContext context) {
     return Layout.render(
-      tittlePage: 'Pesquisar projetos',
+      tittlePage: 'Projetos',
       drawerComponent: DrawerPage(),
       content: ProjectsListView(),
     );

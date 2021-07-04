@@ -193,6 +193,10 @@ class _LoginPageState extends State<LoginPage> {
       User user =
           response.result; //result = parse do Json retornado na consulta
       print(">>> user- login.dart: $user");
+      ApiResponse responseC = await LoginAPI.getCurriculum();
+      print(responseC);
+      ApiResponse responseP = await LoginAPI.getPayment();
+      print(responseP);
       push(context, HomePage(), replace: true);
     } else {
       Alert(context, response.msg,

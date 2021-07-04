@@ -159,5 +159,18 @@ namespace Web.shared_projects.Repositories {
             
             return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
         }
+
+        public async Task<Curriculum> GetCurriculumByUserId(int userid) {
+            IQueryable<Curriculum> query = _context.Curriculum;
+
+            query = query.AsNoTracking().OrderBy(u => u.userId);
+            return await query.FirstOrDefaultAsync(u => u.userId == userid);
+        }
+        public async Task<Payment> GetPaymentByUserId(int userid) {
+            IQueryable<Payment> query = _context.Payment;
+
+            query = query.AsNoTracking().OrderBy(u => u.userId);
+            return await query.FirstOrDefaultAsync(u => u.userId == userid);
+        }
     }
 }

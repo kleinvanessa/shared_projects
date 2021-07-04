@@ -166,7 +166,7 @@ class _MySubProjectsDetailsState extends State<MySubProjectsDetails> {
                 FlatButton(
                   child: Text("ok"),
                   onPressed: () {
-                    push(context, MySubscriptionsPage(), replace: true);
+                    push(context, HomePage(), replace: true);
                     //print("OK!!!!!!!!");
                   },
                 ),

@@ -67,7 +67,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return i == 0
+          return /* i == 0
               ? Column(
                   children: [
                     Container(
@@ -100,7 +100,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                         l.userAdminId, l.id, l.categoryId)
                   ],
                 )
-              : _projectsItems(l.projectName, l.description, ctx, l.userAdminId,
+              : */
+              _projectsItems(l.projectName, l.description, ctx, l.userAdminId,
                   l.id, l.categoryId);
         });
   }

@@ -198,7 +198,7 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
                 FlatButton(
                   child: Text("Ok"),
                   onPressed: () {
-                    push(context, MyProjectsPage(), replace: true);
+                    push(context, HomePage(), replace: true);
                     //print("OK!!!!!!!!");
                   },
                 )

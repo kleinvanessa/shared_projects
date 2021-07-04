@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/curriculum.dart';
+import 'package:shared_projects/app/models/payment.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
@@ -119,6 +121,8 @@ class DrawerPage extends StatelessWidget {
 
   _clickOnTap(context, navRoute, {clear = false, replace = false}) {
     if (clear) {
+      Curriculum.clear();
+      Payment.clear();
       User.clear();
     }
     push(context, navRoute, replace: replace);

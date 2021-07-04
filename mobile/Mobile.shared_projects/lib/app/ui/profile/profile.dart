@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_projects/app/models/curriculum.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/profile/myData.dart';
@@ -104,6 +105,7 @@ class ProfilePage extends StatelessWidget {
 
   _sizedBoxInfos(context, user) {
     // construct the profile details widget here
+    Future<Curriculum> futureC = Curriculum.get();
     return Row(
       children: <Widget>[
         SizedBox(
@@ -134,7 +136,7 @@ class ProfilePage extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 10),
               Text(
-                "${user.name}",
+                "${user.name + " " + user.lastName}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -158,22 +160,24 @@ class ProfilePage extends StatelessWidget {
                   color: Color(0xFF000000).withOpacity(.6),
                 ),
               ),
-              Text(
-                'Guaíba, RS',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: Color(0xFF583D72),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15),
-              ),
-              Text(
-                'Estudante na UERGS',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF000000).withOpacity(.6),
-                ),
-              ),
+              //_textInst(),
+              //_textCourse(),
+              FutureBuilder<Curriculum>(
+                  future: futureC,
+                  builder: (context, snapshot) {
+                    Curriculum curriculum = snapshot.data;
+                    return curriculum != null
+                        ? _textInst(curriculum.institution)
+                        : Text("");
+                  }),
+              FutureBuilder<Curriculum>(
+                  future: futureC,
+                  builder: (context, snapshot) {
+                    Curriculum curriculum = snapshot.data;
+                    return curriculum != null
+                        ? _textCourse(curriculum.course)
+                        : Text("");
+                  }),
               SizedBox(
                 height: 20,
               )
@@ -181,6 +185,29 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  _textInst(inst) {
+    print("aquiiiiiiiiiiiiii   $inst");
+    return Text(
+      "${inst}",
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 15,
+        color: Color(0xFF583D72),
+      ),
+    );
+  }
+
+  _textCourse(course) {
+    return Text(
+      "$course",
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 12,
+        color: Color(0xFF000000).withOpacity(.6),
+      ),
     );
   }
 }

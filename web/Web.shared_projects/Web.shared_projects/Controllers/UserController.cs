@@ -48,6 +48,27 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
+        [HttpGet("getCurriculum/{id}")]
+        public async Task<IActionResult> GetCurriculum(int id) {
+            try {
+                var curriculum = await _repo.GetCurriculumByUserId(id);
+                return Ok(curriculum);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+        [HttpGet("getPayment/{id}")]
+        public async Task<IActionResult> GetPayment(int id) {
+            try {
+                var payment = await _repo.GetPaymentByUserId(id);
+                return Ok(payment);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
         // POST api/<UserController>
         [HttpPost]
         public async Task<IActionResult> Post(User model) { //insert
@@ -71,13 +92,24 @@ namespace Web.shared_projects.Controllers {
             }            
         }
 
-        [HttpPost("Curriculum")]
+        [HttpPost("upsertCurriculum")]
         public async Task<IActionResult> PostCurriculum(Curriculum model) { //insert
             try {
-                _repo.Add(model);
-                if (await _repo.SaveChangeAsync()) {
-                    return Ok("Save curriculum");
+                if(model.Id == 0) {
+                    _repo.Add(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        var curriculumAdd = await _repo.GetCurriculumByUserId(model.userId);
+                        return Ok(curriculumAdd);
+                    }
                 }
+                else {
+                    _repo.Update(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        var curriculumUpdate = await _repo.GetCurriculumByUserId(model.userId);
+                        return Ok(curriculumUpdate);
+                    }
+                }
+                
                 return BadRequest("not save curriculum");
             }
             catch (Exception ex) {
@@ -85,14 +117,25 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
-        [HttpPost("Payment")]
+        [HttpPost("upsertPayment")]
         public async Task<IActionResult> PostPayment(Payment model) { //insert
             try {
-                _repo.Add(model);
-                if (await _repo.SaveChangeAsync()) {
-                    return Ok("Save payment");
+                if (model.Id == 0) {
+                    _repo.Add(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        var paymentAdd = await _repo.GetPaymentByUserId(model.userId);
+                        return Ok(paymentAdd);
+                    }
                 }
-                return BadRequest("not save payment");
+                else {
+                    _repo.Update(model);
+                    if (await _repo.SaveChangeAsync()) {
+                        var paymentUpdate = await _repo.GetPaymentByUserId(model.userId);
+                        return Ok(paymentUpdate);
+                    }
+                }
+
+                return BadRequest("not save curriculum");
             }
             catch (Exception ex) {
                 return BadRequest($"Insert User Error: {ex}");
