@@ -19,5 +19,9 @@ namespace Web.shared_projects.Models {
 
         public ICollection<EnrolledProjects> EnrolledProjects { get; set; }
 
+        public String ProjectType { get; set; }
+        public int Duration { get; set; }
+        public int Value { get; set; }
+
     }
 }
