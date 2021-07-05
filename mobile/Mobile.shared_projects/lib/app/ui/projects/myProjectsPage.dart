@@ -77,19 +77,36 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return _projectsItems(l.projectName, l.description, ctx,
-              l.userAdminId, l.id, l.categoryId, userId);
+          return _projectsItems(
+              l.projectName,
+              l.description,
+              ctx,
+              l.userAdminId,
+              l.id,
+              l.categoryId,
+              userId,
+              l.projectType,
+              l.duration);
         });
   }
 
   Widget _projectsItems(
-      String projectName,
-      String projectDescription,
-      BuildContext context,
-      int userAdminId,
-      int projId,
-      int catProjId,
-      int userId) {
+    String projectName,
+    String projectDescription,
+    BuildContext context,
+    int userAdminId,
+    int projId,
+    int catProjId,
+    int userId,
+    type,
+    duration,
+  ) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+    var sub = _categories[catProjId.toString()];
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -104,15 +121,18 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) => MyProjectsDetails(
-                      imageProject: 'assets/img/docProj.png',
-                      nameProject: projectName,
-                      projectDescription: projectDescription,
-                      isUserAdmin: true,
-                      projectId: projId,
-                      projectUserAdminId: userAdminId,
-                      projectCategoryId: catProjId,
-                      userAdminProj: userAdminId,
-                      userLoggedId: userId),
+                    imageProject: 'assets/img/docProj.png',
+                    nameProject: projectName,
+                    projectDescription: projectDescription,
+                    isUserAdmin: true,
+                    projectId: projId,
+                    projectUserAdminId: userAdminId,
+                    projectCategoryId: catProjId,
+                    userAdminProj: userAdminId,
+                    userLoggedId: userId,
+                    projType: type,
+                    duration: duration,
+                  ),
                 ),
               );
             },
@@ -171,7 +191,7 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
           );
         },
       ),
-      subtitle: Text(projectDescription,
+      subtitle: Text(sub,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.justify),

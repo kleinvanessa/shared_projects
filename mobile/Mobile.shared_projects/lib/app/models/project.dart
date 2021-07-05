@@ -6,6 +6,9 @@ class Projects {
   String description;
   int userAdminId;
   int categoryId;
+  String projectType;
+  int duration;
+  int value;
   List<String> usersProjects;
   List<String> enrolledProjects;
 
@@ -15,6 +18,9 @@ class Projects {
         this.description = map["description"],
         this.userAdminId = map["userAdminId"],
         this.categoryId = map["categoryId"],
+        this.projectType = map["projectType"],
+        this.duration = map["duration"],
+        this.value = map["value"],
         this.enrolledProjects = map["enrolledProjects"] != null
             ? map["enrolledProjects"]
                 .map<String>((project) => project.toString())
@@ -35,6 +41,9 @@ class Projects {
     data["categoryId"] = this.categoryId;
     data["enrolledProjects"] = this.enrolledProjects;
     data["usersProjects"] = this.usersProjects;
+    data["projectType"] = this.projectType;
+    data["duration"] = this.duration;
+    data["value"] = this.value;
     return data;
   }
 

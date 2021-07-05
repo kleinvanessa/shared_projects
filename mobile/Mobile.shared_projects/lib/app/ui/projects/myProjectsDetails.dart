@@ -23,6 +23,8 @@ class MyProjectsDetails extends StatefulWidget {
   final projectCategoryId;
   final userAdminProj;
   final userLoggedId;
+  final projType;
+  final duration;
   const MyProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -33,6 +35,8 @@ class MyProjectsDetails extends StatefulWidget {
     @required this.projectCategoryId,
     @required this.userAdminProj,
     @required this.userLoggedId,
+    @required this.projType,
+    @required this.duration,
   });
 
   @override
@@ -46,6 +50,13 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
   }
 
   Widget build(BuildContext context) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+
+    var sub = _categories[widget.projectCategoryId.toString()];
     print("------------------>  isUserAdmin = ${widget.isUserAdmin}");
     print("------------------>  userAdminProj = ${widget.userAdminProj}");
     print("------------------>  userLoggedId = ${widget.userLoggedId}");
@@ -68,22 +79,14 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
                   ),
                   Column(
                     children: [
-                      Text("Projeto de Pesquisa",
+                      Text("Tipo do projeto: ${widget.projType}",
                           style: TextStyle(color: Color(0xFF583D72)),
                           textAlign: TextAlign.justify),
                       Text(
-                        "Duração: 1 ano",
+                        "Duração: ${widget.duration} meses",
                         style: TextStyle(color: Color(0xFF583D72)),
                         textAlign: TextAlign.left,
                       ),
-                      Text(
-                        "Início: 20/01/21",
-                        style: TextStyle(color: Color(0xFF583D72)),
-                      ),
-                      Text(
-                        "Remuneração: RS 400,00",
-                        style: TextStyle(color: Color(0xFF583D72)),
-                      )
                     ],
                   ),
                   widget.userAdminProj == widget.userLoggedId
@@ -137,6 +140,21 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
               ),
 
               _adminName(),
+              Row(
+                children: [
+                  Text(
+                    "Área de Conhecimento:  ",
+                    style: TextStyle(
+                      color: Color(0xFF583D72),
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    sub,
+                    overflow: TextOverflow.visible,
+                  ),
+                ],
+              ),
               //_userBName()
             ],
           ),
@@ -330,6 +348,8 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
           projDesc: widget.projectDescription,
           projUserAdminId: widget.userAdminProj,
           projCatId: widget.projectCategoryId,
+          projType: widget.projType,
+          duration: widget.duration.toString(),
         ));
   }
 }

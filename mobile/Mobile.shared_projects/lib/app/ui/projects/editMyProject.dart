@@ -17,6 +17,8 @@ class EditMyProject extends StatefulWidget {
   final projDesc;
   final projUserAdminId;
   final projCatId;
+  final projType;
+  final duration;
   const EditMyProject({
     @required this.userId,
     @required this.projId,
@@ -24,6 +26,8 @@ class EditMyProject extends StatefulWidget {
     @required this.projDesc,
     @required this.projUserAdminId,
     @required this.projCatId,
+    @required this.projType,
+    @required this.duration,
   });
   @override
   _EditMyProject createState() => _EditMyProject();
@@ -35,6 +39,10 @@ class _EditMyProject extends State<EditMyProject> {
   final _tDesc = TextEditingController();
 
   final _tCat = TextEditingController();
+
+  final _tType = TextEditingController();
+
+  final _tDuration = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -65,6 +73,9 @@ class _EditMyProject extends State<EditMyProject> {
     setState(() {
       _tName.text = widget.projName;
       _tDesc.text = widget.projDesc;
+      _tType.text = widget.projType;
+      _tDuration.text = widget.duration;
+
       itemSelect = widget.projCatId;
       catValue = widget.projCatId.toString();
     });
@@ -89,6 +100,8 @@ class _EditMyProject extends State<EditMyProject> {
                   _tName,
                 ),
                 _formEx('Descrição', _tDesc),
+                _formEx('Tipo de Projeto', _tType),
+                _formEx('Duração em meses', _tDuration),
                 _dropDown(),
 
                 //_formEx('Data Nasc', _tdata),
@@ -186,6 +199,8 @@ class _EditMyProject extends State<EditMyProject> {
   void _onClickUpdateProject() async {
     String projName = _tName.text;
     String projDesc = _tDesc.text;
+    String projType = _tType.text;
+    String projDuration = _tDuration.text;
     String projCat = catValue;
 
     bool formOk = _formKey.currentState.validate();
@@ -195,16 +210,27 @@ class _EditMyProject extends State<EditMyProject> {
     }
     print("catId $projCat");
     ApiResponse response = await ProjectsAPI.updateProject(
-        widget.projId, projName, projDesc, widget.projUserAdminId, projCat);
+        widget.projId,
+        projName,
+        projDesc,
+        widget.projUserAdminId,
+        projCat,
+        projType,
+        projDuration);
 
     print(response);
 
     if (response.ok) {
       //ok = true se o login estiver correto - status code 200
 
-      // push(context, ProfilePage());
-      Alert(context, "Projeto atualizado com sucesso!", "");
+      //
 
+      push(
+          context,
+          HomePage(
+            userId: widget.userId,
+          ));
+      Alert(context, "Projeto atualizado com sucesso!", "");
       // initState();
       //build(context);
     } else {

@@ -8,6 +8,7 @@ class User {
   String email;
   int contact;
   String password;
+  String image;
 
   List<String> userProjects;
 
@@ -18,6 +19,7 @@ class User {
     this.email = map["email"];
     this.contact = map["contact"];
     this.password = map["password"];
+    this.image = map["image"];
     this.userProjects = map["usersProjects"] != null
         ? map["usersProjects"]
             .map<String>((project) => project.toString())
@@ -34,6 +36,7 @@ class User {
     data["contact"] = this.contact;
     data["password"] = this.password;
     data["usersProjects"] = this.userProjects;
+    data["image"] = this.image;
     return data;
   }
 
@@ -66,6 +69,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{ID: $id,Name: $name, Latname: $lastName, Login: $email, Senha: $password Projects: $userProjects}';
+    return 'User{ID: $id,Name: $name, Latname: $lastName, Login: $email, Senha: $password Projects: $userProjects Image: $image}';
   }
 }

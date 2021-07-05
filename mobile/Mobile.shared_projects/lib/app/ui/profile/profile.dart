@@ -113,7 +113,7 @@ class ProfilePage extends StatelessWidget {
         ),
         Stack(
           children: <Widget>[
-            CircularAvatar(isButton: false, image: 'assets/img/profile.jpg'),
+            CircularAvatar(isButton: false, image: user.image),
             IconButton(
                 iconSize: 20,
                 alignment: Alignment.lerp(
@@ -122,7 +122,7 @@ class ProfilePage extends StatelessWidget {
                 //padding: EdgeInsets.all(60),
                 icon: Icon(Icons.add_circle),
                 onPressed: () {
-                  push(context, ChangePicture());
+                  //push(context, ChangePicture());
                 }),
           ],
         ),

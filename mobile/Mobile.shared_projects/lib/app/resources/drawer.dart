@@ -87,7 +87,7 @@ class DrawerPage extends StatelessWidget {
         children: <Widget>[
           CircularAvatar(
             isButton: true,
-            image: 'assets/img/profile.jpg',
+            image: user.image,
             routeAvatar: ProfilePage(),
           ),
           Text(

@@ -7,7 +7,11 @@ import 'package:shared_projects/app/services/apiResponse.dart';
 
 class AddNewProjectAPI {
   static Future<ApiResponse<Projects>> addProject(
-      String projectName, String description, String category) async {
+      String projectName,
+      String description,
+      String category,
+      String projType,
+      String duration) async {
     try {
       final ioc = new HttpClient();
       ioc.badCertificateCallback =
@@ -19,7 +23,7 @@ class AddNewProjectAPI {
       int userid = user.id;
 
       var userProject =
-          '{"projectName": "$projectName", "description": "$description", "userAdminId": "$userid", "categoryId": "$category","usersProjects":[{"userid": "$userid"}] }'; //[{"userid" : "$userid"}]}';
+          '{"projectName": "$projectName", "description": "$description", "userAdminId": "$userid", "categoryId": "$category", "projectType": "$projType", "duration": "$duration", "usersProjects":[{"userid": "$userid"}] }'; //[{"userid" : "$userid"}]}';
 
       Map<String, String> headers = {"Content-Type": "application/json"};
 

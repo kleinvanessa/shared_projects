@@ -617,6 +617,8 @@ class ProjectsAPI {
     String projDesc,
     int userAdminId,
     String categoryId,
+    type,
+    duration,
   ) async {
     //await Future.delayed(Duration(seconds: 1));
     try {
@@ -626,7 +628,7 @@ class ProjectsAPI {
       final http = new IOClient(ioc);
 
       var projectUpdate =
-          '{"id": "$projectId","projectName": "$projName","description": "$projDesc","userAdminId": "$userAdminId","categoryId": "$categoryId"}';
+          '{"id": "$projectId","projectName": "$projName","description": "$projDesc","userAdminId": "$userAdminId","categoryId": "$categoryId", "projectType": "$type", "duration" : "$duration"}';
 
       Map<String, String> headers = {"Content-Type": "application/json"};
 

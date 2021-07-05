@@ -111,6 +111,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
     int projId,
     int catProjId,
   ) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+
+    var sub = _categories[catProjId.toString()];
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -146,7 +153,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
                 catProjId);
           }),
-      subtitle: Text(projectDescription,
+      subtitle: Text(sub,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.justify),

@@ -27,6 +27,8 @@ class ProjectsDetails extends StatefulWidget {
   final isButton;
   final submited;
   final isFavorite;
+  final projType;
+  final duration;
   const ProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -38,6 +40,8 @@ class ProjectsDetails extends StatefulWidget {
     @required this.isButton,
     @required this.submited,
     @required this.isFavorite,
+    @required this.projType,
+    @required this.duration,
   });
 
   @override
@@ -60,6 +64,15 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
   }
 
   _content() {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+
+    var sub = _categories[widget.projectCategoryId.toString()];
+    var total = widget.duration;
+
     return ListView(
       padding: EdgeInsets.all(15),
       children: [
@@ -77,22 +90,22 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                 ),
                 Column(
                   children: [
-                    Text("Projeto de Pesquisa",
+                    Text("Tipo do projeto : ${widget.projType}",
                         style: TextStyle(color: Color(0xFF583D72)),
                         textAlign: TextAlign.justify),
                     Text(
-                      "Duração: 1 ano",
+                      "Duração: $total meses",
                       style: TextStyle(color: Color(0xFF583D72)),
                       textAlign: TextAlign.left,
                     ),
-                    Text(
+                    /*Text(
                       "Início: 20/01/21",
                       style: TextStyle(color: Color(0xFF583D72)),
                     ),
                     Text(
                       "Remuneração: RS 400,00",
                       style: TextStyle(color: Color(0xFF583D72)),
-                    )
+                    )*/
                   ],
                 ),
                 SizedBox(
@@ -151,6 +164,21 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
               height: 25,
             ),
             _adminName(),
+            Row(
+              children: [
+                Text(
+                  "Área de Conhecimento:  ",
+                  style: TextStyle(
+                    color: Color(0xFF583D72),
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  sub,
+                  overflow: TextOverflow.visible,
+                ),
+              ],
+            ),
             SizedBox(
               height: 25,
             ),
@@ -286,7 +314,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
       print(">>> project- register.dart: $project");
 
       //push(context, AddProjectsPage(), replace: true);
-      push(context, ProjectsView(userId: widget.userLog), replace: true);
+      push(context, HomePage(userId: widget.userLog), replace: true);
       Alert(context, "Inscrição feita com sucesso!", "");
     } else {
       Alert(context, response.msg,

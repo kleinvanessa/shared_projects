@@ -20,6 +20,8 @@ class MySubProjectsDetails extends StatefulWidget {
   final projectId;
   final projectUserAdminId;
   final projectCategoryId;
+  final userId;
+
   const MySubProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -28,6 +30,7 @@ class MySubProjectsDetails extends StatefulWidget {
     @required this.projectId,
     @required this.projectUserAdminId,
     @required this.projectCategoryId,
+    this.userId,
   });
 
   @override
@@ -41,6 +44,13 @@ class _MySubProjectsDetailsState extends State<MySubProjectsDetails> {
   }
 
   Widget build(BuildContext context) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+
+    var sub = _categories[widget.projectCategoryId.toString()];
     return Layout.render(
       tittlePage: 'Minhas inscrições',
       content: ListView(
@@ -111,6 +121,21 @@ class _MySubProjectsDetailsState extends State<MySubProjectsDetails> {
                 height: 25,
               ),
               _adminName(),
+              Row(
+                children: [
+                  Text(
+                    "Área de Conhecimento:  ",
+                    style: TextStyle(
+                      color: Color(0xFF583D72),
+                      fontSize: 13,
+                    ),
+                  ),
+                  Text(
+                    sub,
+                    overflow: TextOverflow.visible,
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 25,
               ),
@@ -172,7 +197,12 @@ class _MySubProjectsDetailsState extends State<MySubProjectsDetails> {
                 FlatButton(
                   child: Text("ok"),
                   onPressed: () {
-                    push(context, HomePage(), replace: true);
+                    push(
+                        context,
+                        HomePage(
+                          userId: widget.userId,
+                        ),
+                        replace: true);
                     //print("OK!!!!!!!!");
                   },
                 ),

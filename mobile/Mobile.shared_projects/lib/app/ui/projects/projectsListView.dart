@@ -92,8 +92,16 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                 // print("ueee");
                 int code = snapshot.data;
                 // print("code : >>>>> $code");
-                return _projectsItems(l.projectName, l.description, ctx,
-                    l.userAdminId, l.id, l.categoryId, code);
+                return _projectsItems(
+                    l.projectName,
+                    l.description,
+                    ctx,
+                    l.userAdminId,
+                    l.id,
+                    l.categoryId,
+                    code,
+                    l.projectType,
+                    l.duration);
               });
         });
   }
@@ -106,14 +114,15 @@ class _ProjectsListViewState extends State<ProjectsListView> {
     int projId,
     int catProjId,
     isFavorite,
+    projType,
+    duration,
   ) {
     Map<String, String> _categories = {
       "1": "Ciências Exatas e da Terra",
       "2": "Lingüística, Letras e Artes",
       "3": "Engenharias",
     };
-    //var trailing =  _trailing(projId, widget.userId);
-    //print("trailing is $isFavorite");
+
     var sub = _categories[catProjId.toString()];
     print("sub $sub");
     return ListTile(
@@ -126,7 +135,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           height: 90.0,
           child: InkWell(onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId, isFavorite);
+                catProjId, isFavorite, projType, duration);
           }),
         ),
       ),
@@ -164,7 +173,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           ),
           onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId, isFavorite);
+                catProjId, isFavorite, projType, duration);
           }),
       subtitle: Text(sub,
           maxLines: 1,
@@ -202,7 +211,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
   }
 
   _clicInProject(projId, projectName, projectDescription, userAdminId,
-      catProjId, isFav) async {
+      catProjId, isFav, projType, duration) async {
     print("clic projeto id $projId com user ${widget.userId}");
     var isButton;
     var submited = false;
@@ -233,6 +242,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         projectUserAdminId: userAdminId,
         projectCategoryId: catProjId,
         isFavorite: isFav,
+        projType: projType,
+        duration: duration,
       ),
     );
   }

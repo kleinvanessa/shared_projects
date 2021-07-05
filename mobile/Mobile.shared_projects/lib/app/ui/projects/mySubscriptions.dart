@@ -15,6 +15,10 @@ import 'ProjectsAPI.dart';
 import 'mySubProjectDetails.dart';
 
 class MySubscriptionsPage extends StatefulWidget {
+  final userId;
+  const MySubscriptionsPage({
+    this.userId,
+  });
   @override
   _MySubscriptionsPageState createState() => _MySubscriptionsPageState();
 }
@@ -107,6 +111,13 @@ class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
       int catProjId,
       isFavorite,
       int userId) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
+
+    var sub = _categories[catProjId.toString()];
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -128,6 +139,7 @@ class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
                     projectId: projId,
                     projectUserAdminId: userAdminId,
                     projectCategoryId: catProjId,
+                    userId: userId,
                   ),
                 ),
               );
@@ -182,7 +194,7 @@ class _MySubscriptionsPageState extends State<MySubscriptionsPage> {
           );
         },
       ),
-      subtitle: Text(projectDescription,
+      subtitle: Text(sub,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.justify),

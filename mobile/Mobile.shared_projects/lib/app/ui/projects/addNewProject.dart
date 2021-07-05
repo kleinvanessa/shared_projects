@@ -33,11 +33,23 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
 
   final _tCategory = TextEditingController();
 
+  final _tType = TextEditingController();
+
+  final _tDuration = TextEditingController();
+
+  //final _tValue = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   final _focusDescription = FocusNode();
 
   final _focusCategory = FocusNode();
+
+  final _focusType = FocusNode();
+
+  final _focusDuration = FocusNode();
+
+  //final _focusCategory = FocusNode();
 
   Map<String, String> categories = {
     "Ciências Exatas e da Terra": "1",
@@ -104,17 +116,35 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
                 _tDescription,
                 _validateField,
                 TextInputType.name,
-                _focusCategory,
+                _focusType,
                 _focusDescription,
               ),
-              /* _formEx(
-                'Digite a categoria',
-                'Categoria',
-                _tCategory,
-                _validateCat,
+              _formEx(
+                'Digite o tipo (Pesquisa, Extensão, etc ...)',
+                'Tipo de Projeto',
+                _tType,
+                _validateField,
+                TextInputType.name,
+                _focusDuration,
+                _focusType,
+              ),
+              _formEx(
+                'Digite a duração em meses (numero inteiro)',
+                'Duração',
+                _tDuration,
+                _validateFieldDuration,
                 TextInputType.number,
-                null,
                 _focusCategory,
+                _focusDuration,
+              ),
+              /* _formEx(
+                'Digite o valor',
+                'Valor',
+                _tDuration,
+                _validateFieldDuration,
+                TextInputType.number,
+                _focusCategory,
+                _focusDescription,
               ),*/
               _dropDown(),
               //  _tCategory.text = itemSelect,
@@ -206,6 +236,8 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
     String projectName = _tProjectName.text;
     String description = _tDescription.text;
     String category = itemSelect;
+    String projType = _tType.text;
+    String duration = _tDuration.text;
 
     bool formOk = _formKey.currentState.validate();
 
@@ -216,8 +248,8 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
     print(
         "ProjName: $projectName, Description: $description, Category: $category");
 
-    ApiResponse response =
-        await AddNewProjectAPI.addProject(projectName, description, category);
+    ApiResponse response = await AddNewProjectAPI.addProject(
+        projectName, description, category, projType, duration);
 
     print(response);
 
@@ -235,6 +267,8 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
         _tProjectName.text = "";
         _tDescription.text = "";
         _tCategory.text = "";
+        _tType.text = "";
+        _tDuration.text = "";
         itemSelect = "0";
         dropdownValue = "Selecione a categoria";
       });
@@ -250,6 +284,13 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
     }
     if (text.length < 3) {
       return "Formato inválido";
+    }
+    return null;
+  }
+
+  String _validateFieldDuration(String text) {
+    if (text.isEmpty) {
+      return "Campo em branco";
     }
     return null;
   }
