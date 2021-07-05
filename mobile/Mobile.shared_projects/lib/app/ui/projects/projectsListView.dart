@@ -3,6 +3,7 @@ import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
+import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
@@ -73,13 +74,38 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         itemCount: lista != null ? lista.length : 0,
         itemBuilder: (ctx, i) {
           Projects l = lista[i];
-          return _projectsItems(l.projectName, l.description, ctx,
-              l.userAdminId, l.id, l.categoryId);
+          Future<int> future =
+              ProjectsAPI.getFavoriteProject(l.id, widget.userId);
+          return FutureBuilder(
+              future: future,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print(
+                      "Error: in projectsView.dart snapshot.hasError is true with error - ${snapshot.hasError}");
+                }
+                if (!snapshot.hasData) {
+                  //verifica s tem dados
+                  // print("erooo");
+                }
+                // print("ueee");
+                int code = snapshot.data;
+                // print("code : >>>>> $code");
+                return _projectsItems(l.projectName, l.description, ctx,
+                    l.userAdminId, l.id, l.categoryId, code);
+              });
         });
   }
 
-  _projectsItems(String projectName, String projectDescription,
-      BuildContext context, int userAdminId, int projId, int catProjId) {
+  _projectsItems(
+      String projectName,
+      String projectDescription,
+      BuildContext context,
+      int userAdminId,
+      int projId,
+      int catProjId,
+      isFavorite) {
+    //var trailing =  _trailing(projId, widget.userId);
+    //print("trailing is $isFavorite");
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -94,19 +120,27 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           }),
         ),
       ),
-      trailing: IconButton(
-        iconSize: 20,
-        onPressed: () {
-          push(
-            context,
-            FavoritesPage(),
-          );
-        },
-        icon: Icon(
-          Icons.favorite_border_outlined,
-          color: Color(0xFFFF8E71),
-        ),
-      ),
+      trailing: isFavorite == 200
+          ? IconButton(
+              iconSize: 20,
+              onPressed: () {
+                _clickInFavorite("", "Remover dos favoritos?", true, projId);
+              },
+              icon: Icon(
+                Icons.favorite,
+                color: Color(0xFFFF8E71),
+              ),
+            )
+          : IconButton(
+              iconSize: 20,
+              onPressed: () {
+                _clickInFavorite("", "Adicionar aos favoritos?", false, projId);
+              },
+              icon: Icon(
+                Icons.favorite_border_outlined,
+                color: Color(0xFFFF8E71),
+              ),
+            ),
       title: InkWell(
           child: Text(
             projectName,
@@ -133,6 +167,24 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                 nameProject: projectName));
       },*/
     );
+  }
+
+  _clickFavorite(projId) async {
+    print("não é favorito ainda");
+    ApiResponse response = await ProjectsAPI.addFavoriteProject(projId,
+        userEnrollId: widget.userId);
+    if (response.ok) {
+      _AlertConfirmFavorite("", "Adicionado aos favoritos");
+    }
+  }
+
+  _clickUnFavorite(projId) async {
+    print("é favorito");
+    ApiResponse response = await ProjectsAPI.removeFavoriteProject(projId,
+        userEnrollId: widget.userId);
+    if (response.ok) {
+      _AlertConfirmFavorite("", "Removido dos favoritos");
+    }
   }
 
   _clicInProject(
@@ -168,5 +220,66 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         projectCategoryId: catProjId,
       ),
     );
+  }
+
+  _clickInFavorite(title, msg, routeYes, projId) {
+    return _AlertFavorite(title, msg, routeYes, projId);
+  }
+
+  _AlertFavorite(String title, String msg, routeYes, projId) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              title: Text(title),
+              content: Text(msg),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Sim"),
+                  onPressed: () {
+                    routeYes
+                        ? _clickUnFavorite(projId)
+                        : _clickFavorite(projId);
+                  },
+                ),
+                FlatButton(
+                  child: Text("Não"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    //print("OK!!!!!!!!");
+                  },
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  _AlertConfirmFavorite(String title, String msg) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: AlertDialog(
+              title: Text(title),
+              content: Text(msg),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    push(context, HomePage(userId: widget.userId),
+                        replace: true);
+                    //print("OK!!!!!!!!");
+                  },
+                )
+              ],
+            ),
+          );
+        });
   }
 }

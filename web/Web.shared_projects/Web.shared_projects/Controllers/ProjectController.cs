@@ -225,5 +225,63 @@ namespace Web.shared_projects.Controllers {
             }
             return BadRequest("Not Deleted enroll");
         }
+        [HttpPost("getFavoritesProj")]
+        public async Task<IActionResult> GetFavoritesProjects(Favorite model) {
+            try {
+                var FavoritesProject = await _repo.GetFavoritesProj(model.ProjectId, model.UserId);
+                Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
+                if (FavoritesProject != null) {
+                    return Ok(FavoritesProject);
+                }
+
+                var json = JsonSerializer.Serialize(new { response = "dont exist" });
+                return BadRequest(json);
+
+            }
+            catch (Exception ex) {
+                return BadRequest($"Delete enroll Error: {ex}");
+            }
+            return BadRequest("Not Deleted enroll");
+        }
+        [HttpPost("addFavoritesProj")]
+        public async Task<IActionResult>AddFavoriteProjects(Favorite model) {
+            try {
+                //var AddFavoritesProject = await _repo.AddFavoritesProj(model.ProjectId, model.UserId);
+                Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
+                _repo.Add(model); // model é o json 
+                if (await _repo.SaveChangeAsync()) {
+                    var json = JsonSerializer.Serialize(new { response = "Insert Favorite Projet Success" });
+                    return Ok(json);
+                }
+
+                //var json2 = JsonSerializer.Serialize(new { response = "error insert favorite" });
+                //return BadRequest(json2);
+
+            }
+            catch (Exception ex) {
+                return BadRequest($"insert favorite Error: {ex}");
+            }
+            return BadRequest("Not insert favorite");
+        }
+        [HttpPost("removeFavoritesProj")]
+        public async Task<IActionResult> removeFavoriteProjects(Favorite model) {
+            try {
+                var removeFavoritesProject = await _repo.GetFavoritesProj(model.ProjectId, model.UserId);
+                Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
+                if (removeFavoritesProject != null) {
+                    //return Ok(enroll);
+                    _repo.Delete(removeFavoritesProject);
+                    if (await _repo.SaveChangeAsync()) {
+                        return Ok("Delete favorite Success");
+                    }
+                }
+
+
+            }
+            catch (Exception ex) {
+                return BadRequest($"insert favorite Error: {ex}");
+            }
+            return BadRequest("Not insert favorite");
+        }
     }
 }

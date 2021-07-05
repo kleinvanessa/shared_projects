@@ -31,13 +31,15 @@ SELECT * FROM [SharedProjects].[dbo].[Curriculum];
 
 SELECT * FROM [SharedProjects].[dbo].[Payment];
 
+SELECT * FROM [SharedProjects].[dbo].[Favorite];
+
 SELECT * FROM [SharedProjects].[dbo].[User];
 
 SELECT * FROM [SharedProjects].[dbo].[Project];
 
-SELECT * FROM [SharedProjects].[dbo].[UserProject];
+SELECT * FROM [SharedProjects].[dbo].[UserProject] where ProjectId = 1;
 
-SELECT * FROM [SharedProjects].[dbo].[EnrolledProjects];
+SELECT * FROM [SharedProjects].[dbo].[EnrolledProjects] where ProjectId = 1;
 
 
 SELECT ProjectId FROM [SharedProjects].[dbo].[UserProject] WHERE UserId =1;

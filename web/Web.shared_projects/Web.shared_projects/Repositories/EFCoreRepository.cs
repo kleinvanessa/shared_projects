@@ -164,6 +164,11 @@ namespace Web.shared_projects.Repositories {
 
             return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
         }
+        public async Task<Favorite> GetFavoritesProj(int id, int userid) {
+            IQueryable<Favorite> query = _context.Favorite;
+
+            return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
+        }
 
         public async Task<Curriculum> GetCurriculumByUserId(int userid) {
             IQueryable<Curriculum> query = _context.Curriculum;

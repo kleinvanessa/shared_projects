@@ -18,6 +18,7 @@ namespace Web.shared_projects.Data {
         public DbSet<AreaKnowledge> AreaKnowledge { get; set; }
         public DbSet<Curriculum> Curriculum { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<Favorite> Favorite { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<UserProject>(entity => {

@@ -393,6 +393,119 @@ class ProjectsAPI {
     }
   }
 
+  static Future<int> getFavoriteProject(int projectId, int userEnrollId) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      // User user = await User.get();
+
+      //int userid;
+      int userid = userEnrollId;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          GET FAVORITE PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/getFavoritesProj';
+
+      var response = await http.post(url, body: body, headers: headers);
+      // print("statusCode getFavoriteProject:  ${response.statusCode}");
+      var statusCode = response.statusCode;
+
+      //print("statusCode is $statusCode");
+      return statusCode; //ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
+
+  static Future<ApiResponse<int>> addFavoriteProject(int projectId,
+      {int userEnrollId = 0}) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid;
+      userEnrollId == 0 ? userid = user.id : userid = userEnrollId;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          ADD FAVORITE PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/addFavoritesProj';
+
+      var response = await http.post(url, body: body, headers: headers);
+      print("statusCode userProj:  ${response.statusCode}");
+      if (response.statusCode == 200) {
+        return ApiResponse.postOk(response.body);
+      }
+      return ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
+
+  static Future<ApiResponse<int>> removeFavoriteProject(int projectId,
+      {int userEnrollId = 0}) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid;
+      userEnrollId == 0 ? userid = user.id : userid = userEnrollId;
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      Map data = {
+        "ProjectId": projectId,
+        "UserId": userid,
+      };
+      String body = json.encode(data);
+
+      print(
+          "-------------------------------------------------          REMOVE FAVORITE PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/removeFavoritesProj';
+
+      var response = await http.post(url, body: body, headers: headers);
+      print("statusCode userProj:  ${response.statusCode}");
+      if (response.statusCode == 200) {
+        return ApiResponse.postOk(response.body);
+      }
+      return ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
+
   static Future<ApiResponse<int>> getEnrolledProject(int projectId,
       {int userEnrollId = 0}) async {
     //await Future.delayed(Duration(seconds: 1));
