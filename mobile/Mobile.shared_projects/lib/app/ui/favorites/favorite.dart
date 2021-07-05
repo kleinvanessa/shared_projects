@@ -125,6 +125,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
           }),
         ),
       ),
+      trailing: IconButton(
+        iconSize: 20,
+        onPressed: () {
+          _clickUnFavorite(
+              projId); //_clickInFavorite("", "Remover dos favoritos?", true, projId);
+        },
+        icon: Icon(
+          Icons.favorite,
+          color: Color(0xFFFF8E71),
+        ),
+      ),
       title: InkWell(
           child: Text(
             projectName,
@@ -140,6 +151,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.justify),
     );
+  }
+
+  _clickUnFavorite(projId) async {
+    print("é favorito");
+    ApiResponse response = await ProjectsAPI.removeFavoriteProject(projId,
+        userEnrollId: widget.userId);
+    if (response.ok) {
+      setState(() {});
+      // _AlertConfirmFavorite("", "Removido dos favoritos");
+    }
   }
 
   _clicInProject(

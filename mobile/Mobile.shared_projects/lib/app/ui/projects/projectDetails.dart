@@ -26,6 +26,7 @@ class ProjectsDetails extends StatefulWidget {
   final projectCategoryId;
   final isButton;
   final submited;
+  final isFavorite;
   const ProjectsDetails({
     @required this.imageProject,
     @required this.nameProject,
@@ -36,6 +37,7 @@ class ProjectsDetails extends StatefulWidget {
     @required this.projectCategoryId,
     @required this.isButton,
     @required this.submited,
+    @required this.isFavorite,
   });
 
   @override
@@ -96,10 +98,29 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.favorite_border_outlined,
-                  color: Color(0xFFFF8E71),
-                )
+                /*widget.isFavorite == 200
+                    ? IconButton(
+                        //iconSize: 15,
+                        onPressed: () {
+                          _clickUnFavorite(widget
+                              .projectId); //_clickInFavorite("", "Remover dos favoritos?", true, projId);
+                        },
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Color(0xFFFF8E71),
+                        ),
+                      )
+                    : IconButton(
+                        //iconSize: 15,
+                        onPressed: () {
+                          _clickFavorite(widget
+                              .projectId); //_clickInFavorite("", "Adicionar aos favoritos?", false, projId);
+                        },
+                        icon: Icon(
+                          Icons.favorite_border_outlined,
+                          color: Color(0xFFFF8E71),
+                        ),
+                      ),*/
               ],
             ),
             Text(
@@ -144,6 +165,26 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
         ),
       ],
     );
+  }
+
+  _clickFavorite(projId) async {
+    print("não é favorito ainda");
+    ApiResponse response = await ProjectsAPI.addFavoriteProject(projId,
+        userEnrollId: widget.userLog);
+    if (response.ok) {
+      setState(() {});
+      //_AlertConfirmFavorite("", "Adicionado aos favoritos");
+    }
+  }
+
+  _clickUnFavorite(projId) async {
+    print("é favorito");
+    ApiResponse response = await ProjectsAPI.removeFavoriteProject(projId,
+        userEnrollId: widget.userLog);
+    if (response.ok) {
+      setState(() {});
+      // _AlertConfirmFavorite("", "Removido dos favoritos");
+    }
   }
 
   _adminName() {

@@ -116,7 +116,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           height: 90.0,
           child: InkWell(onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId);
+                catProjId, isFavorite);
           }),
         ),
       ),
@@ -154,7 +154,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           ),
           onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId);
+                catProjId, isFavorite);
           }),
       subtitle: Text(projectDescription,
           maxLines: 1,
@@ -191,8 +191,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
     }
   }
 
-  _clicInProject(
-      projId, projectName, projectDescription, userAdminId, catProjId) async {
+  _clicInProject(projId, projectName, projectDescription, userAdminId,
+      catProjId, isFav) async {
     print("clic projeto id $projId com user ${widget.userId}");
     var isButton;
     var submited = false;
@@ -222,6 +222,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         submited: submited,
         projectUserAdminId: userAdminId,
         projectCategoryId: catProjId,
+        isFavorite: isFav,
       ),
     );
   }
