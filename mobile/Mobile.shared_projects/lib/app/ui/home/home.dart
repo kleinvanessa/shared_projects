@@ -31,9 +31,9 @@ class _HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     print("USER HOME É ${widget.userId}");
     List<Widget> _screens = [
-      HomeView(),
+      HomeView(userId: widget.userId),
       ProjectsView(userId: widget.userId),
-      AddProjectsPage(),
+      AddProjectsPage(userId: widget.userId),
     ];
     return Scaffold(
       body: PageView(

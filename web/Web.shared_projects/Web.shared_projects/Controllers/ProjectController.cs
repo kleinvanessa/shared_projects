@@ -35,7 +35,7 @@ namespace Web.shared_projects.Controllers {
         }
 
         // GET: api/<ProjectController>/5
-        [HttpGet("{id}", Name = "GetProject")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) {
             try {
                 var project = await _repo.GetProjectById(id, true);
@@ -232,6 +232,24 @@ namespace Web.shared_projects.Controllers {
                 Console.WriteLine("projId: " + model.ProjectId + " " + "userId: " + model.UserId);
                 if (FavoritesProject != null) {
                     return Ok(FavoritesProject);
+                }
+
+                var json = JsonSerializer.Serialize(new { response = "dont exist" });
+                return BadRequest(json);
+
+            }
+            catch (Exception ex) {
+                return BadRequest($"Delete enroll Error: {ex}");
+            }
+            return BadRequest("Not Deleted enroll");
+        }
+        [HttpGet("getAllFavoritesByUserProj/{id}")]
+        public async Task<IActionResult> GetFavoritesProjects(int id) {
+            try {
+                var AllFavoritesProject = await _repo.GetAllFavoritesProjByuser(id);
+               
+                if (AllFavoritesProject != null) {
+                    return Ok(AllFavoritesProject);
                 }
 
                 var json = JsonSerializer.Serialize(new { response = "dont exist" });

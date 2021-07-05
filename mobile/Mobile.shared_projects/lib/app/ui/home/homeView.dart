@@ -2,12 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/resources/drawer.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  final userId;
+
+  HomeView({
+    this.userId,
+  });
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Layout.render(
       tittlePage: 'Home',
-      drawerComponent: DrawerPage(),
+      drawerComponent: DrawerPage(
+        userId: widget.userId,
+      ),
       content: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
+import 'package:shared_projects/app/models/favorite.dart';
 import 'package:shared_projects/app/models/project.dart';
 import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/models/userProjects.dart';
@@ -36,6 +37,41 @@ class ProjectsAPI {
         }
 
         return projects;
+        //final projects = Projects.fromJson(mapResponse);
+
+      }
+    } catch (error) {
+      print(">>> error:$error");
+      throw error;
+    }
+  }
+
+  static Future<Projects> getProjectsById(int id) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          GET PROJ BY ID          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/$id';
+
+      var response = await http.get(
+        url,
+      );
+
+      Map mapResponse = json.decode(response.body);
+
+      //final projects = List<Projects>();
+
+      if (response.statusCode == 200) {
+        final project = Projects.fromJson(mapResponse);
+
+        return project;
+
         //final projects = Projects.fromJson(mapResponse);
 
       }
@@ -390,6 +426,37 @@ class ProjectsAPI {
     } catch (error) {
       print(">>> error:$error");
       //return 0;
+    }
+  }
+
+  static Future<List<Favorite>> getAllFavorites(int userid) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          GET ALL FAVORITES          -------------------------------------------------");
+
+      var url =
+          'https://10.0.2.2:5001/api/project/getAllFavoritesByUserProj/$userid';
+
+      var response = await http.get(
+        url,
+      );
+      List mapResponse = json.decode(response.body);
+
+      final favorites = mapResponse
+          .map<Favorite>((map) => Favorite.fromJson(map))
+          .toList(); //parse de JSON de uma lista
+
+      if (response.statusCode == 200) {
+        return favorites;
+      }
+    } catch (error) {
+      print(">>> error:$error");
     }
   }
 

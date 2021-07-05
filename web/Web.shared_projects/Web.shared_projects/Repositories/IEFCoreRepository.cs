@@ -29,6 +29,7 @@ namespace Web.shared_projects.Repositories {
         Task<EnrolledProjects> DeleteEnrollUserProj(int id, int userid);
         Task<UserProject> GetProjeByUserIdProj(int id, int userid);
         Task<Favorite> GetFavoritesProj(int id, int userid);
+        Task<Favorite[]> GetAllFavoritesProjByuser(int id);
         Task<Curriculum> GetCurriculumByUserId(int userid);
         Task<Payment> GetPaymentByUserId(int userid);
 

@@ -15,6 +15,11 @@ import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class AddProjectsPage extends StatefulWidget {
+  final userId;
+
+  AddProjectsPage({
+    this.userId,
+  });
   @override
   _AddProjectsPageState createState() => _AddProjectsPageState();
 }
@@ -52,7 +57,9 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
   Widget build(BuildContext context) {
     return Layout.render(
       tittlePage: 'Adicionar projeto',
-      drawerComponent: DrawerPage(),
+      drawerComponent: DrawerPage(
+        userId: widget.userId,
+      ),
       content: _addProject(),
     );
 

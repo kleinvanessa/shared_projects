@@ -26,7 +26,9 @@ class _ProjectsViewState extends State<ProjectsView> {
     print("USER PROJETOS VIEWS É ${widget.userId}");
     return Layout.render(
       tittlePage: 'Projetos',
-      drawerComponent: DrawerPage(),
+      drawerComponent: DrawerPage(
+        userId: widget.userId,
+      ),
       content: ProjectsListView(
         userId: widget.userId,
       ),

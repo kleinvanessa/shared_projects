@@ -14,7 +14,10 @@ import 'package:shared_projects/app/utils/nav.dart';
 
 class DrawerPage extends StatelessWidget {
   final tagUser = '@vanessalklein';
-
+  final userId;
+  const DrawerPage({
+    this.userId,
+  });
   @override
   Widget build(BuildContext context) {
     Future<User> future = User.get();
@@ -28,6 +31,7 @@ class DrawerPage extends StatelessWidget {
                 future: future,
                 builder: (context, snapshot) {
                   User user = snapshot.data;
+                  print("userId: $userId");
                   return user != null ? _drawerHeader(user) : Container();
                 }),
             _listTileMethod(
@@ -51,7 +55,7 @@ class DrawerPage extends StatelessWidget {
             _listTileMethod(
               context,
               'Favoritos',
-              FavoritesPage(),
+              FavoritesPage(userId: userId),
               typeLeading: Icons.favorite,
             ),
             /*_listTileMethod(
