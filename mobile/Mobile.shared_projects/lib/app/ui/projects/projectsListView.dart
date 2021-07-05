@@ -12,9 +12,11 @@ import 'ProjectsAPI.dart';
 
 class ProjectsListView extends StatefulWidget {
   final userId;
+
   const ProjectsListView({
     @required this.userId,
   });
+
   @override
   _ProjectsListViewState createState() => _ProjectsListViewState();
 }
@@ -97,15 +99,23 @@ class _ProjectsListViewState extends State<ProjectsListView> {
   }
 
   _projectsItems(
-      String projectName,
-      String projectDescription,
-      BuildContext context,
-      int userAdminId,
-      int projId,
-      int catProjId,
-      isFavorite) {
+    String projectName,
+    String projectDescription,
+    BuildContext context,
+    int userAdminId,
+    int projId,
+    int catProjId,
+    isFavorite,
+  ) {
+    Map<String, String> _categories = {
+      "1": "Ciências Exatas e da Terra",
+      "2": "Lingüística, Letras e Artes",
+      "3": "Engenharias",
+    };
     //var trailing =  _trailing(projId, widget.userId);
     //print("trailing is $isFavorite");
+    var sub = _categories[catProjId.toString()];
+    print("sub $sub");
     return ListTile(
       contentPadding: EdgeInsets.all(15),
       leading: Card(
@@ -156,7 +166,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
                 catProjId, isFavorite);
           }),
-      subtitle: Text(projectDescription,
+      subtitle: Text(sub,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.justify),
