@@ -20,6 +20,7 @@ class MyEnrolledPage extends StatefulWidget {
   final projectName;
   final projectDesc;
   final projectCat;
+
   const MyEnrolledPage({
     @required this.projectId,
     @required this.projectName,
@@ -86,51 +87,65 @@ class _MyEnrolledPageState extends State<MyEnrolledPage> {
       itemCount: users != null ? users.length : 0,
       itemBuilder: (ctx, i) {
         User u = users[i];
-        return _userTile(u.name, u.lastName, u.email, u.id);
+        return _userTile(u.name, u.lastName, u.email, u.id, u.image);
       },
     );
   }
 
-  _userTile(String name, String lastName, email, userId, {urlFoto}) {
+  _userTile(String name, String lastName, email, userId, urlFoto) {
     return ListTile(
-      title: Text(
-        name + " " + lastName,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-      ),
-      subtitle: Text(
-        email,
-      ),
-      trailing: _viewCurriculum(name, lastName, email, userId),
-    );
-  }
-
-  _viewCurriculum(name, lastName, email, userId) {
-    return InkWell(
-      child: Text(
-        'Ver curriculo >',
-        style: TextStyle(
-          color: Color(0xFF583D72),
-          decoration: TextDecoration.underline,
+      title: InkWell(
+        child: Text(
+          name + " " + lastName,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => ViewCurriculum(
-              userName: name,
-              userLastname: lastName,
-              userEmail: email,
-              userId: userId,
-              projName: widget.projectName,
-              projDesc: widget.projectDesc,
-              projectId: widget.projectId,
-              projCat: widget.projectCat,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ViewCurriculum(
+                userName: name,
+                userLastname: lastName,
+                userEmail: email,
+                userId: userId,
+                projName: widget.projectName,
+                projDesc: widget.projectDesc,
+                projectId: widget.projectId,
+                projCat: widget.projectCat,
+                image: urlFoto,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
+      subtitle: InkWell(
+        child: Text(
+          email,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => ViewCurriculum(
+                userName: name,
+                userLastname: lastName,
+                userEmail: email,
+                userId: userId,
+                projName: widget.projectName,
+                projDesc: widget.projectDesc,
+                projectId: widget.projectId,
+                projCat: widget.projectCat,
+                image: urlFoto,
+              ),
+            ),
+          );
+        },
+      ),
     );
+
+    // trailing: _viewCurriculum(name, lastName, email, userId, urlFoto),
   }
 }

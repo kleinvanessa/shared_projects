@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/curriculum.dart';
 import 'package:shared_projects/app/models/project.dart';
+import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/authentication/loginAPI.dart';
@@ -21,6 +22,7 @@ class ViewCurriculum extends StatefulWidget {
   final projName;
   final projDesc;
   final projCat;
+  final image;
   const ViewCurriculum({
     @required this.userName,
     @required this.userLastname,
@@ -30,6 +32,7 @@ class ViewCurriculum extends StatefulWidget {
     @required this.projName,
     @required this.projDesc,
     @required this.projCat,
+    @required this.image,
   });
 
   @override
@@ -59,7 +62,10 @@ class _ViewCurriculum extends State<ViewCurriculum> {
             SizedBox(
               height: 20,
             ),
-
+            CircularAvatar(isButton: false, image: widget.image),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               "${widget.userEmail}",
               //maxLines: 1,
