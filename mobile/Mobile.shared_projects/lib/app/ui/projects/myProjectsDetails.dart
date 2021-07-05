@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
+import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
+import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
 import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
+import 'package:shared_projects/app/ui/projects/editMyProject.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
@@ -128,44 +131,112 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
               SizedBox(
                 height: 25,
               ),
-              Row(
-                children: [
-                  Text(
-                    "Coordenador do Projeto:  ",
-                    style: TextStyle(
-                      color: Color(0xFF583D72),
-                      fontSize: 13,
-                    ),
-                  ),
-                  Text(
-                    "nome do coordenador",
-                    overflow: TextOverflow.visible,
-                  ),
-                ],
-              ),
+
               SizedBox(
                 height: 25,
               ),
-              Row(
-                children: [
-                  Text(
-                    "Bolsistas do Projeto:  ",
-                    style: TextStyle(
-                      color: Color(0xFF583D72),
-                      fontSize: 13,
-                    ),
-                  ),
-                  Text(
-                    "nome do bolsista",
-                    overflow: TextOverflow.visible,
-                  ),
-                ],
-              ),
+
+              _adminName(),
+              //_userBName()
             ],
           ),
         ],
       ),
     );
+  }
+
+  _adminName() {
+    Future<User> future = ProfileUpdateAPI.getUserById(widget.userAdminProj);
+    return FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(
+                "Error: in projectsView.dart snapshot.hasError is true with error - ${snapshot.hasError}");
+            return Container(
+              child: Center(
+                child: Alert(
+                  context,
+                  "Não foi possível carregar os projetos",
+                  "Aviso",
+                ),
+              ),
+            );
+          }
+          if (!snapshot.hasData) {
+            //verifica s tem dados
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFF583D72),
+                ),
+              ),
+            );
+          }
+          User user = snapshot.data;
+
+          return Row(
+            children: [
+              Text(
+                "Coordenador do Projeto:  ",
+                style: TextStyle(
+                  color: Color(0xFF583D72),
+                  fontSize: 13,
+                ),
+              ),
+              Text(
+                "${user.name + " " + user.lastName}",
+                overflow: TextOverflow.visible,
+              ),
+            ],
+          );
+        });
+  }
+
+  _userBName() {
+    Future<List<User>> future = ProfileUpdateAPI.usersInProj(widget.projectId);
+    return FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(
+                "Error: in projectsView.dart snapshot.hasError is true with error - ${snapshot.hasError}");
+            return Container(
+              child: Center(
+                child: Alert(
+                  context,
+                  "Não foi possível carregar os projetos",
+                  "Aviso",
+                ),
+              ),
+            );
+          }
+          if (!snapshot.hasData) {
+            //verifica s tem dados
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFF583D72),
+                ),
+              ),
+            );
+          }
+          List<User> user = snapshot.data;
+
+          return _listUsers(user);
+        });
+  }
+
+  _listUsers(user) {
+    return ListView.builder(
+        itemCount: user != null ? user.length : 0,
+        itemBuilder: (ctx, i) {
+          User u = user[i];
+          return Text(
+            "${u.name}",
+            overflow: TextOverflow.visible,
+          );
+        });
   }
 
   void _clickDelete() async {
@@ -250,6 +321,15 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
   }
 
   void _clickEdit() {
-    print("clicou edit");
+    push(
+        context,
+        EditMyProject(
+          userId: widget.userLoggedId,
+          projId: widget.projectId,
+          projName: widget.nameProject,
+          projDesc: widget.projectDescription,
+          projUserAdminId: widget.userAdminProj,
+          projCatId: widget.projectCategoryId,
+        ));
   }
 }

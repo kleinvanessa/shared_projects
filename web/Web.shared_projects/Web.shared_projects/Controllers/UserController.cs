@@ -48,6 +48,29 @@ namespace Web.shared_projects.Controllers {
             }
         }
 
+        [HttpGet("usersProj/{id}")]
+        public async Task<IActionResult> GetUsersProj(int id) {
+            try {
+                var userProj = await _repo.GetUsersByIdProj(id);
+                return Ok(userProj);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
+        [HttpGet("getUsersSubProjects/{id}")]
+        public async Task<IActionResult> GetUsersSubProjects(int id) {
+            try {
+                var users = await _repo.GetUsersinProjects(id);
+
+                return Ok(users);
+            }
+            catch (Exception ex) {
+                return BadRequest($"Erro: {ex}");
+            }
+        }
+
         [HttpGet("getCurriculum/{id}")]
         public async Task<IActionResult> GetCurriculum(int id) {
             try {

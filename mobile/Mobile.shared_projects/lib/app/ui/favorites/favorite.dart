@@ -64,8 +64,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
         });
   }
 
-  _print() {}
-
   _list(favorites) {
     print("favorites ${favorites.length} >>>.....;;;;;;; :");
     var l = favorites.length;
@@ -83,7 +81,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               }
               if (!snapshot.hasData) {
                 //verifica s tem dados
-                // print("erooo");
+                print("erooo    ${snapshot.hasData}");
                 return Center(
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -96,8 +94,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
               Projects l = snapshot.data;
 
               // print("code : >>>>> $code");
-              return _projectsItems(l.projectName, l.description, ctx,
-                  l.userAdminId, l.id, l.categoryId);
+              return l != null
+                  ? _projectsItems(l.projectName, l.description, ctx,
+                      l.userAdminId, l.id, l.categoryId)
+                  : Container();
             });
       },
     );

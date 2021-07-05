@@ -59,3 +59,5 @@ INNER JOIN  [SharedProjects].[dbo].[EnrolledProjects] E ON E.ProjectId = 7
 WHERE U.Id = E.UserId;
 
 --DELETE FROM [SharedProjects].[dbo].[Curriculum] WHERE	Id =3;
+
+delete from [SharedProjects].[dbo].[Favorite] where id = 18

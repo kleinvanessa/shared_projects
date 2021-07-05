@@ -4,9 +4,108 @@ import 'package:http/io_client.dart';
 import 'package:shared_projects/app/models/curriculum.dart';
 import 'package:shared_projects/app/models/payment.dart';
 import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/models/userProjects.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 
 class ProfileUpdateAPI {
+  static Future<User> getUserById(int id) async {
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          GET USER BY ID          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/user/$id';
+
+      var response = await http.get(
+        url,
+      );
+      print('Response status: ${response.statusCode}');
+
+      Map mapResponse = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        final user = User.fromJson(mapResponse);
+        return user;
+      }
+    } catch (error, ex) {
+      print("Erro ao atualizar dados $error > $ex");
+      //throw error;
+
+    } //usersProj/{id}
+  }
+
+  static Future<List<User>> usersInProj(int projectId) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          GET USERs in Proj          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/user/getUsersSubProjects/$projectId';
+
+      var response = await http.get(
+        url,
+      );
+      List mapResponse = json.decode(response.body);
+
+      final users = mapResponse
+          .map<User>((map) => User.fromJson(map))
+          .toList(); //parse de JSON de uma lista
+
+      if (response.statusCode == 200) {
+        return users;
+      }
+    } catch (error) {
+      print(">>> error:$error");
+    }
+  }
+
+  static Future<List<UserProjects>> getUserProjByProjId(int id) async {
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      print(
+          "-------------------------------------------------          GET USER PROJ BY PROJID          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/user/usersProj/$id';
+
+      var response = await http.get(
+        url,
+      );
+      print('Response status: ${response.statusCode}');
+
+      List mapResponse = json.decode(response.body);
+
+      final userP = List<UserProjects>();
+
+      if (response.statusCode == 200) {
+        for (Map map in mapResponse) {
+          //parser do json de lista
+          UserProjects p = UserProjects.fromJson(map);
+          userP.add(p);
+        }
+
+        return userP;
+      }
+    } catch (error, ex) {
+      print("Erro ao atualizar dados $error > $ex");
+      throw error;
+    }
+
+    ///{id}
+  }
+
   static Future<ApiResponse<User>> updateUser(
       String firstName, String lastName, String email, String contact) async {
     try {

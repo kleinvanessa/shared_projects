@@ -147,6 +147,17 @@ namespace Web.shared_projects.Repositories {
             return await query.ToArrayAsync();
         }
 
+        public async Task<User[]> GetUsersinProjects(int projectId) {
+            IQueryable<User> query = from E in _context.UserProject
+                                     join U in _context.User on E.ProjectId equals projectId
+                                     where U.Id == E.UserId
+                                     select U;
+
+            query = query.AsNoTracking();
+
+            return await query.ToArrayAsync();
+        }
+
         public async Task<AreaKnowledge[]> GetAllAreas() {
             IQueryable<AreaKnowledge> query = _context.AreaKnowledge;
 
@@ -163,6 +174,11 @@ namespace Web.shared_projects.Repositories {
             IQueryable<UserProject> query = _context.UserProject;
 
             return await query.FirstOrDefaultAsync(p => p.ProjectId == id && p.UserId == userid);
+        }
+        public async Task<UserProject[]> GetUsersByIdProj(int id) {
+            IQueryable<UserProject> query = _context.UserProject.Where(u => u.ProjectId == id);
+
+            return await query.ToArrayAsync();
         }
         public async Task<Favorite> GetFavoritesProj(int id, int userid) {
             IQueryable<Favorite> query = _context.Favorite;

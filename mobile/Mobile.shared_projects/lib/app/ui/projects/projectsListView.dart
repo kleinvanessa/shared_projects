@@ -124,7 +124,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           ? IconButton(
               iconSize: 20,
               onPressed: () {
-                _clickInFavorite("", "Remover dos favoritos?", true, projId);
+                _clickUnFavorite(
+                    projId); //_clickInFavorite("", "Remover dos favoritos?", true, projId);
               },
               icon: Icon(
                 Icons.favorite,
@@ -134,7 +135,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
           : IconButton(
               iconSize: 20,
               onPressed: () {
-                _clickInFavorite("", "Adicionar aos favoritos?", false, projId);
+                _clickFavorite(
+                    projId); //_clickInFavorite("", "Adicionar aos favoritos?", false, projId);
               },
               icon: Icon(
                 Icons.favorite_border_outlined,
@@ -174,7 +176,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
     ApiResponse response = await ProjectsAPI.addFavoriteProject(projId,
         userEnrollId: widget.userId);
     if (response.ok) {
-      _AlertConfirmFavorite("", "Adicionado aos favoritos");
+      setState(() {});
+      //_AlertConfirmFavorite("", "Adicionado aos favoritos");
     }
   }
 
@@ -183,7 +186,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
     ApiResponse response = await ProjectsAPI.removeFavoriteProject(projId,
         userEnrollId: widget.userId);
     if (response.ok) {
-      _AlertConfirmFavorite("", "Removido dos favoritos");
+      setState(() {});
+      // _AlertConfirmFavorite("", "Removido dos favoritos");
     }
   }
 
@@ -240,6 +244,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                 FlatButton(
                   child: Text("Sim"),
                   onPressed: () {
+                    Navigator.pop(context);
                     routeYes
                         ? _clickUnFavorite(projId)
                         : _clickFavorite(projId);
@@ -272,8 +277,8 @@ class _ProjectsListViewState extends State<ProjectsListView> {
                 FlatButton(
                   child: Text("Ok"),
                   onPressed: () {
-                    push(context, HomePage(userId: widget.userId),
-                        replace: true);
+                    setState(() {});
+                    Navigator.pop(context);
                     //print("OK!!!!!!!!");
                   },
                 )

@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/models/project.dart';
+import 'package:shared_projects/app/models/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
+import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
 import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
@@ -127,7 +129,10 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
             SizedBox(
               height: 25,
             ),
-
+            _adminName(),
+            SizedBox(
+              height: 25,
+            ),
             widget.isButton
                 ? _isSubmet()
                 : FlatButtonComponent(
@@ -139,6 +144,55 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
         ),
       ],
     );
+  }
+
+  _adminName() {
+    Future<User> future =
+        ProfileUpdateAPI.getUserById(widget.projectUserAdminId);
+    return FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(
+                "Error: in projectsView.dart snapshot.hasError is true with error - ${snapshot.hasError}");
+            return Container(
+              child: Center(
+                child: Alert(
+                  context,
+                  "Não foi possível carregar os projetos",
+                  "Aviso",
+                ),
+              ),
+            );
+          }
+          if (!snapshot.hasData) {
+            //verifica s tem dados
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Color(0xFF583D72),
+                ),
+              ),
+            );
+          }
+          User user = snapshot.data;
+
+          return Row(
+            children: [
+              Text(
+                "Coordenador do Projeto:  ",
+                style: TextStyle(
+                  color: Color(0xFF583D72),
+                  fontSize: 13,
+                ),
+              ),
+              Text(
+                "${user.name + " " + user.lastName}",
+                overflow: TextOverflow.visible,
+              ),
+            ],
+          );
+        });
   }
 
   _isSubmet() {

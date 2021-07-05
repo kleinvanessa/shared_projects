@@ -51,6 +51,7 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
   @override
   void initState() {
     dropdownValue = 'Selecione a categoria';
+    itemSelect = 0;
     super.initState();
   }
 
@@ -227,12 +228,16 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
       print(">>> project- register.dart: $project");
 
       //push(context, AddProjectsPage(), replace: true);
+      //push(          context,          HomePage(            userId: widget.userId,          ),          replace: true);
+
       Alert(context, "Projeto cadastrado com sucesso!", "");
-      _tProjectName.text = "";
-      _tDescription.text = "";
-      _tCategory.text = "";
-      itemSelect = "Selecione a categoria";
-      dropdownValue = "Selecione a categoria";
+      setState(() {
+        _tProjectName.text = "";
+        _tDescription.text = "";
+        _tCategory.text = "";
+        itemSelect = "0";
+        dropdownValue = "Selecione a categoria";
+      });
     } else {
       Alert(context, response.msg,
           "Aviso"); //mesnagem de erro de login - status code 404 NotFound

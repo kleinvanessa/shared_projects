@@ -173,7 +173,7 @@ class ProjectsAPI {
       int userid = user.id;
 
       print(
-          "-------------------------------------------------          GET PROJ By USER          -------------------------------------------------");
+          "-------------------------------------------------          GET PROJ By USER  ENROLL        -------------------------------------------------");
       print("categoryId: $userid");
       var url = 'https://10.0.2.2:5001/api/project/getEnroll/$userid';
       print("url : $url");
@@ -309,7 +309,7 @@ class ProjectsAPI {
       final http = new IOClient(ioc);
 
       print(
-          "-------------------------------------------------          GET USER          -------------------------------------------------");
+          "-------------------------------------------------          GET USERs ENROLLS          -------------------------------------------------");
 
       var url = 'https://10.0.2.2:5001/api/project/getEnrollUsers/$projectId';
 
@@ -600,6 +600,42 @@ class ProjectsAPI {
       var url = 'https://10.0.2.2:5001/api/project/getEnrollProj';
 
       var response = await http.post(url, body: body, headers: headers);
+      print("statusCode enrollde:  ${response.statusCode}");
+      if (response.statusCode == 200) {
+        return ApiResponse.postOk(response.body);
+      }
+      return ApiResponse.error(response.body);
+    } catch (error) {
+      print(">>> error:$error");
+      //return 0;
+    }
+  }
+
+  static Future<ApiResponse<Projects>> updateProject(
+    int projectId,
+    String projName,
+    String projDesc,
+    int userAdminId,
+    String categoryId,
+  ) async {
+    //await Future.delayed(Duration(seconds: 1));
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      var projectUpdate =
+          '{"id": "$projectId","projectName": "$projName","description": "$projDesc","userAdminId": "$userAdminId","categoryId": "$categoryId"}';
+
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      print(
+          "-------------------------------------------------          UPDATE PROJ          -------------------------------------------------");
+
+      var url = 'https://10.0.2.2:5001/api/project/$projectId';
+
+      var response = await http.put(url, body: projectUpdate, headers: headers);
       print("statusCode enrollde:  ${response.statusCode}");
       if (response.statusCode == 200) {
         return ApiResponse.postOk(response.body);
