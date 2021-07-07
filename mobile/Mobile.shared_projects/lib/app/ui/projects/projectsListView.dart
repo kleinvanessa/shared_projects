@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/project.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/project.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/home/home.dart';

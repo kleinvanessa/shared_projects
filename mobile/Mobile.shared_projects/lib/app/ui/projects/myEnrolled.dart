@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/project.dart';
-import 'package:shared_projects/app/models/user.dart';
-import 'package:shared_projects/app/models/userProjects.dart';
+import 'package:shared_projects/app/model/project.dart';
+import 'package:shared_projects/app/model/user.dart';
+import 'package:shared_projects/app/model/userProjects.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/chat/chatAPI.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';

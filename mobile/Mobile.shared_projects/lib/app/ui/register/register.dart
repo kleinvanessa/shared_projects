@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';

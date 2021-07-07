@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/curriculum.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/curriculum.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/profile/myData.dart';
 import 'package:shared_projects/app/ui/profile/curriculum.dart';

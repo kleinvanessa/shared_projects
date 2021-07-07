@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/payment.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/payment.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
 

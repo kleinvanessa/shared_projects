@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
-import 'package:shared_projects/app/models/favorite.dart';
-import 'package:shared_projects/app/models/project.dart';
-import 'package:shared_projects/app/models/user.dart';
-import 'package:shared_projects/app/models/userProjects.dart';
+import 'package:shared_projects/app/model/favorite.dart';
+import 'package:shared_projects/app/model/project.dart';
+import 'package:shared_projects/app/model/user.dart';
+import 'package:shared_projects/app/model/userProjects.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 
 class ProjectsAPI {

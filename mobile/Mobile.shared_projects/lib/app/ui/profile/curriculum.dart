@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/curriculum.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/curriculum.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
 import 'package:shared_projects/app/utils/alert.dart';

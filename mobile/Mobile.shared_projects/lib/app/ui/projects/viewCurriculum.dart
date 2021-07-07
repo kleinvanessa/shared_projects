@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/curriculum.dart';
-import 'package:shared_projects/app/models/project.dart';
+import 'package:shared_projects/app/model/curriculum.dart';
+import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';

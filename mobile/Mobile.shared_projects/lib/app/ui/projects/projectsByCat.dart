@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_projects/app/models/project.dart';
+import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';

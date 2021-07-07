@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/io_client.dart';
-import 'package:shared_projects/app/models/curriculum.dart';
-import 'package:shared_projects/app/models/payment.dart';
-import 'package:shared_projects/app/models/user.dart';
+import 'package:shared_projects/app/model/curriculum.dart';
+import 'package:shared_projects/app/model/payment.dart';
+import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/services/apiResponse.dart';
 
 class LoginAPI {
