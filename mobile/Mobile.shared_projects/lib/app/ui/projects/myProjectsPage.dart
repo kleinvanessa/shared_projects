@@ -176,18 +176,20 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
           push(
             context,
             MyProjectsDetails(
-                imageProject: 'assets/img/docProj.png',
-                nameProject: projectName,
-                projectDescription: projectDescription,
-                isUserAdmin: true,
-                projectId: projId,
-                projectUserAdminId: userAdminId,
-                projectCategoryId: catProjId,
-                userAdminProj: userAdminId,
-                userLoggedId: userId
+              imageProject: 'assets/img/docProj.png',
+              nameProject: projectName,
+              projectDescription: projectDescription,
+              isUserAdmin: true,
+              projectId: projId,
+              projectUserAdminId: userAdminId,
+              projectCategoryId: catProjId,
+              userAdminProj: userAdminId,
+              userLoggedId: userId,
+              projType: type,
+              duration: duration,
 
-                //userAdminId:,
-                ),
+              //userAdminId:,
+            ),
           );
         },
       ),

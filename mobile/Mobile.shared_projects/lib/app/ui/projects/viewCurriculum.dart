@@ -148,6 +148,7 @@ class _ViewCurriculum extends State<ViewCurriculum> {
           height: 25,
         ),
         FlatButtonComponent(
+            routeButton: _clickSelectUser,
             textButton: "Selecionar curriculo",
             buttonColor: Color(0xFF583D72),
             onPressed: _clickSelectUser),

@@ -119,10 +119,7 @@ class _ProjectsByCatPageState extends State<ProjectsByCatPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => ProjectsDetails(
-                      imageProject: 'assets/img/docProj.png',
-                      nameProject: projectName,
-                      projectDescription: projectDescription),
+                  builder: (BuildContext context) => null,
                 ),
               );
             },
@@ -143,24 +140,15 @@ class _ProjectsByCatPageState extends State<ProjectsByCatPage> {
         ),
       ),
       title: InkWell(
-        child: Text(
-          projectName,
-          overflow: TextOverflow.visible,
-          style: TextStyle(
-              // color: Color(0xFF583D72),
-              // decoration: TextDecoration.underline,
-              ),
-        ),
-        onTap: () {
-          push(
-            context,
-            ProjectsDetails(
-                imageProject: 'assets/img/docProj.png',
-                nameProject: projectName,
-                projectDescription: projectDescription),
-          );
-        },
-      ),
+          child: Text(
+            projectName,
+            overflow: TextOverflow.visible,
+            style: TextStyle(
+                // color: Color(0xFF583D72),
+                // decoration: TextDecoration.underline,
+                ),
+          ),
+          onTap: null),
       subtitle: Row(
         children: [
           Text(

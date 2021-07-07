@@ -185,7 +185,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
             widget.isButton
                 ? _isSubmet()
                 : FlatButtonComponent(
-                    //routeButton: _clickSubmmit,
+                    routeButton: _clickSubmmit,
                     textButton: "Me inscrever",
                     buttonColor: Color(0xFF583D72),
                     onPressed: _clickSubmmit),
