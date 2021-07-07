@@ -95,8 +95,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
               // print("code : >>>>> $code");
               return l != null
-                  ? _projectsItems(l.projectName, l.description, ctx,
-                      l.userAdminId, l.id, l.categoryId)
+                  ? _projectsItems(
+                      l.projectName,
+                      l.description,
+                      ctx,
+                      l.userAdminId,
+                      l.id,
+                      l.categoryId,
+                      l.projectType,
+                      l.duration)
                   : Container();
             });
       },
@@ -104,13 +111,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
   }
 
   _projectsItems(
-    String projectName,
-    String projectDescription,
-    BuildContext context,
-    int userAdminId,
-    int projId,
-    int catProjId,
-  ) {
+      String projectName,
+      String projectDescription,
+      BuildContext context,
+      int userAdminId,
+      int projId,
+      int catProjId,
+      projType,
+      duration) {
     Map<String, String> _categories = {
       "1": "Ciências Exatas e da Terra",
       "2": "Lingüística, Letras e Artes",
@@ -128,7 +136,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           height: 90.0,
           child: InkWell(onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId);
+                catProjId, projType, duration);
           }),
         ),
       ),
@@ -151,7 +159,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
           onTap: () {
             _clicInProject(projId, projectName, projectDescription, userAdminId,
-                catProjId);
+                catProjId, projType, duration);
           }),
       subtitle: Text(sub,
           maxLines: 1,
@@ -170,8 +178,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
     }
   }
 
-  _clicInProject(
-      projId, projectName, projectDescription, userAdminId, catProjId) async {
+  _clicInProject(projId, projectName, projectDescription, userAdminId,
+      catProjId, projType, duration) async {
     print("clic projeto id $projId com user ${widget.userId}");
     var isButton;
     var submited = false;
@@ -201,6 +209,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
         submited: submited,
         projectUserAdminId: userAdminId,
         projectCategoryId: catProjId,
+        projType: projType,
+        duration: duration,
+        isFavorite: false,
       ),
     );
   }
