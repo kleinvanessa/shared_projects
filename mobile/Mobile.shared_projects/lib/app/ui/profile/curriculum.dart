@@ -3,7 +3,7 @@ import 'package:shared_projects/app/model/curriculum.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/provider/userAPI.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 
 class CurriculumPage extends StatefulWidget {
   @override

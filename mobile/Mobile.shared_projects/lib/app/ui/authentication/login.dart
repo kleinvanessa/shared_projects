@@ -3,7 +3,7 @@ import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/register/register.dart';

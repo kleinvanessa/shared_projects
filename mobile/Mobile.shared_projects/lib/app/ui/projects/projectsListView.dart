@@ -5,7 +5,7 @@ import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 import '../../provider/projectsAPI.dart';

@@ -13,7 +13,7 @@ import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class ProjectsDetails extends StatefulWidget {

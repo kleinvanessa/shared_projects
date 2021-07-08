@@ -8,7 +8,7 @@ import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/ui/projects/viewCurriculum.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 import '../layout.dart';

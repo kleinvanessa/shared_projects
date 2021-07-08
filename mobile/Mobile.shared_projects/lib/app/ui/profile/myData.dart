@@ -4,7 +4,7 @@ import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
 import 'package:shared_projects/app/provider/userAPI.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class MyDataPage extends StatefulWidget {

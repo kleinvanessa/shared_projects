@@ -5,7 +5,7 @@ import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class FavoritesPage extends StatefulWidget {

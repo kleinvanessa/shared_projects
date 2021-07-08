@@ -9,7 +9,7 @@ import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class MySubProjectsDetails extends StatefulWidget {

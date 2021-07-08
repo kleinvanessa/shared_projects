@@ -7,7 +7,7 @@ import 'package:shared_projects/app/model/userProjects.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
 import 'package:shared_projects/app/ui/projects/MyProjectsDetails.dart';
-import 'package:shared_projects/app/utils/alert.dart';
+import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 import '../layout.dart';
