@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
+import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/resources/drawer.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
 import 'package:shared_projects/app/provider/apiResponse.dart';
@@ -8,7 +9,6 @@ import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
-import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
 import 'package:shared_projects/app/resources/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
@@ -247,7 +247,7 @@ class _AddProjectsPageState extends State<AddProjectsPage> {
     print(
         "ProjName: $projectName, Description: $description, Category: $category");
 
-    ApiResponse response = await AddNewProjectAPI.addProject(
+    ApiResponse response = await ProjectsAPI.addProject(
         projectName, description, category, projType, duration);
 
     print(response);

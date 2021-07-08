@@ -9,7 +9,6 @@ import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/provider/projectsAPI.dart';
-import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';

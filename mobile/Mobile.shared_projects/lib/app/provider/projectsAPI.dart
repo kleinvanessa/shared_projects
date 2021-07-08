@@ -8,6 +8,50 @@ import 'package:shared_projects/app/model/userProjects.dart';
 import 'package:shared_projects/app/provider/apiResponse.dart';
 
 class ProjectsAPI {
+  static Future<ApiResponse<Projects>> addProject(
+      String projectName,
+      String description,
+      String category,
+      String projType,
+      String duration) async {
+    try {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+
+      User user = await User.get();
+
+      int userid = user.id;
+
+      var userProject =
+          '{"projectName": "$projectName", "description": "$description", "userAdminId": "$userid", "categoryId": "$category", "projectType": "$projType", "duration": "$duration", "usersProjects":[{"userid": "$userid"}] }'; //[{"userid" : "$userid"}]}';
+
+      Map<String, String> headers = {"Content-Type": "application/json"};
+
+      var url = 'https://10.0.2.2:5001/api/project'; //funfou
+
+      var response = await http.post(
+        url,
+        headers: headers,
+        body: userProject,
+      );
+      print('Response status: ${response.statusCode}');
+
+      Map mapResponse = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        // final project = Projects.fromJson(mapResponse);
+        return ApiResponse.postOk(mapResponse["response"]);
+      }
+
+      return ApiResponse.error(mapResponse["response"]);
+    } catch (error, ex) {
+      print("Erro ao cadastrar projeto $error > $ex");
+      return ApiResponse.error("Não foi possível fazer o cadastro do projeto");
+    }
+  }
+
   static Future<List<Projects>> getProjects() async {
     //await Future.delayed(Duration(seconds: 1));
     try {
