@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/io_client.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 
 class AddNewProjectAPI {
   static Future<ApiResponse<Projects>> addProject(

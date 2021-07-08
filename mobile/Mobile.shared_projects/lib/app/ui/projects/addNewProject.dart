@@ -3,14 +3,13 @@ import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/resources/drawer.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
-import 'package:shared_projects/app/ui/register/registerAPI.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 

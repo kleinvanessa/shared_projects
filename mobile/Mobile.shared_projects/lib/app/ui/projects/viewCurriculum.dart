@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/curriculum.dart';
 import 'package:shared_projects/app/model/project.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
-import 'package:shared_projects/app/ui/authentication/loginAPI.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
+import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
 import 'package:shared_projects/app/utils/alert.dart';
@@ -206,7 +206,7 @@ class _ViewCurriculum extends State<ViewCurriculum> {
   }
 
   _content() {
-    Future<Curriculum> future = LoginAPI.getCurriculumUser(widget.userId);
+    Future<Curriculum> future = UserAPI.getCurriculumUser(widget.userId);
 
     return FutureBuilder(
         future: future,

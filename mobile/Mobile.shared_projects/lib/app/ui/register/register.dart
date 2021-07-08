@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/user.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
-import 'package:shared_projects/app/ui/register/registerAPI.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
@@ -196,8 +196,8 @@ class _RegisterViewState extends State<RegisterView> {
       "FirstName: $firstName, LastName: $lastName, Email: $email, Senha: $password",
     );
 
-    ApiResponse response = await RegisterAPI.register(
-        firstName, lastName, email, contact, password);
+    ApiResponse response =
+        await UserAPI.register(firstName, lastName, email, contact, password);
 
     print(response);
 

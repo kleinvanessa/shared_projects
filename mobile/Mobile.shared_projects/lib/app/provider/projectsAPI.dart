@@ -5,7 +5,7 @@ import 'package:shared_projects/app/model/favorite.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/model/userProjects.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 
 class ProjectsAPI {
   static Future<List<Projects>> getProjects() async {

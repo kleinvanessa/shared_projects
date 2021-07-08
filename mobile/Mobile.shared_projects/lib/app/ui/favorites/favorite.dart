@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/favorite.dart';
 import 'package:shared_projects/app/model/project.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
+import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';

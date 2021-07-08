@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
-import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
@@ -126,7 +126,7 @@ class _MyDataPageState extends State<MyDataPage> {
     }
 
     ApiResponse response =
-        await ProfileUpdateAPI.updateUser(firstName, lastName, email, contact);
+        await UserAPI.updateUser(firstName, lastName, email, contact);
 
     print(response);
 

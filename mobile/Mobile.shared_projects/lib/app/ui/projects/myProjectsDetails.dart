@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
-import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
+import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/editMyProject.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
@@ -164,7 +164,7 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
   }
 
   _adminName() {
-    Future<User> future = ProfileUpdateAPI.getUserById(widget.userAdminProj);
+    Future<User> future = UserAPI.getUserById(widget.userAdminProj);
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {
@@ -212,7 +212,7 @@ class _MyProjectsDetailsState extends State<MyProjectsDetails> {
   }
 
   _userBName() {
-    Future<List<User>> future = ProfileUpdateAPI.usersInProj(widget.projectId);
+    Future<List<User>> future = UserAPI.usersInProj(widget.projectId);
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {

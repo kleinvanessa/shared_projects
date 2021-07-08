@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/projects/projectDetails.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
-import 'ProjectsAPI.dart';
+import '../../provider/projectsAPI.dart';
 
 class ProjectsListView extends StatefulWidget {
   final userId;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/ui/home/homeView.dart';
 import 'package:shared_projects/app/ui/projects/addNewProject.dart';
 import 'package:shared_projects/app/ui/projects/projectsView.dart';
-import 'package:shared_projects/app/ui/chat/chatView.dart';
 
 class HomePage extends StatefulWidget {
   final userId;

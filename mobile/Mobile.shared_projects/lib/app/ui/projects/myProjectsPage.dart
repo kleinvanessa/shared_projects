@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/model/userProjects.dart';
-import 'package:shared_projects/app/ui/chat/chatView.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
 import 'package:shared_projects/app/ui/projects/MyProjectsDetails.dart';
@@ -12,7 +11,7 @@ import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 import '../layout.dart';
-import 'ProjectsAPI.dart';
+import '../../provider/projectsAPI.dart';
 
 class MyProjectsPage extends StatefulWidget {
   @override

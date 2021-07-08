@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/project.dart';
 import 'package:shared_projects/app/model/user.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
 import 'package:shared_projects/app/ui/layout.dart';
-import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
-import 'package:shared_projects/app/ui/projects/ProjectsAPI.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
+import 'package:shared_projects/app/provider/projectsAPI.dart';
 import 'package:shared_projects/app/ui/projects/addNewProjectAPI.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
@@ -216,8 +216,7 @@ class _ProjectsDetailsState extends State<ProjectsDetails> {
   }
 
   _adminName() {
-    Future<User> future =
-        ProfileUpdateAPI.getUserById(widget.projectUserAdminId);
+    Future<User> future = UserAPI.getUserById(widget.projectUserAdminId);
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {

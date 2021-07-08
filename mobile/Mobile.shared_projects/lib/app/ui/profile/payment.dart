@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/payment.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
-import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 
 class PaymentPage extends StatefulWidget {
   @override
@@ -121,8 +121,7 @@ class _PaymentPageState extends State<PaymentPage> {
       return;
     }
 
-    ApiResponse response =
-        await ProfileUpdateAPI.updateUserPayment(bank, ag, account);
+    ApiResponse response = await UserAPI.updateUserPayment(bank, ag, account);
 
     print(response);
   }

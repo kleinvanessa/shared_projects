@@ -7,13 +7,11 @@ import 'package:shared_projects/app/ui/projects/myEnrolled.dart';
 import 'package:shared_projects/app/ui/projects/myProjectsPage.dart';
 import 'package:shared_projects/app/ui/favorites/favorite.dart';
 import 'package:shared_projects/app/ui/projects/mySubscriptions.dart';
-import 'package:shared_projects/app/ui/settings/settings.dart';
 import 'package:shared_projects/app/ui/profile/profile.dart';
 import 'package:shared_projects/app/ui/authentication/login.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class DrawerPage extends StatelessWidget {
-  final tagUser = '@vanessalklein';
   final userId;
   const DrawerPage({
     this.userId,

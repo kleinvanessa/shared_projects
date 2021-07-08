@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
-import 'package:shared_projects/app/ui/authentication/loginAPI.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/ui/layout.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 import 'package:shared_projects/app/ui/home/home.dart';
-import 'package:shared_projects/app/ui/authentication/redefinePassword.dart';
 import 'package:shared_projects/app/ui/register/register.dart';
 import 'package:shared_projects/app/resources/textFormComponent.dart';
 import 'package:shared_projects/app/resources/flatButtonComponent.dart';
@@ -185,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
       _showProgress = true;
     });
 
-    ApiResponse response = await LoginAPI.login(login, password);
+    ApiResponse response = await UserAPI.login(login, password);
     print(response);
 
     if (response.ok) {
@@ -193,9 +192,9 @@ class _LoginPageState extends State<LoginPage> {
       User user =
           response.result; //result = parse do Json retornado na consulta
       print(">>> user- login.dart: $user");
-      ApiResponse responseC = await LoginAPI.getCurriculum();
+      ApiResponse responseC = await UserAPI.getCurriculum();
       print(responseC);
-      ApiResponse responseP = await LoginAPI.getPayment();
+      ApiResponse responseP = await UserAPI.getPayment();
       print(responseP);
       print("USER LOGIN É ${user.id}");
       push(context, HomePage(userId: user.id), replace: true);

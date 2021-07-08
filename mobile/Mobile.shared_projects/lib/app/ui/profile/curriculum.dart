@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_projects/app/model/curriculum.dart';
 import 'package:shared_projects/app/model/user.dart';
-import 'package:shared_projects/app/services/apiResponse.dart';
-import 'package:shared_projects/app/ui/profile/profileUpdateAPI.dart';
+import 'package:shared_projects/app/provider/apiResponse.dart';
+import 'package:shared_projects/app/provider/userAPI.dart';
 import 'package:shared_projects/app/utils/alert.dart';
 
 class CurriculumPage extends StatefulWidget {
@@ -121,8 +121,8 @@ class _CurriculumPageState extends State<CurriculumPage> {
       return;
     }
 
-    ApiResponse response = await ProfileUpdateAPI.updateUserCurriculum(
-        institution, course, activites);
+    ApiResponse response =
+        await UserAPI.updateUserCurriculum(institution, course, activites);
 
     print(response);
   }
