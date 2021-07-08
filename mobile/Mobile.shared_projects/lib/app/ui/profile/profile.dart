@@ -5,7 +5,6 @@ import 'package:shared_projects/app/resources/circleAvatar.dart';
 import 'package:shared_projects/app/ui/profile/myData.dart';
 import 'package:shared_projects/app/ui/profile/curriculum.dart';
 import 'package:shared_projects/app/ui/profile/payment.dart';
-import 'package:shared_projects/app/ui/profile/changePicture.dart';
 import 'package:shared_projects/app/utils/nav.dart';
 
 class ProfilePage extends StatelessWidget {
