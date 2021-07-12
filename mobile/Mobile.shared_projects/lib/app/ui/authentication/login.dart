@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget build(BuildContext context) {
     return Layout.render(
-      tittlePage: 'Login',
+      tittlePage: 'Entrar',
       content: Form(
         key: _formKey,
         child: ListView(
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Login',
+                  'Entrar',
                   style: TextStyle(
                     fontSize: 24,
                     color: Color(0xFF583D72),

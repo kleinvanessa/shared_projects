@@ -40,7 +40,7 @@ class DrawerPage extends StatelessWidget {
             ),
             _listTileMethod(
               context,
-              'Minhas inscrições',
+              'Minhas Inscrições',
               MySubscriptionsPage(),
               typeLeading: Icons.edit,
             ),
@@ -64,7 +64,7 @@ class DrawerPage extends StatelessWidget {
             ),*/
             _listTileMethod(
               context,
-              'Logout',
+              'Sair',
               LoginPage(),
               replace: true,
               clear: true,
@@ -123,7 +123,7 @@ class DrawerPage extends StatelessWidget {
 
   _clickOnTap(context, navRoute, {clear = false, replace = false}) {
     if (clear) {
-      _clickLogOut(context, navRoute, replace);
+      _clickLogOut(context, navRoute, true);
     } else {
       push(context, navRoute, replace: replace);
     }
@@ -148,7 +148,7 @@ class DrawerPage extends StatelessWidget {
                 FlatButton(
                     child: Text("Sim"),
                     onPressed: () {
-                      _clearAll(context, navRoute, replace);
+                      _clearAll(context, navRoute, true);
                     }),
                 FlatButton(
                   child: Text("Não"),
@@ -167,6 +167,6 @@ class DrawerPage extends StatelessWidget {
     Curriculum.clear();
     Payment.clear();
     User.clear();
-    push(context, navRoute, replace: replace);
+    push(context, navRoute, replace: true);
   }
 }

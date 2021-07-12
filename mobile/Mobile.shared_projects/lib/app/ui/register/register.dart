@@ -131,7 +131,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       InkWell(
                         child: Text(
-                          'Login',
+                          'Entrar',
                           style: TextStyle(
                             color: Color(0xFF583D72),
                             decoration: TextDecoration.underline,

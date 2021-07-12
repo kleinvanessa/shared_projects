@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Layout.render(
-      tittlePage: 'Home',
+      tittlePage: 'Página Inicial',
       drawerComponent: DrawerPage(
         userId: widget.userId,
       ),

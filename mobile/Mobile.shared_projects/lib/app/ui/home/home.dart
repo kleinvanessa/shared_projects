@@ -51,7 +51,7 @@ class _HomeState extends State<HomePage> {
                 color: _selectedIndex == 0
                     ? Color(0xFF583D72)
                     : Color(0xFF000000).withOpacity(.3)),
-            title: Text('Home',
+            title: Text('Início',
                 style: TextStyle(
                     color: _selectedIndex == 0
                         ? Color(0xFF583D72)
@@ -73,7 +73,7 @@ class _HomeState extends State<HomePage> {
                 color: _selectedIndex == 2
                     ? Color(0xFF583D72)
                     : Color(0xFF000000).withOpacity(.3)),
-            title: Text('Adicionar projetos',
+            title: Text('Adicionar Projetos',
                 style: TextStyle(
                     color: _selectedIndex == 2
                         ? Color(0xFF583D72)
