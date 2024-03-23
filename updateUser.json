@@ -1,0 +1,15 @@
+// adiciona ao user de id =7 os projetos de id=2 e id=3
+{
+    "id": 7,
+    "firstname":"user 7",
+    "lastName": "lastname 7",
+    "usersProjects": [
+        { 
+            "projectid":2
+        },
+        { 
+            "projectid":3
+        }
+        
+    ]
+}

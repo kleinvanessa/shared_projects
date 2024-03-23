@@ -1,0 +1,14 @@
+//update: projeto de id 4, add user de add 1 e 4 neste projeto, pode ver na tabela userProjects a relaçao dos ids
+{
+    "id": 4,
+    "projectName": "Projeto 4",
+    "description": "update projeto 4",
+    "usersProjects": [
+        {
+            "userid": 1
+        },
+        {
+            "userid": 4
+        }
+    ]
+}
